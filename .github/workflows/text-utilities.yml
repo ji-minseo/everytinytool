@@ -5,15 +5,21 @@ on:
     paths:
       - 'assets/hub-utilities.js'
       - 'assets/actual-ruler.js'
+      - 'assets/ruler-mobile.css'
+      - 'actual-size-ruler/index.html'
       - 'tests/hub-utilities.test.js'
       - 'tests/actual-ruler.test.js'
+      - 'tests/ruler-ui.test.js'
       - '.github/workflows/text-utilities.yml'
   pull_request:
     paths:
       - 'assets/hub-utilities.js'
       - 'assets/actual-ruler.js'
+      - 'assets/ruler-mobile.css'
+      - 'actual-size-ruler/index.html'
       - 'tests/hub-utilities.test.js'
       - 'tests/actual-ruler.test.js'
+      - 'tests/ruler-ui.test.js'
       - '.github/workflows/text-utilities.yml'
 permissions:
   contents: read
@@ -32,4 +38,4 @@ jobs:
           node --check assets/hub-utilities.js
           node --check assets/actual-ruler.js
       - name: Run utility regression tests
-        run: node --test tests/hub-utilities.test.js tests/actual-ruler.test.js
+        run: node --test tests/hub-utilities.test.js tests/actual-ruler.test.js tests/ruler-ui.test.js

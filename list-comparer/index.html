@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compare Two Lists — Find Matches & Differences | Every Tiny Tool</title>
+  <meta name="description" content="Compare two lists online. Find items only in List A, shared items, and items only in List B. Copy results; free and processed in your browser.">
+  <meta name="google-site-verification" content="CBlkb_437tiJ5H-kUBL7O8dh-hd-sO5K0XpoibZ67Dg">
+  <link rel="canonical" href="https://everytinytool.com/list-comparer/">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="stylesheet" href="../assets/styles.css?v=20261010-utilities">
+  <script defer src="../assets/hub-utilities.js?v=20261010"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <a class="brand" href="../">Every Tiny Tool <span>✦</span></a>
+    <nav class="nav" aria-label="Primary navigation"><a href="../">Home</a><a href="../#more-tools">Tools</a><a href="../about/">About</a><a href="../contact/">Contact</a></nav>
+  </header>
+  <main class="utility-main">
+    <section class="utility-hero">
+      <a class="utility-back" href="../">← All tiny tools</a>
+      <span class="eyebrow">Text tools · List comparison</span>
+      <h1>Compare two lists.</h1>
+      <p>Find what is missing, what is new, and what both lists share. A simple way to compare names, inventory items or keywords line by line.</p>
+    </section>
+    <section class="utility-panel" id="compare-lists" aria-labelledby="compare-title">
+  <div class="utility-panel-heading"><div><h2 id="compare-title">Compare your lists</h2><p>Paste one entry per line. Empty lines and surrounding spaces are ignored.</p></div><span class="utility-privacy">Local processing · No signup</span></div>
+  <label class="utility-checkbox"><input type="checkbox" id="compare-case" checked> Ignore capitalization when matching (Apple = apple)</label>
+  <div class="utility-two-col">
+    <div class="utility-field"><label for="compare-a">List A</label><textarea id="compare-a" rows="8" spellcheck="false" maxlength="50001" placeholder="Apple&#10;Banana&#10;Cherry"></textarea></div>
+    <div class="utility-field"><label for="compare-b">List B</label><textarea id="compare-b" rows="8" spellcheck="false" maxlength="50001" placeholder="Banana&#10;Mango&#10;Peach"></textarea></div>
+  </div>
+  <div class="utility-actions"><button type="button" class="button" id="compare-run">Compare lists</button><button class="utility-secondary" type="button" id="compare-example">Try an example</button><button class="utility-secondary" type="button" id="compare-swap">Swap lists</button><button class="utility-quiet" type="button" id="compare-clear">Clear all</button></div>
+  <p class="utility-status" id="compare-status" role="status" aria-live="polite">Enter two lists to begin.</p>
+  <div class="utility-results" aria-label="Comparison results">
+    <p id="compare-total" class="utility-total">Add two lists to see unique and shared items.</p>
+    <div class="utility-result-grid">
+      <div class="utility-result-card"><div class="utility-result-heading"><label for="compare-only-a">Only in A <strong id="count-only-a">0</strong></label><button type="button" id="copy-only-a" disabled>Copy</button></div><textarea id="compare-only-a" readonly rows="7" aria-label="Items only in list A"></textarea></div>
+      <div class="utility-result-card"><div class="utility-result-heading"><label for="compare-both">In both <strong id="count-both">0</strong></label><button type="button" id="copy-both" disabled>Copy</button></div><textarea id="compare-both" readonly rows="7" aria-label="Items in both lists"></textarea></div>
+      <div class="utility-result-card"><div class="utility-result-heading"><label for="compare-only-b">Only in B <strong id="count-only-b">0</strong></label><button type="button" id="copy-only-b" disabled>Copy</button></div><textarea id="compare-only-b" readonly rows="7" aria-label="Items only in list B"></textarea></div>
+    </div>
+  </div>
+</section>
+    <section class="utility-guide" aria-label="How to compare lists">
+  <div class="utility-guide-header"><span class="eyebrow">The details</span><h2>What this comparison actually checks</h2><p>Use this when you need to see what changed between two versions of a list, such as a guest list, product catalog or an inventory export.</p></div>
+  <div class="utility-guide-grid">
+    <article><h3>Three useful groups</h3><p><strong>Only in A</strong> shows items missing from the second list. <strong>In both</strong> shows matching entries, and <strong>Only in B</strong> shows additions. You can copy each group individually.</p></article>
+    <article><h3>How matching works</h3><p>Each entry is a single line. Leading and trailing spaces are ignored. Identical entries within one list count once. The tool keeps the first spelling it finds; by default, “Apple” and “apple” match.</p></article>
+    <article><h3>Example: compare stock lists</h3><p>List A contains <em>Apple, Banana, Cherry</em>. List B contains <em>Banana, Mango, Cherry</em>. The shared items are Banana and Cherry, only A contains Apple, and only B contains Mango.</p></article>
+    <article><h3>Limitations</h3><p>Comparison is exact after trimming and optional case normalization: it will not guess that “NYC” means “New York City.” One entry should occupy one line. Each input supports up to 50,000 characters or 5,000 non-empty lines.</p></article>
+  </div>
+  <div class="utility-faq"><h2>Common questions</h2>
+    <details><summary>Does the order of items matter?</summary><p>No. Order does not affect whether two entries match. Results preserve their first-seen order within List A or List B so you can trace where items came from.</p></details>
+    <details><summary>Can I compare two lists with duplicates?</summary><p>Yes. Repeated entries are removed within each list before comparison. If you need to preserve every repeated instance, use the list cleaner on the <a href="../">homepage</a> and switch off duplicate removal.</p></details>
+    <details><summary>Are my lists uploaded?</summary><p>No. This tool compares text in your browser and does not send your pasted entries to an Every Tiny Tool server. Avoid entering sensitive information into public tools regardless.</p></details>
+  </div>
+</section>
+    <aside class="utility-related" aria-label="More helpful tools"><div><span class="eyebrow">Keep going</span><h2>One small task at a time.</h2><p>Use another free tool without an account or installation.</p></div>
+      <div class="utility-related-links"><a href="../">Clean a messy list →</a><a href="../list-comparer/">Compare two lists →</a><a href="../word-counter/">Count words and characters →</a></div>
+    </aside>
+  </main>
+  <footer class="footer"><span>Every Tiny Tool ✦ Small tools for everyday tasks.</span><div class="footer-links"><a href="../about/">About</a><a href="../privacy/">Privacy</a><a href="../contact/">Contact</a></div></footer>
+</div>
+</body>
+</html>

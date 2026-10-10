@@ -1,0 +1,29 @@
+name: Text utility checks
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/hub-utilities.js'
+      - 'tests/hub-utilities.test.js'
+      - '.github/workflows/text-utilities.yml'
+  pull_request:
+    paths:
+      - 'assets/hub-utilities.js'
+      - 'tests/hub-utilities.test.js'
+      - '.github/workflows/text-utilities.yml'
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: node --check assets/hub-utilities.js
+      - name: Run utility regression tests
+        run: node --test tests/hub-utilities.test.js

@@ -9,8 +9,8 @@
   <link rel="canonical" href="https://everytinytool.com/actual-size-ruler/">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="stylesheet" href="../assets/styles.css?v=20261010-mobile-ruler">
-  <link rel="stylesheet" href="../assets/ruler-mobile.css?v=20261010-mobile-polish-2">
-  <script src="../assets/actual-ruler.js?v=20261010-mobile-polish-2" defer></script>
+  <link rel="stylesheet" href="../assets/ruler-mobile.css?v=20261011-screen-size-1">
+  <script src="../assets/actual-ruler.js?v=20261011-screen-size-1" defer></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811" crossorigin="anonymous"></script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebApplication","name":"Actual Size Ruler","description":"A browser-based screen ruler in cm, mm, and inches with card-based calibration and horizontal or vertical orientation.","url":"https://everytinytool.com/actual-size-ruler/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any modern web browser","isAccessibleForFree":true}
@@ -29,7 +29,7 @@
       <a href="../" class="utility-back">← All tiny tools</a>
       <span class="eyebrow">Everyday tools · Measure</span>
       <h1>Actual size ruler<span class="ruler-title-period">.</span></h1>
-      <p>Turn your screen into a clear ruler with millimeter, centimeter and inch markings. The ruler auto-sizes to your detected screen as a starting estimate. Switch direction, tap to measure, and optionally fine-tune using a real bank card.</p>
+      <p>Turn your screen into a clear ruler with millimeter, centimeter and inch markings. The ruler starts with an approximate screen estimate. For better sizing, choose your display diagonal (such as 13.3 inches), then tap to measure. You can also fine-tune against a bank card.</p>
       <a href="#ruler-calibration" class="ruler-calibrate-shortcut">Want better accuracy? Check with a card <span aria-hidden="true">↓</span></a>
     </section>
     <section class="ruler-workspace" aria-label="Interactive screen ruler">
@@ -54,7 +54,7 @@
       <details class="ruler-auto-banner" id="ruler-device-details" open>
         <summary class="ruler-auto-summary">
           <span class="ruler-auto-icon" aria-hidden="true">✦</span>
-          <span class="ruler-auto-summary-copy"><strong>Screen size detected</strong><small>Auto estimate · Not a precision measurement</small></span>
+          <span class="ruler-auto-summary-copy"><strong>Screen scale &amp; accuracy</strong><small>Choose your display size for better accuracy</small></span>
           <span class="ruler-auto-chevron" aria-hidden="true">⌄</span>
         </summary>
         <div class="ruler-auto-details">
@@ -63,7 +63,35 @@
             <span id="ruler-detected-resolution">Reading your screen resolution and pixel ratio.</span>
             <p id="ruler-estimate-status">Automatically estimating a starting ruler scale.</p>
           </div>
-          <button type="button" id="ruler-use-auto" class="ruler-auto-button">Reapply auto estimate</button>
+          <div class="ruler-screen-size-picker">
+            <label for="ruler-screen-size">Your screen diagonal</label>
+            <select id="ruler-screen-size" aria-describedby="ruler-size-help">
+              <option value="auto">Auto estimate (approximate)</option>
+              <option value="13">13 inches</option>
+              <option value="13.3">13.3 inches</option>
+              <option value="13.6">13.6 inches</option>
+              <option value="14">14 inches</option>
+              <option value="15">15 inches</option>
+              <option value="15.6">15.6 inches</option>
+              <option value="16">16 inches</option>
+              <option value="17">17 inches</option>
+              <option value="21.5">21.5 inches</option>
+              <option value="24">24 inches</option>
+              <option value="27">27 inches</option>
+              <option value="32">32 inches</option>
+              <option value="custom">Another size…</option>
+            </select>
+            <div class="ruler-custom-size" id="ruler-custom-size-wrap" hidden>
+              <label for="ruler-custom-inches">Exact diagonal (inches)</label>
+              <div class="ruler-custom-size-row">
+                <input id="ruler-custom-inches" type="number" inputmode="decimal" min="4" max="80" step="0.1" placeholder="e.g. 13.3">
+                <button type="button" id="ruler-custom-apply">Apply</button>
+              </div>
+            </div>
+            <small id="ruler-size-help">Choose the actual display diagonal, not the window size. Screen resolution alone cannot identify inches.</small>
+            <p id="ruler-size-status" class="ruler-size-status" role="status" aria-live="polite">Auto estimate only — screen diagonal unknown.</p>
+          </div>
+          <button type="button" id="ruler-use-auto" class="ruler-auto-button">Reset to auto</button>
         </div>
       </details>
       <div class="ruler-view-heading">
@@ -91,7 +119,7 @@
       <div class="ruler-section-heading">
         <span class="eyebrow">Optional · Improve accuracy</span>
         <h2 id="ruler-calibration-title">Fine-tune with a real card.</h2>
-        <p>The ruler automatically chooses a first estimate from your reported screen size, pixel ratio and device type. Because those values don't reveal the exact physical display size, you can optionally match the guide to a real bank card and save a more accurate scale. Your card setting takes priority on future visits when browser storage is available.</p>
+        <p>The ruler starts with a rough estimate. Set your actual screen diagonal in the Screen scale & accuracy panel to calculate the scale from the screen resolution. For even better accuracy, match the guide to a real bank card and save. Your card setting takes priority on future visits when browser storage is available.</p>
       </div>
       <div class="ruler-calibration-grid">
         <div class="ruler-calibration-example">
@@ -132,18 +160,18 @@
         <p>This ruler is useful for a quick size estimate when you don't have a physical ruler nearby. The automatic estimate works as a starting point; card calibration improves accuracy.</p>
       </div>
       <div class="utility-guide-grid">
-        <article><h3>1. Auto-size, then optionally calibrate</h3><p>The ruler first estimates a scale using the screen resolution and device family. If you need better accuracy, select the long (85.60 mm) or short (53.98 mm) bank-card edge, match the guide to your card, then save. Use the short edge on narrow phones.</p></article>
+        <article><h3>1. Auto-size, then optionally calibrate</h3><p>The initial estimate uses device information but does not identify the screen diagonal. Choose your display size (for example 13.3 inches) to calculate a better starting scale. For precision, match the long (85.60 mm) or short (53.98 mm) card edge and save. Use the short edge on narrow phones.</p></article>
         <article><h3>2. Pick units and direction</h3><p>Select centimeters, millimeters or inches. Horizontal and vertical rulers use the same calibrated scale. The 30 cm ruler can scroll beyond the visible screen area.</p></article>
         <article><h3>3. Measure from zero</h3><p>Place the start of the object at the zero mark. Tap or click the ruler at the other end to see its length in mm, cm and inches. Arrow keys adjust the selected marker when the ruler is focused.</p></article>
         <article><h3>4. Understand accuracy limits</h3><p>Actual size is not guaranteed without calibration. Even after calibration, screen zoom, viewing angle, card alignment and different monitor density can introduce errors. Use a physical measuring tool for precision or safety-critical work.</p></article>
       </div>
       <div class="utility-faq">
         <h2>Online ruler FAQ</h2>
-        <details><summary>Is the screen ruler accurate on every phone?</summary><p>No. Screen pixel density and browser zoom vary between devices. The ruler automatically estimates a scale for many common screen types, but it cannot guarantee physical accuracy. Calibrate with a known physical reference to make screen markings more useful, and verify accuracy with a real ruler if precision matters.</p></details>
+        <details><summary>Is the screen ruler accurate on every phone?</summary><p>No. Screen pixel density and browser zoom vary between devices. The ruler starts with a device-family estimate. Browsers cannot reliably tell whether a laptop screen is 13, 13.3, or 13.6 inches. Selecting the known screen diagonal gives a more useful starting point, but does not guarantee accuracy. Calibrate with a known physical reference to make screen markings more useful, and verify accuracy with a real ruler if precision matters.</p></details>
         <details><summary>Can I measure in both centimeters and inches?</summary><p>Yes. Choose cm, mm or inch at the top. The ruler redraws its tick marks, and a selected measurement is shown in all three units.</p></details>
         <details><summary>Why use a credit or debit card for calibration?</summary><p>Most standard bank cards use the ID-1 size, 85.60 × 53.98 mm, so they provide a convenient reference. Specialty cards and protective cases may have different dimensions, so check the card you use.</p></details>
         <details><summary>Does this work without installing an app?</summary><p>Yes. Use it in a modern desktop or mobile browser. Your display size is not sent to a server. Calibration is saved locally in your browser where supported.</p></details>
-        <details><summary>What happens if I change browser zoom or monitors?</summary><p>Zoom and device changes can invalidate your saved scale. When the browser reports a screen-size or pixel-ratio change, the tool falls back to a fresh automatic estimate. Some display changes cannot be detected, so check with a card when you move to another monitor.</p></details>
+        <details><summary>What happens if I change browser zoom or monitors?</summary><p>Zoom and device changes can invalidate your saved scale. When the browser reports a screen-size or pixel-ratio change, the tool falls back to a fresh automatic estimate. If you previously selected a screen diagonal, select it again or recalibrate. Some display changes cannot be detected, so check with a card when you move to another monitor.</p></details>
         <details><summary>Why is a 30 cm ruler longer than my phone screen?</summary><p>A 30 cm physical ruler is longer than most phone screens. Swipe or scroll along the ruler to reach the remaining tick marks, or rotate to a vertical ruler. Scrolling doesn't change the scale.</p></details>
       </div>
     </section>

@@ -6,6 +6,7 @@
   const CARD_LONG_MM = 85.60;
   const STORAGE_KEY = 'everytinytool-ruler-calibration-v2';
   const OLD_STORAGE_KEY = 'everytinytool-ruler-calibration-v1';
+  const SIZE_STORAGE_KEY = 'everytinytool-ruler-diagonal-v1';
   const MIN_SCALE = 2;
   const MAX_SCALE = 12;
 
@@ -117,6 +118,18 @@
     const screen = screenInfo();
     return [Math.min(screen.width, screen.height), Math.max(screen.width, screen.height), Number(screen.dpr.toFixed(2))].join(':');
   }
+  function scaleFromDiagonal(display, diagonalInches) {
+    const width = Number(display.width);
+    const height = Number(display.height);
+    const inches = Number(diagonalInches);
+    if (!Number.isFinite(width) || width <= 0 ||
+        !Number.isFinite(height) || height <= 0 ||
+        !Number.isFinite(inches) || inches < 4 || inches > 80) return null;
+    // screen.width and screen.height use CSS pixels, so no DPR multiplier here.
+    // Given a physical diagonal, their ratio gives CSS pixels per millimeter.
+    const scale = Math.hypot(width, height) / (inches * 25.4);
+    return Number.isFinite(scale) && scale >= MIN_SCALE && scale <= MAX_SCALE ? scale : null;
+  }
   function toUnits(mm) {
     return {
       mm: Math.round(mm * 10) / 10,
@@ -167,6 +180,7 @@
       scale: detected.scale,
       estimate: detected,
       mode: 'auto',
+      diagonalInches: null,
       calibrated: false,
       signature: zoomSignature(),
       screenId: screenFingerprint(),
@@ -191,6 +205,19 @@
         state.calibrated = true;
       }
     } catch (_) { /* Private mode may prevent storage. The ruler still works. */ }
+    if (state.mode === 'auto') {
+      try {
+        const savedSize = JSON.parse(localStorage.getItem(SIZE_STORAGE_KEY) || 'null');
+        if (savedSize && savedSize.screenId === state.screenId) {
+          const restoredScale = scaleFromDiagonal(screenInfo(), savedSize.inches);
+          if (restoredScale !== null) {
+            state.scale = restoredScale;
+            state.mode = 'size';
+            state.diagonalInches = Number(savedSize.inches);
+          }
+        }
+      } catch (_) { /* Screen-size setting remains optional. */ }
+    }
 
     const unitButtons = [...document.querySelectorAll('[data-ruler-unit]')];
     const orientationButtons = [...document.querySelectorAll('[data-ruler-direction]')];
@@ -206,10 +233,26 @@
     const readoutOther = $('ruler-selected-other');
     const zoomAlert = $('ruler-zoom-note');
     const detectionDetails = $('ruler-device-details');
+    const sizeSelect = $('ruler-screen-size');
+    const customSizeField = $('ruler-custom-size-wrap');
+    const customInches = $('ruler-custom-inches');
+    const sizeStatus = $('ruler-size-status');
     let compactLayout = shouldStartVertical(window.innerWidth);
     detectionDetails.open = !compactLayout;
 
+    function syncSizeControls() {
+      if (state.mode === 'size' && state.diagonalInches !== null) {
+        const option = [...sizeSelect.options].find((item) => item.value === String(state.diagonalInches));
+        sizeSelect.value = option ? option.value : 'custom';
+        customInches.value = String(state.diagonalInches);
+        customSizeField.hidden = Boolean(option);
+      } else if (sizeSelect.value !== 'custom') {
+        sizeSelect.value = 'auto';
+        customSizeField.hidden = true;
+      }
+    }
     function updateCalibrationUI(message) {
+      syncSizeControls();
       const ref = state.referenceMm;
       calibrationInput.value = String(state.scale);
       guide.style.width = (state.scale * ref) + 'px';
@@ -218,23 +261,32 @@
       const compact = shouldStartVertical(window.innerWidth);
       badge.textContent = state.calibrated
         ? (compact ? 'Card · saved' : 'Card calibrated · saved')
-        : state.mode === 'auto'
-          ? (compact ? 'Auto · estimate' : 'Auto-sized · estimated')
-          : (compact ? 'Not saved' : 'Fine-tuning · unsaved');
+        : state.mode === 'size'
+          ? (compact ? 'Screen size · set' : state.diagonalInches + '″ diagonal · estimated')
+          : state.mode === 'auto'
+            ? (compact ? 'Auto · estimate' : 'Auto-sized · estimated')
+            : (compact ? 'Not saved' : 'Fine-tuning · unsaved');
       badge.dataset.ready = state.calibrated ? 'true' : 'false';
       status.textContent = state.calibrated
         ? 'Your saved card calibration takes priority. Recheck after zoom or display changes.'
-        : state.mode === 'auto'
-          ? 'Initial size set automatically for this screen. A real card can improve accuracy.'
-          : 'Guide width changed. Save only after matching a physical card edge.';
-      $('ruler-detected-device').textContent = state.estimate.label;
+        : state.mode === 'size'
+          ? 'Calculated using your ' + state.diagonalInches + '-inch screen and reported resolution. Check with a real card.'
+          : state.mode === 'auto'
+            ? 'Rough screen estimate. The browser cannot determine your exact diagonal size.'
+            : 'Guide width changed. Save only after matching a physical card edge.';
+      $('ruler-detected-device').textContent = state.mode === 'size'
+        ? state.diagonalInches + '″ screen diagonal · selected'
+        : state.estimate.label;
       $('ruler-detected-resolution').textContent = state.estimate.screen +
         ' · DPR ' + Number(state.estimate.dpr.toFixed(2)) +
         ' · ' + state.estimate.source;
       $('ruler-estimate-status').textContent = state.calibrated
         ? 'Using your saved card calibration.'
-        : state.mode === 'auto' ? 'Using an estimated physical screen scale, not a verified measurement.'
-          : 'Manual adjustment in progress. Check against the card before saving.';
+        : state.mode === 'size'
+          ? 'Calculated from ' + state.diagonalInches + '″ + ' + state.estimate.screen + '. Not verified with a physical ruler.'
+          : state.mode === 'auto'
+            ? 'Approximate device-family estimate; physical screen diagonal not detected.'
+            : 'Manual adjustment in progress. Check against the card before saving.';
       if (message) scaleStatus.textContent = message;
       zoomAlert.hidden = state.screenId === screenFingerprint();
     }
@@ -377,17 +429,65 @@
       updateCalibrationUI('Adjust the guide to the physical card edge, then save calibration.');
       render();
     }
-    function useAutomaticEstimate(message) {
-      state.estimate = estimateScreenScale(screenInfo());
-      state.scale = state.estimate.scale;
+    function applyDiagonal(inches) {
+      const value = Number(inches);
+      const scale = scaleFromDiagonal(screenInfo(), value);
+      if (scale === null) {
+        sizeStatus.textContent = 'Please enter a valid screen diagonal (4–80 inches). Check that browser zoom is normal.';
+        return false;
+      }
+      state.scale = scale;
+      state.mode = 'size';
+      state.diagonalInches = value;
       state.calibrated = false;
-      state.mode = 'auto';
       state.signature = zoomSignature();
       state.screenId = screenFingerprint();
       try {
         localStorage.removeItem(STORAGE_KEY);
         localStorage.removeItem(OLD_STORAGE_KEY);
+        localStorage.setItem(SIZE_STORAGE_KEY, JSON.stringify({
+          inches: value, screenId: state.screenId
+        }));
+        sizeStatus.textContent = value + '″ saved on this browser. Confirm against a real card for precise measurements.';
+      } catch (_) {
+        sizeStatus.textContent = value + '″ applied for this session. Browser storage is unavailable.';
+      }
+      updateCalibrationUI('Scale recalculated using your chosen screen diagonal.');
+      render();
+      return true;
+    }
+    sizeSelect.addEventListener('change', () => {
+      const choice = sizeSelect.value;
+      if (choice === 'auto') {
+        useAutomaticEstimate('Reset to automatic screen estimate.');
+      } else if (choice === 'custom') {
+        customSizeField.hidden = false;
+        customInches.focus();
+      } else {
+        applyDiagonal(choice);
+      }
+    });
+    $('ruler-custom-apply').addEventListener('click', () => applyDiagonal(customInches.value));
+    customInches.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        applyDiagonal(customInches.value);
+      }
+    });
+    function useAutomaticEstimate(message) {
+      state.estimate = estimateScreenScale(screenInfo());
+      state.scale = state.estimate.scale;
+      state.calibrated = false;
+      state.mode = 'auto';
+      state.diagonalInches = null;
+      state.signature = zoomSignature();
+      state.screenId = screenFingerprint();
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(OLD_STORAGE_KEY);
+        localStorage.removeItem(SIZE_STORAGE_KEY);
       } catch (_) { /* local storage may be blocked */ }
+      sizeStatus.textContent = 'Using a rough device-family estimate. Choose a diagonal for a better starting point.';
       updateCalibrationUI(message || 'Automatic screen estimate applied. Card calibration is optional for better accuracy.');
       render();
     }
@@ -398,6 +498,7 @@
     $('calibration-save').addEventListener('click', () => {
       state.calibrated = true;
       state.mode = 'card';
+      state.diagonalInches = null;
       state.signature = zoomSignature();
       state.screenId = screenFingerprint();
       try {
@@ -405,6 +506,7 @@
           scale: state.scale, signature: state.signature, screenId: state.screenId, calibrated: true
         }));
         localStorage.removeItem(OLD_STORAGE_KEY);
+        localStorage.removeItem(SIZE_STORAGE_KEY);
         updateCalibrationUI('Saved on this browser. Check against a real ruler for precision work.');
       } catch (_) {
         updateCalibrationUI('Calibrated for this visit, but browser storage is unavailable.');
@@ -507,11 +609,14 @@
       button.setAttribute('aria-pressed', String((button.dataset.rulerDirection === 'vertical') === state.vertical));
     });
     updateRefButtons();
+    sizeStatus.textContent = state.mode === 'size'
+      ? state.diagonalInches + '″ restored from this browser.'
+      : 'Choose a screen size to calculate a better starting scale.';
     updateCalibrationUI(state.calibrated ? 'Your previous card calibration was restored.' : 'Automatically estimated from your screen. Check against a card if needed.');
     render();
   }
   if (typeof document !== 'undefined') init();
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { clampScale, estimateScreenScale, shouldStartVertical, toUnits, lengthLabel, buildTicks };
+    module.exports = { clampScale, estimateScreenScale, scaleFromDiagonal, shouldStartVertical, toUnits, lengthLabel, buildTicks };
   }
 })();

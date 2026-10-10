@@ -365,6 +365,9 @@
       surface.classList.toggle('ruler-is-vertical', state.vertical);
       scrollPanel.classList.toggle('ruler-is-vertical', state.vertical);
       $('ruler-axis-label').textContent = state.unit === 'inch' ? '12 in / 304.8 mm' : '30 cm / 300 mm';
+      $('ruler-mobile-hint').textContent = state.vertical
+        ? '↕ Swipe to scroll · Tap to measure from zero'
+        : '↔ Swipe to scroll · Tap to measure from zero';
       measureLabels();
     }
     function setScale(value) {

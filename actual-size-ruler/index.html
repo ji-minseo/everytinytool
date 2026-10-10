@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Actual Size Ruler — Online cm, mm &amp; Inch Screen Ruler | Every Tiny Tool</title>
+  <meta name="description" content="Use your phone, tablet or computer screen as an online ruler in cm, mm or inches. Calibrate with a bank card for better real-world accuracy, then measure on screen.">
+  <meta name="google-site-verification" content="CBlkb_437tiJ5H-kUBL7O8dh-hd-sO5K0XpoibZ67Dg">
+  <link rel="canonical" href="https://everytinytool.com/actual-size-ruler/">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="stylesheet" href="../assets/styles.css?v=20261010-ruler">
+  <script src="../assets/actual-ruler.js?v=20261010" defer></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"Actual Size Ruler","description":"A browser-based screen ruler in cm, mm, and inches with card-based calibration and horizontal or vertical orientation.","url":"https://everytinytool.com/actual-size-ruler/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any modern web browser","isAccessibleForFree":true}
+  </script>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <a class="brand" href="../">Every Tiny Tool <span>✦</span></a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="../">Home</a><a href="../#more-tools">Tools</a><a href="../about/">About</a><a href="../contact/">Contact</a>
+    </nav>
+  </header>
+  <main class="ruler-page" id="actual-ruler">
+    <section class="ruler-hero">
+      <a href="../" class="utility-back">← All tiny tools</a>
+      <span class="eyebrow">Everyday tools · Measure</span>
+      <h1>Actual size ruler<span class="ruler-title-period">.</span></h1>
+      <p>Turn your screen into a clear ruler with millimeter, centimeter and inch markings. Switch direction, tap a point to read its distance, and calibrate using a real bank card for more accurate measurements.</p>
+      <a href="#ruler-calibration" class="ruler-calibrate-shortcut">First time here? Calibrate your screen <span aria-hidden="true">↓</span></a>
+    </section>
+    <section class="ruler-workspace" aria-label="Interactive screen ruler">
+      <div class="ruler-toolbar">
+        <div class="ruler-toolbar-set" aria-label="Ruler measurement units">
+          <span class="ruler-toolbar-label">Units</span>
+          <div class="ruler-toggle-group">
+            <button type="button" data-ruler-unit="cm" aria-pressed="true">cm</button>
+            <button type="button" data-ruler-unit="mm" aria-pressed="false">mm</button>
+            <button type="button" data-ruler-unit="inch" aria-pressed="false">inch</button>
+          </div>
+        </div>
+        <div class="ruler-toolbar-set" aria-label="Ruler direction">
+          <span class="ruler-toolbar-label">Direction</span>
+          <div class="ruler-toggle-group">
+            <button type="button" data-ruler-direction="horizontal" aria-pressed="true">Horizontal</button>
+            <button type="button" data-ruler-direction="vertical" aria-pressed="false">Vertical</button>
+          </div>
+        </div>
+        <a href="#ruler-calibration" class="ruler-toolbar-link">Calibrate ↗</a>
+      </div>
+      <div class="ruler-view-heading">
+        <div>
+          <span class="ruler-small-label">YOUR RULER</span>
+          <strong id="ruler-axis-label">30 cm / 300 mm</strong>
+        </div>
+        <button type="button" id="ruler-fullscreen" class="ruler-secondary-action">Fullscreen</button>
+      </div>
+      <div class="ruler-surface" id="ruler-surface">
+        <div class="ruler-scroll" id="ruler-scroll">
+          <canvas id="ruler-canvas" role="slider" tabindex="0" aria-label="Ruler selected distance from zero. Tap a point, or use arrow keys to move the marker." aria-valuemin="0" aria-valuemax="300" aria-valuenow="0" aria-valuetext="No point selected" aria-orientation="horizontal" width="1200" height="118">Your browser needs Canvas support to display the interactive ruler.</canvas>
+        </div>
+        <div class="ruler-scroll-caption">Scroll along the ruler to reach longer lengths · Tap to place the pink measurement marker</div>
+      </div>
+      <div class="ruler-readout" aria-live="polite">
+        <div><span class="ruler-small-label">DISTANCE FROM ZERO</span><strong id="ruler-selected">Choose a point on the ruler</strong><p id="ruler-selected-other">Tap or click the ruler to measure from zero.</p></div>
+        <div class="ruler-calibration-state"><span id="ruler-calibration-badge" data-ready="false">Not calibrated · approximate</span><p id="ruler-status">Calibrate before taking a physical measurement.</p></div>
+      </div>
+      <p class="ruler-zoom-warning" id="ruler-zoom-note" hidden>Screen zoom or display pixel density changed. The saved measurement scale may no longer be accurate. Calibrate again.</p>
+      <p class="ruler-zoom-warning" id="ruler-pinch-note" hidden>Pinch zoom is active. Return to normal zoom before measuring.</p>
+    </section>
+
+    <section class="ruler-calibration" id="ruler-calibration" aria-labelledby="ruler-calibration-title">
+      <div class="ruler-section-heading">
+        <span class="eyebrow">One-time setup</span>
+        <h2 id="ruler-calibration-title">Make the ruler match your screen.</h2>
+        <p>A browser can't reliably tell how many physical millimeters fit into one screen pixel. To improve accuracy, match the guide below to the physical edge of a standard bank card, then save. Your setting stays in this browser when storage is available.</p>
+      </div>
+      <div class="ruler-calibration-grid">
+        <div class="ruler-calibration-example">
+          <div class="ruler-ref-head"><strong>Card calibration guide</strong><span id="ruler-reference-size">53.98 mm</span></div>
+          <div class="ruler-toggle-group ruler-reference-choice" aria-label="Choose which card edge to compare">
+            <button type="button" data-ruler-reference="53.98" aria-pressed="true">Short edge · 53.98 mm</button>
+            <button type="button" data-ruler-reference="85.6" aria-pressed="false">Long edge · 85.60 mm</button>
+          </div>
+          <div class="ruler-guide-viewport">
+            <div class="ruler-card-guide" id="ruler-card-guide" aria-hidden="true">
+              <span class="ruler-guide-decor">✦</span><span class="ruler-guide-line"></span>
+            </div>
+          </div>
+          <p class="ruler-ref-caption"><span id="ruler-reference-description">Short edge of a standard bank card</span>. Compare <strong>the horizontal width between the guide's outer edges</strong> with that edge of your real card. The guide's height is decorative, not a measurement.</p>
+        </div>
+        <div class="ruler-calibration-controls">
+          <h3>Adjust the guide width</h3>
+          <p>Put a standard-sized bank card against the screen. Slide until the guide is the same width as the chosen edge. On narrow phones, the <strong>short edge</strong> usually fits better.</p>
+          <div class="ruler-slider-row">
+            <button type="button" class="ruler-step-button" id="calibration-minus" aria-label="Make guide slightly shorter">−</button>
+            <label for="card-calibration" class="ruler-range-label"><span>Displayed card-edge size</span><input type="range" id="card-calibration" min="2" max="12" step="0.01" value="3.78"></label>
+            <button type="button" class="ruler-step-button" id="calibration-plus" aria-label="Make guide slightly longer">+</button>
+          </div>
+          <div class="ruler-calibration-actions">
+            <button type="button" id="calibration-save" class="button">Save calibration</button>
+            <button type="button" id="calibration-reset" class="ruler-secondary-action">Reset</button>
+          </div>
+          <p class="ruler-calibration-message" id="calibration-status" role="status" aria-live="polite">Match the guide with your card, then save calibration.</p>
+          <p class="ruler-storage-note">Accuracy depends on your physical reference. Recheck after browser zoom changes, moving to another monitor, or changing screen scaling. Calibration is stored only in your browser, not uploaded.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="utility-guide ruler-guide-info" aria-labelledby="how-ruler-works">
+      <div class="utility-guide-header">
+        <span class="eyebrow">Helpful details</span>
+        <h2 id="how-ruler-works">How to measure with an online ruler</h2>
+        <p>This ruler is useful for a quick size estimate when you don't have a physical ruler nearby. Calibrate first for better results.</p>
+      </div>
+      <div class="utility-guide-grid">
+        <article><h3>1. Calibrate with a real object</h3><p>Select the long (85.60 mm) or short (53.98 mm) side of a standard-sized bank card. Match the guide on screen to the actual card edge, then save. Use the short side on narrow phone screens.</p></article>
+        <article><h3>2. Pick units and direction</h3><p>Select centimeters, millimeters or inches. Horizontal and vertical rulers use the same calibrated scale. The 30 cm ruler can scroll beyond the visible screen area.</p></article>
+        <article><h3>3. Measure from zero</h3><p>Place the start of the object at the zero mark. Tap or click the ruler at the other end to see its length in mm, cm and inches. Arrow keys adjust the selected marker when the ruler is focused.</p></article>
+        <article><h3>4. Understand accuracy limits</h3><p>Actual size is not guaranteed without calibration. Even after calibration, screen zoom, viewing angle, card alignment and different monitor density can introduce errors. Use a physical measuring tool for precision or safety-critical work.</p></article>
+      </div>
+      <div class="utility-faq">
+        <h2>Online ruler FAQ</h2>
+        <details><summary>Is the screen ruler accurate on every phone?</summary><p>No. Screen pixel density and browser zoom vary between devices. The initial scale is only an estimate. Calibrate with a known physical reference to make screen markings more useful, and verify accuracy with a real ruler if precision matters.</p></details>
+        <details><summary>Can I measure in both centimeters and inches?</summary><p>Yes. Choose cm, mm or inch at the top. The ruler redraws its tick marks, and a selected measurement is shown in all three units.</p></details>
+        <details><summary>Why use a credit or debit card for calibration?</summary><p>Most standard bank cards use the ID-1 size, 85.60 × 53.98 mm, so they provide a convenient reference. Specialty cards and protective cases may have different dimensions, so check the card you use.</p></details>
+        <details><summary>Does this work without installing an app?</summary><p>Yes. Use it in a modern desktop or mobile browser. Your display size is not sent to a server. Calibration is saved locally in your browser where supported.</p></details>
+        <details><summary>What happens if I change browser zoom or monitors?</summary><p>Zoom and device pixel ratio changes can invalidate your saved scale. The tool warns when it detects a pixel-density change, but it cannot reliably detect every display change. Recalibrate when moving the window to a different monitor.</p></details>
+        <details><summary>Why is a 30 cm ruler longer than my phone screen?</summary><p>A 30 cm physical ruler is longer than most phone screens. Swipe or scroll along the ruler to reach the remaining tick marks, or rotate to a vertical ruler. Scrolling doesn't change the scale.</p></details>
+      </div>
+    </section>
+    <aside class="utility-related" aria-label="More Every Tiny Tool utilities"><div><span class="eyebrow">More little tools</span><h2>Keep the tiny tasks moving.</h2><p>Other everyday utilities, free in your browser.</p></div><div class="utility-related-links"><a href="../word-counter/">Word &amp; Character Counter →</a><a href="../list-comparer/">Compare two lists →</a><a href="https://calculate.everytinytool.com/ratio-calculator/">Ratio Calculator →</a></div></aside>
+  </main>
+  <footer class="footer"><span>Every Tiny Tool ✦ Small tools for everyday tasks.</span><div class="footer-links"><a href="../about/">About</a><a href="../privacy/">Privacy</a><a href="../contact/">Contact</a></div></footer>
+</div>
+</body>
+</html>

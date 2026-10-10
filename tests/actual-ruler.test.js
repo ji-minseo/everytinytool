@@ -1,7 +1,7 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { clampScale, toUnits, lengthLabel, buildTicks, estimateScreenScale, shouldStartVertical } = require('../assets/actual-ruler.js');
+const { clampScale, toUnits, lengthLabel, buildTicks, estimateScreenScale, scaleFromDiagonal, shouldStartVertical } = require('../assets/actual-ruler.js');
 
 test('uses CSS 96dpi as an approximate starting scale only', () => {
   assert.ok(Math.abs(clampScale(NaN) - (96 / 25.4)) < 1e-10);
@@ -103,4 +103,37 @@ test('tablet and desktop widths continue to use horizontal ruler', () => {
   assert.equal(shouldStartVertical(768), false);
   assert.equal(shouldStartVertical(1440), false);
   assert.equal(shouldStartVertical(NaN), false);
+});
+
+test('known 13.3-inch Mac screen uses actual diagonal and CSS resolution', () => {
+  const display = { width: 1440, height: 900, dpr: 2, userAgent: 'Macintosh' };
+  const scale = scaleFromDiagonal(display, 13.3);
+  assert.ok(Math.abs(scale - Math.hypot(1440, 900) / (13.3 * 25.4)) < 1e-10);
+  assert.ok(Math.abs(scale * 100 - 503.15) < 1);
+});
+test('13, 13.3 and 13.6 inch screens are not treated as identical', () => {
+  const display = { width: 1440, height: 900, dpr: 2 };
+  const scale13 = scaleFromDiagonal(display, 13);
+  const scale133 = scaleFromDiagonal(display, 13.3);
+  const scale136 = scaleFromDiagonal(display, 13.6);
+  assert.ok(scale13 > scale133 && scale133 > scale136);
+});
+test('diagonal scale is independent of DPR when using browser CSS pixels', () => {
+  const a = { width: 1280, height: 800, dpr: 1 };
+  const b = { ...a, dpr: 2 };
+  assert.equal(scaleFromDiagonal(a, 13.3), scaleFromDiagonal(b, 13.3));
+});
+test('diagonal calculation uses the whole screen and works in rotated orientation', () => {
+  const landscape = scaleFromDiagonal({ width: 1920, height: 1080 }, 24);
+  const portrait = scaleFromDiagonal({ width: 1080, height: 1920 }, 24);
+  assert.equal(landscape, portrait);
+  assert.ok(Math.abs(landscape - Math.hypot(1920, 1080) / (24 * 25.4)) < 1e-10);
+});
+test('rejects missing or impossible real screen diagonal values', () => {
+  const screen = { width: 1440, height: 900 };
+  assert.equal(scaleFromDiagonal(screen, 0), null);
+  assert.equal(scaleFromDiagonal(screen, 3), null);
+  assert.equal(scaleFromDiagonal(screen, 81), null);
+  assert.equal(scaleFromDiagonal(screen, 'not a number'), null);
+  assert.equal(scaleFromDiagonal({ width: 0, height: 900 }, 13.3), null);
 });

@@ -109,6 +109,13 @@
     overscroll-behavior-x:auto
   }
   .ruler-scroll canvas{touch-action:pan-x pan-y}
+  .ruler-surface:fullscreen{margin:0;border-radius:0}
+  .ruler-surface:fullscreen .ruler-scroll.ruler-is-vertical{
+    height:calc(100dvh - 84px);max-height:none
+  }
+  .ruler-surface:fullscreen .ruler-scroll:not(.ruler-is-vertical){
+    height:calc(100dvh - 84px);display:flex;align-items:center
+  }
   .ruler-scroll-caption{
     display:flex;align-items:center;justify-content:center;
     font-size:11px;line-height:1.4;letter-spacing:-.01em;

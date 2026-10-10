@@ -8,8 +8,8 @@
   <meta name="google-site-verification" content="CBlkb_437tiJ5H-kUBL7O8dh-hd-sO5K0XpoibZ67Dg">
   <link rel="canonical" href="https://everytinytool.com/actual-size-ruler/">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-  <link rel="stylesheet" href="../assets/styles.css?v=20261010-ruler">
-  <script src="../assets/actual-ruler.js?v=20261010" defer></script>
+  <link rel="stylesheet" href="../assets/styles.css?v=20261010-ruler-auto">
+  <script src="../assets/actual-ruler.js?v=20261010-auto" defer></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811" crossorigin="anonymous"></script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebApplication","name":"Actual Size Ruler","description":"A browser-based screen ruler in cm, mm, and inches with card-based calibration and horizontal or vertical orientation.","url":"https://everytinytool.com/actual-size-ruler/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any modern web browser","isAccessibleForFree":true}
@@ -28,8 +28,8 @@
       <a href="../" class="utility-back">← All tiny tools</a>
       <span class="eyebrow">Everyday tools · Measure</span>
       <h1>Actual size ruler<span class="ruler-title-period">.</span></h1>
-      <p>Turn your screen into a clear ruler with millimeter, centimeter and inch markings. Switch direction, tap a point to read its distance, and calibrate using a real bank card for more accurate measurements.</p>
-      <a href="#ruler-calibration" class="ruler-calibrate-shortcut">First time here? Calibrate your screen <span aria-hidden="true">↓</span></a>
+      <p>Turn your screen into a clear ruler with millimeter, centimeter and inch markings. The ruler auto-sizes to your detected screen as a starting estimate. Switch direction, tap to measure, and optionally fine-tune using a real bank card.</p>
+      <a href="#ruler-calibration" class="ruler-calibrate-shortcut">Want better accuracy? Check with a card <span aria-hidden="true">↓</span></a>
     </section>
     <section class="ruler-workspace" aria-label="Interactive screen ruler">
       <div class="ruler-toolbar">
@@ -49,6 +49,15 @@
           </div>
         </div>
         <a href="#ruler-calibration" class="ruler-toolbar-link">Calibrate ↗</a>
+      </div>
+      <div class="ruler-auto-banner" aria-label="Automatic screen size estimate">
+        <span class="ruler-auto-icon" aria-hidden="true">✦</span>
+        <div class="ruler-auto-body">
+          <strong id="ruler-detected-device">Detecting screen dimensions…</strong>
+          <span id="ruler-detected-resolution">Reading your screen resolution and pixel ratio.</span>
+          <p id="ruler-estimate-status">Automatically estimating a starting ruler scale.</p>
+        </div>
+        <button type="button" id="ruler-use-auto" class="ruler-auto-button">Use auto estimate</button>
       </div>
       <div class="ruler-view-heading">
         <div>
@@ -73,9 +82,9 @@
 
     <section class="ruler-calibration" id="ruler-calibration" aria-labelledby="ruler-calibration-title">
       <div class="ruler-section-heading">
-        <span class="eyebrow">One-time setup</span>
-        <h2 id="ruler-calibration-title">Make the ruler match your screen.</h2>
-        <p>A browser can't reliably tell how many physical millimeters fit into one screen pixel. To improve accuracy, match the guide below to the physical edge of a standard bank card, then save. Your setting stays in this browser when storage is available.</p>
+        <span class="eyebrow">Optional · Improve accuracy</span>
+        <h2 id="ruler-calibration-title">Fine-tune with a real card.</h2>
+        <p>The ruler automatically chooses a first estimate from your reported screen size, pixel ratio and device type. Because those values don't reveal the exact physical display size, you can optionally match the guide to a real bank card and save a more accurate scale. Your card setting takes priority on future visits when browser storage is available.</p>
       </div>
       <div class="ruler-calibration-grid">
         <div class="ruler-calibration-example">
@@ -101,10 +110,10 @@
           </div>
           <div class="ruler-calibration-actions">
             <button type="button" id="calibration-save" class="button">Save calibration</button>
-            <button type="button" id="calibration-reset" class="ruler-secondary-action">Reset</button>
+            <button type="button" id="calibration-reset" class="ruler-secondary-action">Reset to auto</button>
           </div>
-          <p class="ruler-calibration-message" id="calibration-status" role="status" aria-live="polite">Match the guide with your card, then save calibration.</p>
-          <p class="ruler-storage-note">Accuracy depends on your physical reference. Recheck after browser zoom changes, moving to another monitor, or changing screen scaling. Calibration is stored only in your browser, not uploaded.</p>
+          <p class="ruler-calibration-message" id="calibration-status" role="status" aria-live="polite">The automatic estimate is ready. Match a card only if you want to improve accuracy.</p>
+          <p class="ruler-storage-note">Automatic sizing is an estimate, not a measurement of physical screen PPI. Card calibration is optional but recommended for close measurements. Recheck after browser zoom, changing displays or screen scaling. Settings stay in your browser.</p>
         </div>
       </div>
     </section>
@@ -113,21 +122,21 @@
       <div class="utility-guide-header">
         <span class="eyebrow">Helpful details</span>
         <h2 id="how-ruler-works">How to measure with an online ruler</h2>
-        <p>This ruler is useful for a quick size estimate when you don't have a physical ruler nearby. Calibrate first for better results.</p>
+        <p>This ruler is useful for a quick size estimate when you don't have a physical ruler nearby. The automatic estimate works as a starting point; card calibration improves accuracy.</p>
       </div>
       <div class="utility-guide-grid">
-        <article><h3>1. Calibrate with a real object</h3><p>Select the long (85.60 mm) or short (53.98 mm) side of a standard-sized bank card. Match the guide on screen to the actual card edge, then save. Use the short side on narrow phone screens.</p></article>
+        <article><h3>1. Auto-size, then optionally calibrate</h3><p>The ruler first estimates a scale using the screen resolution and device family. If you need better accuracy, select the long (85.60 mm) or short (53.98 mm) bank-card edge, match the guide to your card, then save. Use the short edge on narrow phones.</p></article>
         <article><h3>2. Pick units and direction</h3><p>Select centimeters, millimeters or inches. Horizontal and vertical rulers use the same calibrated scale. The 30 cm ruler can scroll beyond the visible screen area.</p></article>
         <article><h3>3. Measure from zero</h3><p>Place the start of the object at the zero mark. Tap or click the ruler at the other end to see its length in mm, cm and inches. Arrow keys adjust the selected marker when the ruler is focused.</p></article>
         <article><h3>4. Understand accuracy limits</h3><p>Actual size is not guaranteed without calibration. Even after calibration, screen zoom, viewing angle, card alignment and different monitor density can introduce errors. Use a physical measuring tool for precision or safety-critical work.</p></article>
       </div>
       <div class="utility-faq">
         <h2>Online ruler FAQ</h2>
-        <details><summary>Is the screen ruler accurate on every phone?</summary><p>No. Screen pixel density and browser zoom vary between devices. The initial scale is only an estimate. Calibrate with a known physical reference to make screen markings more useful, and verify accuracy with a real ruler if precision matters.</p></details>
+        <details><summary>Is the screen ruler accurate on every phone?</summary><p>No. Screen pixel density and browser zoom vary between devices. The ruler automatically estimates a scale for many common screen types, but it cannot guarantee physical accuracy. Calibrate with a known physical reference to make screen markings more useful, and verify accuracy with a real ruler if precision matters.</p></details>
         <details><summary>Can I measure in both centimeters and inches?</summary><p>Yes. Choose cm, mm or inch at the top. The ruler redraws its tick marks, and a selected measurement is shown in all three units.</p></details>
         <details><summary>Why use a credit or debit card for calibration?</summary><p>Most standard bank cards use the ID-1 size, 85.60 × 53.98 mm, so they provide a convenient reference. Specialty cards and protective cases may have different dimensions, so check the card you use.</p></details>
         <details><summary>Does this work without installing an app?</summary><p>Yes. Use it in a modern desktop or mobile browser. Your display size is not sent to a server. Calibration is saved locally in your browser where supported.</p></details>
-        <details><summary>What happens if I change browser zoom or monitors?</summary><p>Zoom and device pixel ratio changes can invalidate your saved scale. The tool warns when it detects a pixel-density change, but it cannot reliably detect every display change. Recalibrate when moving the window to a different monitor.</p></details>
+        <details><summary>What happens if I change browser zoom or monitors?</summary><p>Zoom and device changes can invalidate your saved scale. When the browser reports a screen-size or pixel-ratio change, the tool falls back to a fresh automatic estimate. Some display changes cannot be detected, so check with a card when you move to another monitor.</p></details>
         <details><summary>Why is a 30 cm ruler longer than my phone screen?</summary><p>A 30 cm physical ruler is longer than most phone screens. Swipe or scroll along the ruler to reach the remaining tick marks, or rotate to a vertical ruler. Scrolling doesn't change the scale.</p></details>
       </div>
     </section>

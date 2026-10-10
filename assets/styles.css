@@ -402,3 +402,40 @@ h1{
  .ruler-auto-button{margin-left:44px}
  .ruler-auto-icon{margin-top:2px}
 }
+
+/* Mobile screen ruler: stable two-row auto-detection banner, no button overflow. */
+@media(max-width:650px){
+  .ruler-auto-banner{
+    display:grid;
+    grid-template-columns:32px minmax(0,1fr);
+    grid-template-rows:auto auto;
+    align-items:start;
+    gap:10px 12px;
+    padding:15px;
+    min-width:0;
+  }
+  .ruler-auto-icon{grid-column:1;grid-row:1;margin-top:1px}
+  .ruler-auto-body{grid-column:2;grid-row:1;min-width:0;max-width:100%;overflow-wrap:anywhere}
+  .ruler-auto-body strong,.ruler-auto-body span,.ruler-auto-body p{
+    overflow-wrap:anywhere;
+    word-break:normal;
+    max-width:100%;
+  }
+  .ruler-auto-button{
+    grid-column:1 / -1;
+    grid-row:2;
+    margin:0;
+    width:100%;
+    min-width:0;
+    max-width:100%;
+    padding:11px 14px;
+    white-space:normal;
+    justify-self:stretch;
+    text-align:center;
+  }
+  .ruler-scroll.ruler-is-vertical{
+    max-height:min(62vh,560px);
+    overflow-x:hidden;
+    overflow-y:auto;
+  }
+}

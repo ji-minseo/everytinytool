@@ -263,3 +263,6 @@ h1{
 .utility-related{padding:20px}
 .local-tools-heading{display:block}
 }
+
+/* Keep four-link primary navigation readable on narrow phones. */
+@media(max-width:650px){.topbar{flex-wrap:wrap;row-gap:11px}.topbar .nav{width:100%;justify-content:space-between;flex-wrap:wrap}}

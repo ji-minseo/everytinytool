@@ -9,7 +9,8 @@
   <link rel="canonical" href="https://everytinytool.com/actual-size-ruler/">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="stylesheet" href="../assets/styles.css?v=20261010-mobile-ruler">
-  <script src="../assets/actual-ruler.js?v=20261010-mobile-ruler" defer></script>
+  <link rel="stylesheet" href="../assets/ruler-mobile.css?v=20261010-mobile-polish-1">
+  <script src="../assets/actual-ruler.js?v=20261010-mobile-polish-1" defer></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811" crossorigin="anonymous"></script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebApplication","name":"Actual Size Ruler","description":"A browser-based screen ruler in cm, mm, and inches with card-based calibration and horizontal or vertical orientation.","url":"https://everytinytool.com/actual-size-ruler/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any modern web browser","isAccessibleForFree":true}
@@ -44,21 +45,27 @@
         <div class="ruler-toolbar-set" aria-label="Ruler direction">
           <span class="ruler-toolbar-label">Direction</span>
           <div class="ruler-toggle-group">
-            <button type="button" data-ruler-direction="horizontal" aria-pressed="true">Horizontal</button>
-            <button type="button" data-ruler-direction="vertical" aria-pressed="false">Vertical</button>
+            <button type="button" data-ruler-direction="horizontal" aria-pressed="true" aria-label="Horizontal ruler"><span class="ruler-label-desktop">Horizontal</span><span class="ruler-label-mobile" aria-hidden="true">↔</span></button>
+            <button type="button" data-ruler-direction="vertical" aria-pressed="false" aria-label="Vertical ruler"><span class="ruler-label-desktop">Vertical</span><span class="ruler-label-mobile" aria-hidden="true">↕</span></button>
           </div>
         </div>
         <a href="#ruler-calibration" class="ruler-toolbar-link">Calibrate ↗</a>
       </div>
-      <div class="ruler-auto-banner" aria-label="Automatic screen size estimate">
-        <span class="ruler-auto-icon" aria-hidden="true">✦</span>
-        <div class="ruler-auto-body">
-          <strong id="ruler-detected-device">Detecting screen dimensions…</strong>
-          <span id="ruler-detected-resolution">Reading your screen resolution and pixel ratio.</span>
-          <p id="ruler-estimate-status">Automatically estimating a starting ruler scale.</p>
+      <details class="ruler-auto-banner" id="ruler-device-details" open>
+        <summary class="ruler-auto-summary">
+          <span class="ruler-auto-icon" aria-hidden="true">✦</span>
+          <span class="ruler-auto-summary-copy"><strong>Screen size detected</strong><small>Auto estimate · Not a precision measurement</small></span>
+          <span class="ruler-auto-chevron" aria-hidden="true">⌄</span>
+        </summary>
+        <div class="ruler-auto-details">
+          <div class="ruler-auto-body">
+            <strong id="ruler-detected-device">Detecting screen dimensions…</strong>
+            <span id="ruler-detected-resolution">Reading your screen resolution and pixel ratio.</span>
+            <p id="ruler-estimate-status">Automatically estimating a starting ruler scale.</p>
+          </div>
+          <button type="button" id="ruler-use-auto" class="ruler-auto-button">Reapply auto estimate</button>
         </div>
-        <button type="button" id="ruler-use-auto" class="ruler-auto-button">Use auto estimate</button>
-      </div>
+      </details>
       <div class="ruler-view-heading">
         <div>
           <span class="ruler-small-label">YOUR RULER</span>
@@ -70,11 +77,11 @@
         <div class="ruler-scroll" id="ruler-scroll">
           <canvas id="ruler-canvas" role="slider" tabindex="0" aria-label="Ruler selected distance from zero. Tap a point, or use arrow keys to move the marker." aria-valuemin="0" aria-valuemax="300" aria-valuenow="0" aria-valuetext="No point selected" aria-orientation="horizontal" width="1200" height="118">Your browser needs Canvas support to display the interactive ruler.</canvas>
         </div>
-        <div class="ruler-scroll-caption">Scroll along the ruler to reach longer lengths · Tap to place the pink measurement marker</div>
+        <div class="ruler-scroll-caption"><span class="ruler-hint-desktop">Scroll along the ruler to reach longer lengths · Tap to place the pink measurement marker</span><span class="ruler-hint-mobile">↕ Swipe to scroll · Tap to measure from zero</span></div>
       </div>
       <div class="ruler-readout" aria-live="polite">
         <div><span class="ruler-small-label">DISTANCE FROM ZERO</span><strong id="ruler-selected">Choose a point on the ruler</strong><p id="ruler-selected-other">Tap or click the ruler to measure from zero.</p></div>
-        <div class="ruler-calibration-state"><span id="ruler-calibration-badge" data-ready="false">Not calibrated · approximate</span><p id="ruler-status">Calibrate before taking a physical measurement.</p></div>
+        <div class="ruler-calibration-state"><span id="ruler-calibration-badge" data-ready="false">Not calibrated · approximate</span><a class="ruler-readout-calibrate" href="#ruler-calibration">Fine-tune ↗</a><p id="ruler-status">Calibrate before taking a physical measurement.</p></div>
       </div>
       <p class="ruler-zoom-warning" id="ruler-zoom-note" hidden>Screen zoom or display pixel density changed. The saved measurement scale may no longer be accurate. Calibrate again.</p>
       <p class="ruler-zoom-warning" id="ruler-pinch-note" hidden>Pinch zoom is active. Return to normal zoom before measuring.</p>

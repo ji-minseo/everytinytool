@@ -124,3 +124,50 @@ h1{
   .about-strip{align-items:flex-start;flex-direction:column}
   .footer{align-items:flex-start;flex-direction:column}
 }
+/* A practical tool on the home page: text list cleanup */
+.quick-tool{margin-top:86px;padding:42px;border-radius:30px;background:#F8FAFC;border:1px solid #E9EDF3}
+.quick-tool-heading{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:24px}
+.quick-tool-heading>div{max-width:700px}
+.quick-tool-heading h2{margin:17px 0 11px;font-size:clamp(32px,5vw,47px);line-height:1.1;letter-spacing:-.05em}
+.quick-tool-heading p{color:var(--muted);margin:0}
+.quick-tool-note{color:#617065;font-size:12px;font-weight:750;white-space:nowrap}
+.text-tool-card{padding:23px;background:#fff;border:1px solid #E9ECF0;border-radius:22px;box-shadow:0 8px 24px rgba(25,25,35,.035)}
+.text-tool-options{display:flex;gap:12px 22px;flex-wrap:wrap;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.text-tool-options label{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:750;cursor:pointer}
+.text-tool-options input{width:16px;height:16px;accent-color:#6149D7}
+.text-tool-columns{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:19px}
+.text-tool-field{min-width:0}
+.text-tool-field>label{display:block;margin-bottom:8px;font-size:14px;font-weight:850}
+.text-tool-field textarea{display:block;width:100%;resize:vertical;min-height:165px;padding:15px;border:1px solid #E4E6EC;border-radius:14px;background:#fff;color:var(--ink);font:14px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace}
+.text-tool-field textarea[readonly]{background:#FBFAFF}
+.text-tool-field textarea:focus-visible{outline:3px solid #D9D2FF;border-color:#7359DA;outline-offset:1px}
+.text-tool-helper{margin:8px 0 0;font-size:12px;color:var(--muted);line-height:1.5}
+.text-tool-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:18px}
+.text-tool-actions button{font-family:inherit;cursor:pointer}
+.text-tool-actions .button{border:0}
+.text-tool-actions .text-tool-secondary{background:#F0ECFF;color:#543BBA}
+.text-tool-actions .button:disabled{opacity:.45;cursor:not-allowed}
+.text-tool-link{padding:10px 8px;border:0;background:none;color:#5F47CA;font-size:13px;font-weight:800}
+.text-tool-link:hover{text-decoration:underline;text-underline-offset:4px}
+.text-tool-status{margin:12px 0 0;color:#555;font-size:13px}
+.text-tool-explain{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin:22px 0 0}
+.text-tool-explain h3{font-size:15px;margin:0 0 5px}
+.text-tool-explain p{font-size:13px;line-height:1.6;color:var(--muted);margin:0}
+.tool-shortcuts{display:flex;align-items:center;flex-wrap:wrap;gap:10px 20px;border-top:1px solid #E5E9EF;margin-top:24px;padding-top:19px;font-size:13px}
+.tool-shortcuts strong{color:#222}
+.tool-shortcuts a{font-weight:750;color:#5F47CA}
+.tool-shortcuts a:hover{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:800px){
+  .quick-tool{margin-top:50px;padding:24px}
+  .quick-tool-heading{align-items:start;flex-direction:column}
+  .text-tool-columns,.text-tool-explain{grid-template-columns:1fr}
+  .text-tool-explain{gap:17px}
+}
+@media(max-width:480px){
+  .quick-tool{padding:18px;border-radius:22px}
+  .text-tool-card{padding:16px}
+  .text-tool-options{gap:12px}
+  .text-tool-options label{width:calc(50% - 6px);font-size:12px}
+  .text-tool-actions .button{padding:10px 12px}
+  .quick-tool-note{white-space:normal}
+}

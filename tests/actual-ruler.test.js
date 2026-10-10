@@ -1,7 +1,7 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { clampScale, toUnits, lengthLabel, buildTicks } = require('../assets/actual-ruler.js');
+const { clampScale, toUnits, lengthLabel, buildTicks, estimateScreenScale } = require('../assets/actual-ruler.js');
 
 test('uses CSS 96dpi as an approximate starting scale only', () => {
   assert.ok(Math.abs(clampScale(NaN) - (96 / 25.4)) < 1e-10);
@@ -45,4 +45,48 @@ test('inch grid covers twelve inches with sixteenth-inch subdivisions', () => {
   assert.equal(grid.ticks[192].label, '12');
   assert.equal(grid.ticks[4].mid, true);
   assert.equal(grid.ticks[1].major, false);
+});
+
+const display = (width, height, dpr, userAgent, touchPoints = 0) => ({
+  width, height, dpr, userAgent, platform: '', touchPoints
+});
+test('recognizes a common iPhone resolution using CSS pixel ratio', () => {
+  const estimate = estimateScreenScale(display(393, 852, 3, 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0)'));
+  assert.equal(estimate.label, 'iPhone resolution profile');
+  assert.equal(estimate.confidence, 'profile');
+  assert.ok(Math.abs(estimate.scale - (460 / 3 / 25.4)) < 1e-9);
+  assert.equal(estimate.screen, '393 × 852 CSS px');
+});
+test('device profiles behave the same after the device rotates', () => {
+  const info = display(393, 852, 3, 'iPhone');
+  const portrait = estimateScreenScale(info);
+  const landscape = estimateScreenScale({ ...info, width: 852, height: 393 });
+  assert.deepEqual(landscape, portrait);
+});
+test('detects iPad mini and regular iPad as separate size families', () => {
+  const mini = estimateScreenScale(display(744, 1133, 2, 'Mozilla/5.0 (iPad)'));
+  assert.ok(Math.abs(mini.scale - (326 / 2 / 25.4)) < 1e-9);
+  const air = estimateScreenScale(display(820, 1180, 2, 'Mozilla/5.0 (iPad)'));
+  assert.ok(Math.abs(air.scale - (264 / 2 / 25.4)) < 1e-9);
+});
+test('recognizes desktop-mode iPad Safari when touch is available', () => {
+  const estimate = estimateScreenScale(display(834, 1194, 2, 'Mozilla/5.0 (Macintosh; Intel Mac OS X)', 5));
+  assert.equal(estimate.label, 'iPad resolution profile');
+});
+test('gives Android phones a clearly approximate screen-width scale', () => {
+  const estimate = estimateScreenScale(display(412, 915, 2.625, 'Mozilla/5.0 (Linux; Android 15; Pixel) Mobile'));
+  assert.equal(estimate.label, 'Android phone size estimate');
+  assert.equal(estimate.confidence, 'family');
+  assert.ok(Math.abs(estimate.scale - 412 / 72) < 1e-9);
+});
+test('uses a generic browser reference on unidentified desktop monitors', () => {
+  const estimate = estimateScreenScale(display(1920, 1080, 1, 'Mozilla/5.0 (Windows NT 10.0)'));
+  assert.equal(estimate.label, 'Browser 96px/in reference');
+  assert.equal(estimate.confidence, 'reference');
+  assert.equal(estimate.scale, 96 / 25.4);
+});
+test('never mistakes unknown device resolution for verified calibration', () => {
+  const estimate = estimateScreenScale(display(400, 800, 2, 'Unidentified Browser'));
+  assert.notEqual(estimate.confidence, 'profile');
+  assert.equal(estimate.source, 'Unidentified physical display');
 });

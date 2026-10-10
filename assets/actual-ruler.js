@@ -146,6 +146,9 @@
     }
     return { maxMm, ticks };
   }
+  function shouldStartVertical(viewportWidth) {
+    return Number.isFinite(viewportWidth) && viewportWidth <= 650;
+  }
   function zoomSignature() {
     return Number((window.devicePixelRatio || 1).toFixed(2));
   }
@@ -167,9 +170,9 @@
       calibrated: false,
       signature: zoomSignature(),
       screenId: screenFingerprint(),
-      referenceMm: matchMedia('(max-width: 650px)').matches ? CARD_SHORT_MM : CARD_LONG_MM,
+      referenceMm: shouldStartVertical(window.innerWidth) ? CARD_SHORT_MM : CARD_LONG_MM,
       unit: 'cm',
-      vertical: false,
+      vertical: shouldStartVertical(window.innerWidth),
       selectedMm: null
     };
     try {
@@ -452,12 +455,15 @@
         $('ruler-pinch-note').hidden = Math.abs(vScale - 1) < 0.02;
       });
     }
+    orientationButtons.forEach((button) => {
+      button.setAttribute('aria-pressed', String((button.dataset.rulerDirection === 'vertical') === state.vertical));
+    });
     updateRefButtons();
     updateCalibrationUI(state.calibrated ? 'Your previous card calibration was restored.' : 'Automatically estimated from your screen. Check against a card if needed.');
     render();
   }
   if (typeof document !== 'undefined') init();
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { clampScale, estimateScreenScale, toUnits, lengthLabel, buildTicks };
+    module.exports = { clampScale, estimateScreenScale, shouldStartVertical, toUnits, lengthLabel, buildTicks };
   }
 })();

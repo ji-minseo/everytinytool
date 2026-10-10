@@ -205,6 +205,9 @@
     const readout = $('ruler-selected');
     const readoutOther = $('ruler-selected-other');
     const zoomAlert = $('ruler-zoom-note');
+    const detectionDetails = $('ruler-device-details');
+    let compactLayout = shouldStartVertical(window.innerWidth);
+    detectionDetails.open = !compactLayout;
 
     function updateCalibrationUI(message) {
       const ref = state.referenceMm;
@@ -212,8 +215,12 @@
       guide.style.width = (state.scale * ref) + 'px';
       $('ruler-reference-size').textContent = ref.toFixed(2) + ' mm';
       $('ruler-reference-description').textContent = ref === CARD_SHORT_MM ? 'Short edge of a standard bank card' : 'Long edge of a standard bank card';
-      badge.textContent = state.calibrated ? 'Card calibrated · saved'
-        : state.mode === 'auto' ? 'Auto-sized · estimated' : 'Fine-tuning · unsaved';
+      const compact = shouldStartVertical(window.innerWidth);
+      badge.textContent = state.calibrated
+        ? (compact ? 'Card · saved' : 'Card calibrated · saved')
+        : state.mode === 'auto'
+          ? (compact ? 'Auto · estimate' : 'Auto-sized · estimated')
+          : (compact ? 'Not saved' : 'Fine-tuning · unsaved');
       badge.dataset.ready = state.calibrated ? 'true' : 'false';
       status.textContent = state.calibrated
         ? 'Your saved card calibration takes priority. Recheck after zoom or display changes.'
@@ -240,8 +247,9 @@
     function measureLabels() {
       const maxMm = buildTicks(state.unit).maxMm;
       if (state.selectedMm === null) {
-        readout.textContent = 'Choose a point on the ruler';
-        readoutOther.textContent = 'Tap or click the ruler to measure from zero.';
+        readout.textContent = shouldStartVertical(window.innerWidth) ? 'Tap to measure' : 'Choose a point on the ruler';
+        readoutOther.textContent = shouldStartVertical(window.innerWidth)
+          ? 'Swipe ruler · tap a point' : 'Tap or click the ruler to measure from zero.';
         canvas.setAttribute('aria-valuenow', '0');
         canvas.setAttribute('aria-valuetext', 'No point selected');
         return;
@@ -256,7 +264,10 @@
     function render() {
       const { maxMm, ticks } = buildTicks(state.unit);
       const start = 20;
-      const barWidth = 118;
+      // On mobile, the vertical canvas fills the measuring surface.
+      // Tick marks stay in a 112px rail, while centimeter guides fill the rest.
+      const mobileVertical = state.vertical && shouldStartVertical(window.innerWidth);
+      const barWidth = mobileVertical ? Math.max(118, scrollPanel.clientWidth) : 118;
       const total = maxMm * state.scale + start + 26;
       const width = state.vertical ? barWidth : total;
       const height = state.vertical ? total : barWidth;
@@ -272,6 +283,28 @@
       ctx.fillRect(0, 0, width, height);
       ctx.fillStyle = '#F6F3EB';
       ctx.fillRect(0, 0, width, height);
+      if (mobileVertical) {
+        const railWidth = 112;
+        ctx.fillStyle = '#F1EBDC';
+        ctx.fillRect(0, 0, railWidth, height);
+        ctx.fillStyle = '#FFFCF6';
+        ctx.fillRect(railWidth, 0, width - railWidth, height);
+        ctx.strokeStyle = '#D9D1C2';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(railWidth + .5, 0);
+        ctx.lineTo(railWidth + .5, height);
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(152,126,92,.22)';
+        for (const mark of ticks) {
+          if (!mark.major) continue;
+          const guideY = 20 + mark.mm * state.scale + .5;
+          ctx.beginPath();
+          ctx.moveTo(railWidth + 1, guideY);
+          ctx.lineTo(width, guideY);
+          ctx.stroke();
+        }
+      }
       const axisLine = 17;
       ctx.strokeStyle = '#343137';
       ctx.lineWidth = 1.3;
@@ -437,8 +470,16 @@
     });
     document.addEventListener('fullscreenchange', () => {
       fullButton.textContent = document.fullscreenElement ? 'Exit fullscreen' : 'Fullscreen';
+      render();
     });
+    let previousCanvasWidth = scrollPanel.clientWidth;
     window.addEventListener('resize', () => {
+      const narrow = shouldStartVertical(window.innerWidth);
+      const changedBreakpoint = compactLayout !== narrow;
+      if (changedBreakpoint) {
+        compactLayout = narrow;
+        detectionDetails.open = !narrow;
+      }
       const now = screenFingerprint();
       if (now !== state.screenId) {
         // Zoom or another display changes CSS pixel geometry. Do not keep
@@ -447,7 +488,11 @@
         useAutomaticEstimate(wasCardCalibrated
           ? 'Your display or page zoom changed. Updated the automatic estimate; card-calibrate again for accuracy.'
           : 'Display settings changed. Automatic screen-size estimate updated.');
+      } else if (changedBreakpoint || scrollPanel.clientWidth !== previousCanvasWidth) {
+        updateCalibrationUI();
+        render();
       }
+      previousCanvasWidth = scrollPanel.clientWidth;
     });
     if (window.visualViewport) {
       window.visualViewport.addEventListener('resize', () => {

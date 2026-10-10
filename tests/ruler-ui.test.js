@@ -44,3 +44,24 @@ test('every JavaScript lookup is provided by an HTML element', () => {
   const lookedUp = [...source.matchAll(/\$\('([^']+)'\)/g)].map((match) => match[1]);
   assert.deepEqual(lookedUp.filter((id) => !ids.has(id)), []);
 });
+
+test('screen diagonal picker offers distinct 13, 13.3 and 13.6-inch sizes', () => {
+  for (const inches of ['13','13.3','13.6','14','15.6','16','24','27']) {
+    assert.ok(page.includes('value="' + inches + '"'), 'Missing ' + inches + ' inch preset');
+  }
+  assert.match(page, /<select id="ruler-screen-size"/);
+  assert.match(page, /<input id="ruler-custom-inches"/);
+  assert.match(page, /id="ruler-custom-apply"/);
+});
+test('entering a diagonal updates the scale and persists it separately from card calibration', () => {
+  assert.match(source, /function scaleFromDiagonal/);
+  assert.match(source, /state\.scale = scale/);
+  assert.match(source, /SIZE_STORAGE_KEY/);
+  assert.match(source, /state\.mode = 'size'/);
+  assert.match(source, /localStorage\.removeItem\(SIZE_STORAGE_KEY\)/);
+});
+test('screen-size controls are responsive without overflowing on narrow phones', () => {
+  assert.match(mobile, /\.ruler-screen-size-picker\{/);
+  assert.match(mobile, /\.ruler-custom-size\[hidden\]\{display:none!important\}/);
+  assert.match(mobile, /grid-template-columns:minmax\(0,1fr\)/);
+});

@@ -166,3 +166,47 @@
   .ruler-auto-summary-copy small{font-size:9px}
 }
 @media(prefers-reduced-motion:reduce){.ruler-auto-chevron{transition:none}}
+
+/* A known display diagonal provides a better ruler scale than resolution alone. */
+.ruler-auto-details{align-items:flex-start;flex-wrap:wrap}
+.ruler-screen-size-picker{
+  display:grid;gap:6px;flex:0 1 244px;min-width:185px;
+  max-width:100%;padding:0
+}
+.ruler-screen-size-picker>label,.ruler-custom-size label{
+  color:#3B4F64;font-weight:850;font-size:12px
+}
+.ruler-screen-size-picker select,.ruler-custom-size input{
+  display:block;width:100%;min-width:0;height:40px;
+  padding:8px 10px;border:1px solid #C9D9E7;border-radius:10px;
+  background:#fff;color:#263849;font:700 13px/1.2 inherit;
+  font-family:inherit;font-size:13px;box-sizing:border-box
+}
+.ruler-screen-size-picker select:focus-visible,.ruler-custom-size input:focus-visible,
+.ruler-custom-size button:focus-visible{outline:3px solid #AAD4EE;outline-offset:2px}
+.ruler-screen-size-picker small{
+  font-size:11px;color:#637989;line-height:1.5
+}
+.ruler-custom-size{display:grid;gap:6px;margin-top:2px}
+.ruler-custom-size[hidden]{display:none!important}
+.ruler-custom-size-row{display:flex;align-items:center;gap:7px}
+.ruler-custom-size-row input{flex:1;min-width:0}
+.ruler-custom-size-row button{
+  background:#fff;border:1px solid #B9D5E7;border-radius:10px;
+  min-height:40px;padding:7px 12px;color:#245D83;
+  font-family:inherit;font-weight:850;font-size:12px;cursor:pointer
+}
+.ruler-size-status{margin:2px 0 0!important;color:#345875!important;font-size:11px!important;line-height:1.5!important}
+@media(max-width:950px){
+  .ruler-auto-details{gap:12px}
+  .ruler-screen-size-picker{flex:1 1 205px}
+}
+@media(max-width:650px){
+  .ruler-auto-details{display:grid;grid-template-columns:minmax(0,1fr);gap:13px}
+  .ruler-screen-size-picker{
+    grid-column:1;min-width:0;width:100%;max-width:100%;
+    border-top:1px solid #E1EAF0;padding-top:11px
+  }
+  .ruler-screen-size-picker select{font-size:14px;height:44px}
+  .ruler-auto-button{grid-column:1}
+}

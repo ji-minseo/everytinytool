@@ -380,3 +380,9 @@ h1{
   .ruler-card-guide{height:90px}
   .ruler-ref-caption{font-size:11px;margin-top:9px}
 }
+
+/* Give the physical short-edge card guide enough space on narrow phone screens. */
+@media(max-width:650px){
+  .ruler-guide-viewport{margin-left:-12px;margin-right:-12px;padding-left:7px;padding-right:7px}
+  .ruler-calibration-example{overflow:visible}
+}

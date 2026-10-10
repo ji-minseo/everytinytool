@@ -1,7 +1,7 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { clampScale, toUnits, lengthLabel, buildTicks, estimateScreenScale } = require('../assets/actual-ruler.js');
+const { clampScale, toUnits, lengthLabel, buildTicks, estimateScreenScale, shouldStartVertical } = require('../assets/actual-ruler.js');
 
 test('uses CSS 96dpi as an approximate starting scale only', () => {
   assert.ok(Math.abs(clampScale(NaN) - (96 / 25.4)) < 1e-10);
@@ -89,4 +89,18 @@ test('never mistakes unknown device resolution for verified calibration', () => 
   const estimate = estimateScreenScale(display(400, 800, 2, 'Unidentified Browser'));
   assert.notEqual(estimate.confidence, 'profile');
   assert.equal(estimate.source, 'Unidentified physical display');
+});
+
+test('mobile viewport defaults to vertical ruler', () => {
+  assert.equal(shouldStartVertical(320), true);
+  assert.equal(shouldStartVertical(375), true);
+  assert.equal(shouldStartVertical(390), true);
+  assert.equal(shouldStartVertical(430), true);
+  assert.equal(shouldStartVertical(650), true);
+});
+test('tablet and desktop widths continue to use horizontal ruler', () => {
+  assert.equal(shouldStartVertical(651), false);
+  assert.equal(shouldStartVertical(768), false);
+  assert.equal(shouldStartVertical(1440), false);
+  assert.equal(shouldStartVertical(NaN), false);
 });

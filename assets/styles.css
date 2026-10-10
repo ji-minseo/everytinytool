@@ -368,3 +368,15 @@ h1{
 .ruler-guide-info{margin-top:55px}
 }
 @media(prefers-reduced-motion:reduce){.ruler-card-guide{transition:none}}
+
+/* Three feature cards in the hub now include the screen ruler. */
+@media(min-width:951px){.local-tools-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:701px) and (max-width:950px){.local-tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.local-tools-grid{grid-template-columns:1fr}}
+/* Keep the calibration reference visible while adjusting on smaller screens. */
+@media(max-width:850px){
+  .ruler-calibration-example{position:sticky;top:8px;z-index:2;padding-bottom:12px;box-shadow:0 7px 24px rgba(38,22,63,.06)}
+  .ruler-guide-viewport{min-height:125px;padding:10px;margin-top:11px}
+  .ruler-card-guide{height:90px}
+  .ruler-ref-caption{font-size:11px;margin-top:9px}
+}

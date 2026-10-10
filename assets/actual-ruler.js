@@ -246,7 +246,7 @@
         sizeSelect.value = option ? option.value : 'custom';
         customInches.value = String(state.diagonalInches);
         customSizeField.hidden = Boolean(option);
-      } else if (sizeSelect.value !== 'custom') {
+      } else {
         sizeSelect.value = 'auto';
         customSizeField.hidden = true;
       }
@@ -279,7 +279,7 @@
         : state.estimate.label;
       $('ruler-detected-resolution').textContent = state.estimate.screen +
         ' · DPR ' + Number(state.estimate.dpr.toFixed(2)) +
-        ' · ' + state.estimate.source;
+        ' · ' + (state.mode === 'size' ? 'diagonal entered by you' : state.estimate.source);
       $('ruler-estimate-status').textContent = state.calibrated
         ? 'Using your saved card calibration.'
         : state.mode === 'size'
@@ -611,7 +611,8 @@
     updateRefButtons();
     sizeStatus.textContent = state.mode === 'size'
       ? state.diagonalInches + '″ restored from this browser.'
-      : 'Choose a screen size to calculate a better starting scale.';
+      : state.mode === 'card' ? 'Your saved bank-card calibration is active.'
+        : 'Choose a diagonal to calculate a better starting scale.';
     updateCalibrationUI(state.calibrated ? 'Your previous card calibration was restored.' : 'Automatically estimated from your screen. Check against a card if needed.');
     render();
   }

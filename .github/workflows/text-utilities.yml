@@ -1,15 +1,19 @@
-name: Text utility checks
+name: Browser utility checks
 on:
   push:
     branches: [main]
     paths:
       - 'assets/hub-utilities.js'
+      - 'assets/actual-ruler.js'
       - 'tests/hub-utilities.test.js'
+      - 'tests/actual-ruler.test.js'
       - '.github/workflows/text-utilities.yml'
   pull_request:
     paths:
       - 'assets/hub-utilities.js'
+      - 'assets/actual-ruler.js'
       - 'tests/hub-utilities.test.js'
+      - 'tests/actual-ruler.test.js'
       - '.github/workflows/text-utilities.yml'
 permissions:
   contents: read
@@ -24,6 +28,8 @@ jobs:
         with:
           node-version: '22'
       - name: Check JavaScript syntax
-        run: node --check assets/hub-utilities.js
+        run: |
+          node --check assets/hub-utilities.js
+          node --check assets/actual-ruler.js
       - name: Run utility regression tests
-        run: node --test tests/hub-utilities.test.js
+        run: node --test tests/hub-utilities.test.js tests/actual-ruler.test.js

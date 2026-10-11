@@ -1,7 +1,7 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { clampScale, toUnits, lengthLabel, buildTicks, estimateScreenScale, scaleFromDiagonal, screenSizePresets, formatScreenSizeOption, shouldStartVertical } = require('../assets/actual-ruler.js');
+const { clampScale, toUnits, lengthLabel, buildTicks, estimateScreenScale, scaleFromDiagonal, screenSizePresets, describeDetectedScreen, formatScreenSizeOption, shouldStartVertical } = require('../assets/actual-ruler.js');
 
 test('uses CSS 96dpi as an approximate starting scale only', () => {
   assert.ok(Math.abs(clampScale(NaN) - (96 / 25.4)) < 1e-10);
@@ -227,4 +227,43 @@ test('every offered size has a named example followed by parenthesized inches', 
       assert.ok(label.length < 75);
     }
   }
+});
+
+test('first visit preselects an honestly estimated iPhone display', () => {
+  const device = display(393, 852, 3, 'Mozilla/5.0 (iPhone)');
+  const result = describeDetectedScreen(device, estimateScreenScale(device));
+  assert.equal(result.kind, 'phone');
+  assert.equal(result.name, 'iPhone');
+  assert.equal(result.inches, 6.1);
+  assert.equal(result.label, 'iPhone · ≈6.1″ (estimated)');
+  assert.equal(result.isEstimated, true);
+});
+test('Android phone uses the family as its initial selected label, not a made-up exact model', () => {
+  const device = display(412, 915, 2.625, 'Mozilla/5.0 (Linux; Android 15) Mobile');
+  const result = describeDetectedScreen(device, estimateScreenScale(device));
+  assert.equal(result.kind, 'android-phone');
+  assert.equal(result.name, 'Android phone');
+  assert.match(result.label, /^Android phone · ≈[0-9.]+″ \(estimated\)$/);
+  assert.doesNotMatch(result.label, /Galaxy|Pixel/);
+});
+test('iPad approximate diagonal is displayed as an estimate', () => {
+  const device = display(834, 1194, 2, 'Mozilla/5.0 (iPad)');
+  const result = describeDetectedScreen(device, estimateScreenScale(device));
+  assert.equal(result.name, 'iPad');
+  assert.equal(result.kind, 'tablet');
+  assert.ok(result.inches > 10 && result.inches < 13);
+});
+test('Windows desktop and laptop never pretend to know the physical diagonal', () => {
+  const device = display(1920, 1080, 1, 'Mozilla/5.0 (Windows NT 10.0)');
+  const result = describeDetectedScreen(device, estimateScreenScale(device));
+  assert.equal(result.kind, 'windows-computer');
+  assert.equal(result.inches, null);
+  assert.equal(result.label, 'Windows PC · screen size unknown (estimate)');
+});
+test('Mac UA can identify platform without claiming a specific laptop model', () => {
+  const device = display(1440, 900, 2, 'Mozilla/5.0 (Macintosh)');
+  const result = describeDetectedScreen(device, estimateScreenScale(device));
+  assert.equal(result.name, 'Mac');
+  assert.equal(result.inches, null);
+  assert.ok(!/MacBook Air 13/.test(result.label));
 });

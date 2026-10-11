@@ -223,3 +223,82 @@
     text-overflow:ellipsis;
   }
 }
+
+/* First-run UX: visible detected-device selector in the ruler toolbar. */
+.ruler-toolbar .ruler-device-picker{
+  flex:1 1 255px;
+  min-width:220px;
+  max-width:350px;
+  margin-left:auto;
+}
+.ruler-device-picker .ruler-screen-size-picker{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:4px;
+  flex:none;
+  width:100%;
+  min-width:0;
+  max-width:none;
+  padding:0;
+}
+.ruler-device-picker .ruler-screen-size-picker>label{
+  color:#675B78;
+  font-size:11px;
+  font-weight:850;
+  line-height:1.4;
+}
+.ruler-device-picker .ruler-screen-size-picker select{
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  height:43px;
+  border-color:#CEC4E7;
+  border-radius:11px;
+  color:#473675;
+  background:#FFF;
+  font-size:13px;
+  font-weight:750;
+  text-overflow:ellipsis;
+}
+.ruler-device-picker .ruler-screen-size-picker small{
+  font-size:10px;
+  color:#766D85;
+  line-height:1.45;
+}
+.ruler-device-picker .ruler-size-status{
+  font-size:10px!important;
+  line-height:1.4!important;
+  color:#74668D!important;
+}
+@media(max-width:650px){
+  .ruler-toolbar .ruler-device-picker{
+    grid-column:1/-1;
+    grid-row:2;
+    min-width:0;
+    max-width:none;
+    width:100%;
+    margin:3px 0 0;
+    padding-top:11px;
+    border-top:1px solid #E8E2EF;
+  }
+  .ruler-device-picker .ruler-screen-size-picker{
+    width:100%;
+    max-width:none;
+    padding:0;
+    border:0;
+  }
+  .ruler-device-picker .ruler-screen-size-picker select{
+    height:45px;
+    border-radius:11px;
+    font-size:14px;
+    background:#FFF;
+  }
+  .ruler-device-picker .ruler-screen-size-picker small{
+    display:none;
+  }
+  .ruler-device-picker .ruler-size-status{
+    display:block;
+    margin:0!important;
+    font-size:10px!important;
+  }
+}

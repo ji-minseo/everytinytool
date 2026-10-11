@@ -1,7 +1,7 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { clampScale, toUnits, lengthLabel, buildTicks, estimateScreenScale, scaleFromDiagonal, screenSizePresets, shouldStartVertical } = require('../assets/actual-ruler.js');
+const { clampScale, toUnits, lengthLabel, buildTicks, estimateScreenScale, scaleFromDiagonal, screenSizePresets, formatScreenSizeOption, shouldStartVertical } = require('../assets/actual-ruler.js');
 
 test('uses CSS 96dpi as an approximate starting scale only', () => {
   assert.ok(Math.abs(clampScale(NaN) - (96 / 25.4)) < 1e-10);
@@ -172,4 +172,36 @@ test('screen rotation does not change the family of size presets', () => {
   const portrait = screenSizePresets(display(393, 852, 3, 'iPhone'));
   const landscape = screenSizePresets(display(852, 393, 3, 'iPhone'));
   assert.deepEqual(portrait, landscape);
+});
+
+test('phone dropdown displays both inch and representative model name', () => {
+  assert.match(formatScreenSizeOption(6.1, 'phone'), /^6\.1″ — iPhone 16 \/ 15$/);
+  assert.match(formatScreenSizeOption(6.2, 'phone'), /6\.2″ — Galaxy S25/);
+  assert.match(formatScreenSizeOption(6.7, 'phone'), /iPhone 16 Plus \/ Galaxy S25\+/);
+  assert.match(formatScreenSizeOption(6.9, 'phone'), /Galaxy S25 Ultra/);
+});
+test('tablet size dropdown includes illustrative tablet models', () => {
+  assert.match(formatScreenSizeOption(8.3, 'tablet'), /^8\.3″ — iPad mini$/);
+  assert.match(formatScreenSizeOption(11, 'tablet'), /iPad Air 11/);
+  assert.match(formatScreenSizeOption(12.4, 'tablet'), /Galaxy Tab S9\+/);
+});
+test('laptop and monitor options identify representative device types', () => {
+  assert.match(formatScreenSizeOption(13.6, 'computer'), /MacBook Air 13/);
+  assert.match(formatScreenSizeOption(14.2, 'computer'), /MacBook Pro 14/);
+  assert.match(formatScreenSizeOption(24, 'computer'), /iMac 24 \/ monitors/);
+  assert.match(formatScreenSizeOption(27, 'computer'), /27-inch monitors/);
+});
+test('every offered size has an example, and all labels still start with the size', () => {
+  for (const device of [
+    display(393, 852, 3, 'iPhone'),
+    display(834, 1194, 2, 'iPad'),
+    display(1440, 900, 2, 'Macintosh')
+  ]) {
+    const presets = screenSizePresets(device);
+    for (const size of presets.sizes) {
+      const optionLabel = formatScreenSizeOption(size, presets.kind);
+      assert.ok(optionLabel.startsWith(String(size) + '″ — '));
+      assert.ok(optionLabel.length < 75);
+    }
+  }
 });

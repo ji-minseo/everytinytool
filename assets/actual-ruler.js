@@ -165,7 +165,7 @@
   };
   function formatScreenSizeOption(size, kind) {
     const example = (DEVICE_SIZE_EXAMPLES[kind] || {})[String(size)];
-    return String(size) + '″' + (example ? ' — ' + example : '');
+    return example ? example + ' (' + size + '″)' : 'Other device (' + size + '″)';
   }
   function screenSizePresets(display) {
     const ua = String(display.userAgent || '');

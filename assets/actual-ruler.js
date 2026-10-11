@@ -118,6 +118,32 @@
     const screen = screenInfo();
     return [Math.min(screen.width, screen.height), Math.max(screen.width, screen.height), Number(screen.dpr.toFixed(2))].join(':');
   }
+  function screenSizePresets(display) {
+    const ua = String(display.userAgent || '');
+    const short = Math.min(Number(display.width) || 0, Number(display.height) || 0);
+    const touches = Number(display.touchPoints) || 0;
+    const ipad = /iPad/i.test(ua) || (/Macintosh/i.test(ua) && touches > 1);
+    const iphone = /iPhone|iPod/i.test(ua);
+    const android = /Android/i.test(ua);
+    const phone = iphone || (android && (/Mobile/i.test(ua) || short < 530));
+    const tablet = ipad || (android && !phone) ||
+      (!phone && touches > 0 && short >= 530 && short < 1100 && /Tablet/i.test(ua));
+    if (phone) return {
+      kind: 'phone',
+      label: 'Phone screen diagonal',
+      sizes: [5.4, 5.8, 6.1, 6.3, 6.5, 6.7, 6.9, 7.0]
+    };
+    if (tablet) return {
+      kind: 'tablet',
+      label: 'Tablet screen diagonal',
+      sizes: [7.9, 8.3, 9.7, 10.2, 10.5, 10.9, 11, 12.4, 12.9, 13]
+    };
+    return {
+      kind: 'computer',
+      label: 'Laptop / monitor diagonal',
+      sizes: [13, 13.3, 13.6, 14, 15, 15.6, 16, 17, 21.5, 24, 27, 32]
+    };
+  }
   function scaleFromDiagonal(display, diagonalInches) {
     const width = Number(display.width);
     const height = Number(display.height);
@@ -237,6 +263,25 @@
     const customSizeField = $('ruler-custom-size-wrap');
     const customInches = $('ruler-custom-inches');
     const sizeStatus = $('ruler-size-status');
+    const sizeLabel = $('ruler-screen-size-label');
+    const sizeHelp = $('ruler-size-help');
+    function populateScreenSizeOptions() {
+      const presets = screenSizePresets(screenInfo());
+      sizeLabel.textContent = presets.label;
+      sizeHelp.textContent = 'Select the physical ' + presets.kind +
+        ' screen diagonal, not its resolution or browser window size. If yours is not listed, choose Another size.';
+      sizeSelect.replaceChildren();
+      const addOption = (value, label) => {
+        const option = document.createElement('option');
+        option.value = String(value);
+        option.textContent = label;
+        sizeSelect.appendChild(option);
+      };
+      addOption('auto', 'Auto estimate (approximate)');
+      for (const size of presets.sizes) addOption(size, size + ' inches');
+      addOption('custom', 'Another size…');
+    }
+    populateScreenSizeOptions();
     let compactLayout = shouldStartVertical(window.innerWidth);
     detectionDetails.open = !compactLayout;
 
@@ -618,6 +663,6 @@
   }
   if (typeof document !== 'undefined') init();
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { clampScale, estimateScreenScale, scaleFromDiagonal, shouldStartVertical, toUnits, lengthLabel, buildTicks };
+    module.exports = { clampScale, estimateScreenScale, screenSizePresets, scaleFromDiagonal, shouldStartVertical, toUnits, lengthLabel, buildTicks };
   }
 })();

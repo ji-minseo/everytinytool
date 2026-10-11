@@ -118,6 +118,55 @@
     const screen = screenInfo();
     return [Math.min(screen.width, screen.height), Math.max(screen.width, screen.height), Number(screen.dpr.toFixed(2))].join(':');
   }
+  /* A display size can belong to many devices. Examples are identification
+     hints, never a claim that the browser detected the user's exact model. */
+  const DEVICE_SIZE_EXAMPLES = {
+    phone: {
+      '5.4': 'iPhone 13 mini',
+      '5.8': 'iPhone X / XS',
+      '6.1': 'iPhone 16 / 15',
+      '6.2': 'Galaxy S25 / S24',
+      '6.3': 'iPhone 16 Pro',
+      '6.5': 'iPhone 11 Pro Max',
+      '6.7': 'iPhone 16 Plus / Galaxy S25+',
+      '6.8': 'Galaxy S24 Ultra',
+      '6.9': 'iPhone 16 Pro Max / Galaxy S25 Ultra',
+      '7': 'Other large phones'
+    },
+    tablet: {
+      '7.9': 'Older iPad mini',
+      '8.3': 'iPad mini',
+      '9.7': 'Older iPad',
+      '10.2': 'iPad (9th gen)',
+      '10.5': 'Older iPad Pro',
+      '10.9': 'Older iPad Air',
+      '11': 'iPad Air 11 / Galaxy Tab S9',
+      '12.4': 'Galaxy Tab S9+',
+      '12.9': 'iPad Pro 12.9 / iPad Air 13',
+      '13': 'iPad Pro 13'
+    },
+    computer: {
+      '13': '13-inch laptops',
+      '13.3': 'Older MacBook Air 13',
+      '13.6': 'MacBook Air 13',
+      '14': '14-inch laptops',
+      '14.2': 'MacBook Pro 14',
+      '15': '15-inch laptops',
+      '15.3': 'MacBook Air 15',
+      '15.6': '15.6-inch Windows laptops',
+      '16': '16-inch laptops',
+      '16.2': 'MacBook Pro 16',
+      '17': '17-inch laptops',
+      '21.5': 'Older iMac / monitors',
+      '24': 'iMac 24 / monitors',
+      '27': '27-inch monitors',
+      '32': '32-inch monitors'
+    }
+  };
+  function formatScreenSizeOption(size, kind) {
+    const example = (DEVICE_SIZE_EXAMPLES[kind] || {})[String(size)];
+    return String(size) + '″' + (example ? ' — ' + example : '');
+  }
   function screenSizePresets(display) {
     const ua = String(display.userAgent || '');
     const short = Math.min(Number(display.width) || 0, Number(display.height) || 0);
@@ -131,7 +180,7 @@
     if (phone) return {
       kind: 'phone',
       label: 'Phone screen diagonal',
-      sizes: [5.4, 5.8, 6.1, 6.3, 6.5, 6.7, 6.9, 7.0]
+      sizes: [5.4, 5.8, 6.1, 6.2, 6.3, 6.5, 6.7, 6.8, 6.9, 7]
     };
     if (tablet) return {
       kind: 'tablet',
@@ -141,7 +190,7 @@
     return {
       kind: 'computer',
       label: 'Laptop / monitor diagonal',
-      sizes: [13, 13.3, 13.6, 14, 15, 15.6, 16, 17, 21.5, 24, 27, 32]
+      sizes: [13, 13.3, 13.6, 14, 14.2, 15, 15.3, 15.6, 16, 16.2, 17, 21.5, 24, 27, 32]
     };
   }
   function scaleFromDiagonal(display, diagonalInches) {
@@ -269,7 +318,7 @@
       const presets = screenSizePresets(screenInfo());
       sizeLabel.textContent = presets.label;
       sizeHelp.textContent = 'Select the physical ' + presets.kind +
-        ' screen diagonal, not its resolution or browser window size. If yours is not listed, choose Another size.';
+        ' screen diagonal, not its resolution or browser window size. Model names are examples, not automatic identification; confirm your device specs. Choose Another size if needed.';
       sizeSelect.replaceChildren();
       const addOption = (value, label) => {
         const option = document.createElement('option');
@@ -278,7 +327,7 @@
         sizeSelect.appendChild(option);
       };
       addOption('auto', 'Auto estimate (approximate)');
-      for (const size of presets.sizes) addOption(size, size + ' inches');
+      for (const size of presets.sizes) addOption(size, formatScreenSizeOption(size, presets.kind));
       addOption('custom', 'Another size…');
     }
     populateScreenSizeOptions();
@@ -663,6 +712,6 @@
   }
   if (typeof document !== 'undefined') init();
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { clampScale, estimateScreenScale, screenSizePresets, scaleFromDiagonal, shouldStartVertical, toUnits, lengthLabel, buildTicks };
+    module.exports = { clampScale, estimateScreenScale, screenSizePresets, formatScreenSizeOption, scaleFromDiagonal, shouldStartVertical, toUnits, lengthLabel, buildTicks };
   }
 })();

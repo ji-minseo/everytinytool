@@ -10,7 +10,7 @@
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="stylesheet" href="../assets/styles.css?v=20261010-mobile-ruler">
   <link rel="stylesheet" href="../assets/ruler-mobile.css?v=20261011-screen-size-1">
-  <script src="../assets/actual-ruler.js?v=20261011-screen-size-1" defer></script>
+  <script src="../assets/actual-ruler.js?v=20261011-device-presets-1" defer></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811" crossorigin="anonymous"></script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebApplication","name":"Actual Size Ruler","description":"A browser-based screen ruler in cm, mm, and inches with card-based calibration and horizontal or vertical orientation.","url":"https://everytinytool.com/actual-size-ruler/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any modern web browser","isAccessibleForFree":true}
@@ -64,31 +64,19 @@
             <p id="ruler-estimate-status">Automatically estimating a starting ruler scale.</p>
           </div>
           <div class="ruler-screen-size-picker">
-            <label for="ruler-screen-size">Your screen diagonal</label>
+            <label for="ruler-screen-size" id="ruler-screen-size-label">Your screen diagonal</label>
             <select id="ruler-screen-size" aria-describedby="ruler-size-help">
               <option value="auto">Auto estimate (approximate)</option>
-              <option value="13">13 inches</option>
-              <option value="13.3">13.3 inches</option>
-              <option value="13.6">13.6 inches</option>
-              <option value="14">14 inches</option>
-              <option value="15">15 inches</option>
-              <option value="15.6">15.6 inches</option>
-              <option value="16">16 inches</option>
-              <option value="17">17 inches</option>
-              <option value="21.5">21.5 inches</option>
-              <option value="24">24 inches</option>
-              <option value="27">27 inches</option>
-              <option value="32">32 inches</option>
               <option value="custom">Another size…</option>
             </select>
             <div class="ruler-custom-size" id="ruler-custom-size-wrap" hidden>
               <label for="ruler-custom-inches">Exact diagonal (inches)</label>
               <div class="ruler-custom-size-row">
-                <input id="ruler-custom-inches" type="number" inputmode="decimal" min="4" max="80" step="0.1" placeholder="e.g. 13.3">
+                <input id="ruler-custom-inches" type="number" inputmode="decimal" min="4" max="80" step="0.1" placeholder="e.g. 6.7 or 13.3">
                 <button type="button" id="ruler-custom-apply">Apply</button>
               </div>
             </div>
-            <small id="ruler-size-help">Choose the actual display diagonal, not the window size. Screen resolution alone cannot identify inches.</small>
+            <small id="ruler-size-help">Choose the physical display diagonal, not the window size. Screen resolution alone cannot identify inches.</small>
             <p id="ruler-size-status" class="ruler-size-status" role="status" aria-live="polite">Auto estimate only — screen diagonal unknown.</p>
           </div>
           <button type="button" id="ruler-use-auto" class="ruler-auto-button">Reset to auto</button>

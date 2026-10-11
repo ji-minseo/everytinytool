@@ -45,13 +45,15 @@ test('every JavaScript lookup is provided by an HTML element', () => {
   assert.deepEqual(lookedUp.filter((id) => !ids.has(id)), []);
 });
 
-test('screen diagonal picker offers distinct 13, 13.3 and 13.6-inch sizes', () => {
-  for (const inches of ['13','13.3','13.6','14','15.6','16','24','27']) {
-    assert.ok(page.includes('value="' + inches + '"'), 'Missing ' + inches + ' inch preset');
-  }
+test('screen diagonal picker populates contextual presets after device detection', () => {
   assert.match(page, /<select id="ruler-screen-size"/);
+  assert.match(page, /id="ruler-screen-size-label"/);
   assert.match(page, /<input id="ruler-custom-inches"/);
   assert.match(page, /id="ruler-custom-apply"/);
+  assert.match(source, /function screenSizePresets/);
+  assert.match(source, /populateScreenSizeOptions\(\)/);
+  assert.match(source, /sizeSelect\.replaceChildren\(\)/);
+  assert.ok(!page.includes('<option value="13">'), 'Laptop sizes must not flash in the initial phone markup');
 });
 test('entering a diagonal updates the scale and persists it separately from card calibration', () => {
   assert.match(source, /function scaleFromDiagonal/);

@@ -29,6 +29,8 @@
       (/Macintosh/i.test(ua) && Number(display.touchPoints) > 1);
     const iphone = /iPhone|iPod/i.test(ua);
     const android = /Android/i.test(ua);
+    // Windows Phone 10 UAs sometimes include Android tokens. Check this first.
+    const windowsPhone = /Windows Phone|Windows Mobile|IEMobile/i.test(ua);
     const appleLaptop = !ipad && !iphone && /Macintosh/i.test(ua) && Number(display.touchPoints) === 0;
     const matching = (profiles) => profiles.find(([w, h, pixelRatio]) =>
       Math.abs(short - w) <= 2 && Math.abs(long - h) <= 3 &&
@@ -71,6 +73,13 @@
       pixelsPerMm = ppi / dpr / 25.4;
       label = preset ? 'iPad resolution profile' : 'iPad family estimate';
       confidence = preset ? 'profile' : 'family';
+    } else if (windowsPhone) {
+      // Legacy Windows phones do not expose reliable physical screen sizes.
+      // This is an approximate starting point, not verified hardware PPI.
+      const estimatedWidthMm = short < 370 ? 60 : short < 430 ? 67 : 72;
+      pixelsPerMm = short > 0 ? short / estimatedWidthMm : STANDARD_PX_PER_MM;
+      label = 'Windows Phone screen estimate';
+      confidence = 'family';
     } else if (android && (/Mobile/i.test(ua) || short < 530)) {
       // Unknown Android model: approximate physical display widths only.
       // This is intentionally a soft starting point, never a verified PPI.
@@ -133,6 +142,27 @@
       '6.9': 'iPhone 16 Pro Max / Galaxy S25 Ultra',
       '7': 'Other large phones'
     },
+    'android-phone': {
+      '5.8': 'Galaxy S10e',
+      '6.1': 'Galaxy S23',
+      '6.2': 'Galaxy S25 / S24',
+      '6.3': 'Pixel 9 / Pixel 9 Pro',
+      '6.4': 'Galaxy S21 FE',
+      '6.5': 'Galaxy A15',
+      '6.6': 'Galaxy S23+',
+      '6.7': 'Galaxy S25+',
+      '6.8': 'Pixel 9 Pro XL',
+      '6.9': 'Galaxy S25 Ultra',
+      '7': 'Other large Android phones'
+    },
+    'windows-phone': {
+      '4': 'Lumia 520',
+      '4.5': 'Lumia 920',
+      '5': 'Lumia 930 / Lumia 640',
+      '5.2': 'Lumia 950',
+      '5.7': 'Lumia 950 XL',
+      '6': 'Lumia 1520'
+    },
     tablet: {
       '7.9': 'Older iPad mini',
       '8.3': 'iPad mini',
@@ -174,10 +204,21 @@
     const ipad = /iPad/i.test(ua) || (/Macintosh/i.test(ua) && touches > 1);
     const iphone = /iPhone|iPod/i.test(ua);
     const android = /Android/i.test(ua);
-    const phone = iphone || (android && (/Mobile/i.test(ua) || short < 530));
+    const windowsPhone = /Windows Phone|Windows Mobile|IEMobile/i.test(ua);
+    const phone = iphone || windowsPhone || (android && (/Mobile/i.test(ua) || short < 530));
     const tablet = ipad || (android && !phone) ||
       (!phone && touches > 0 && short >= 530 && short < 1100 && /Tablet/i.test(ua));
-    if (phone) return {
+    if (windowsPhone) return {
+      kind: 'windows-phone',
+      label: 'Windows Phone screen diagonal',
+      sizes: [4, 4.5, 5, 5.2, 5.7, 6]
+    };
+    if (android && phone) return {
+      kind: 'android-phone',
+      label: 'Android phone screen diagonal',
+      sizes: [5.8, 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 6.7, 6.8, 6.9, 7]
+    };
+    if (iphone) return {
       kind: 'phone',
       label: 'Phone screen diagonal',
       sizes: [5.4, 5.8, 6.1, 6.2, 6.3, 6.5, 6.7, 6.8, 6.9, 7]

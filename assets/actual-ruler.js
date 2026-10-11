@@ -426,6 +426,15 @@
     detectionDetails.open = !compactLayout;
 
     function syncSizeControls() {
+      const firstOption = sizeSelect.options[0];
+      const detectedDevice = describeDetectedScreen(screenInfo(), state.estimate);
+      if (firstOption && firstOption.value === 'auto') {
+        firstOption.textContent = state.mode === 'card'
+          ? detectedDevice.name + ' · card calibrated (saved)'
+          : state.mode === 'editing'
+            ? detectedDevice.name + ' · adjusting card scale'
+            : detectedDevice.label;
+      }
       if (state.mode === 'size' && state.diagonalInches !== null) {
         const option = [...sizeSelect.options].find((item) => item.value === String(state.diagonalInches));
         sizeSelect.value = option ? option.value : 'custom';

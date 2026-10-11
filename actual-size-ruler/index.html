@@ -9,8 +9,8 @@
   <link rel="canonical" href="https://everytinytool.com/actual-size-ruler/">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="stylesheet" href="../assets/styles.css?v=20261010-mobile-ruler">
-  <link rel="stylesheet" href="../assets/ruler-mobile.css?v=20261011-tall-ruler-1">
-  <script src="../assets/actual-ruler.js?v=20261011-android-windows-pc-1" defer></script>
+  <link rel="stylesheet" href="../assets/ruler-mobile.css?v=20261011-detected-first-1">
+  <script src="../assets/actual-ruler.js?v=20261011-detected-first-1" defer></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811" crossorigin="anonymous"></script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebApplication","name":"Actual Size Ruler","description":"A browser-based screen ruler in cm, mm, and inches with card-based calibration and horizontal or vertical orientation.","url":"https://everytinytool.com/actual-size-ruler/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any modern web browser","isAccessibleForFree":true}
@@ -50,11 +50,29 @@
           </div>
         </div>
         <a href="#ruler-calibration" class="ruler-toolbar-link">Calibrate ↗</a>
+        <div class="ruler-device-picker">
+          <div class="ruler-screen-size-picker">
+                      <label for="ruler-screen-size" id="ruler-screen-size-label">Your screen diagonal</label>
+                      <select id="ruler-screen-size" aria-describedby="ruler-size-help">
+                        <option value="auto">Detecting your device…</option>
+                        <option value="custom">Another size…</option>
+                      </select>
+                      <div class="ruler-custom-size" id="ruler-custom-size-wrap" hidden>
+                        <label for="ruler-custom-inches">Exact diagonal (inches)</label>
+                        <div class="ruler-custom-size-row">
+                          <input id="ruler-custom-inches" type="number" inputmode="decimal" min="4" max="80" step="0.1" placeholder="e.g. 6.7 or 13.3">
+                          <button type="button" id="ruler-custom-apply">Apply</button>
+                        </div>
+                      </div>
+                      <small id="ruler-size-help">Device family is estimated from your browser. Choose a known model or enter the correct screen size for more accuracy.</small>
+                      <p id="ruler-size-status" class="ruler-size-status" role="status" aria-live="polite">Checking your device…</p>
+                    </div>
+        </div>
       </div>
       <details class="ruler-auto-banner" id="ruler-device-details" open>
         <summary class="ruler-auto-summary">
           <span class="ruler-auto-icon" aria-hidden="true">✦</span>
-          <span class="ruler-auto-summary-copy"><strong>Screen scale &amp; accuracy</strong><small>Choose your display size for better accuracy</small></span>
+          <span class="ruler-auto-summary-copy"><strong>About your screen estimate</strong><small>Detection details · Reset automatic sizing</small></span>
           <span class="ruler-auto-chevron" aria-hidden="true">⌄</span>
         </summary>
         <div class="ruler-auto-details">
@@ -63,23 +81,7 @@
             <span id="ruler-detected-resolution">Reading your screen resolution and pixel ratio.</span>
             <p id="ruler-estimate-status">Automatically estimating a starting ruler scale.</p>
           </div>
-          <div class="ruler-screen-size-picker">
-            <label for="ruler-screen-size" id="ruler-screen-size-label">Your screen diagonal</label>
-            <select id="ruler-screen-size" aria-describedby="ruler-size-help">
-              <option value="auto">Auto estimate (approximate)</option>
-              <option value="custom">Another size…</option>
-            </select>
-            <div class="ruler-custom-size" id="ruler-custom-size-wrap" hidden>
-              <label for="ruler-custom-inches">Exact diagonal (inches)</label>
-              <div class="ruler-custom-size-row">
-                <input id="ruler-custom-inches" type="number" inputmode="decimal" min="4" max="80" step="0.1" placeholder="e.g. 6.7 or 13.3">
-                <button type="button" id="ruler-custom-apply">Apply</button>
-              </div>
-            </div>
-            <small id="ruler-size-help">Model names are examples to help you find your screen size; they are not automatically detected. Choose your actual display diagonal, or enter another size.</small>
-            <p id="ruler-size-status" class="ruler-size-status" role="status" aria-live="polite">Auto estimate only — screen diagonal unknown.</p>
-          </div>
-          <button type="button" id="ruler-use-auto" class="ruler-auto-button">Reset to auto</button>
+                    <button type="button" id="ruler-use-auto" class="ruler-auto-button">Reset to auto</button>
         </div>
       </details>
       <div class="ruler-view-heading">

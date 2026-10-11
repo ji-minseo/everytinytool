@@ -149,7 +149,7 @@ test('phone dropdown begins with phone-sized diagonal presets', () => {
 test('Android phones and tablets have different sensible size choices', () => {
   const phone = screenSizePresets(display(412, 915, 2.625, 'Mozilla/5.0 (Linux; Android 15) Mobile'));
   const tablet = screenSizePresets(display(800, 1280, 2, 'Mozilla/5.0 (Linux; Android 15; Tablet)'));
-  assert.equal(phone.kind, 'phone');
+  assert.equal(phone.kind, 'android-phone');
   assert.equal(tablet.kind, 'tablet');
   assert.ok(tablet.sizes.includes(8.3));
   assert.ok(tablet.sizes.includes(11));
@@ -159,14 +159,36 @@ test('desktop-mode iPad still receives tablet diagonal presets', () => {
   assert.equal(ipad.kind, 'tablet');
   assert.ok(ipad.sizes.includes(12.9));
 });
-test('Windows laptops and Macs retain computer and monitor sizes', () => {
-  for (const ua of ['Mozilla/5.0 (Windows NT 10.0)', 'Mozilla/5.0 (Macintosh)']) {
-    const result = screenSizePresets(display(1440, 900, 2, ua));
-    assert.equal(result.kind, 'computer');
-    assert.deepEqual(result.sizes.slice(0,3), [13, 13.3, 13.6]);
-    assert.ok(result.sizes.includes(24));
-    assert.ok(result.sizes.includes(32));
-  }
+test('Windows PC offers separate laptop and desktop monitor size groups', () => {
+  const result = screenSizePresets(display(1920, 1080, 1, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'));
+  assert.equal(result.kind, 'windows-computer');
+  assert.ok(result.laptopSizes.includes(13.4));
+  assert.ok(result.laptopSizes.includes(13.8));
+  assert.ok(result.laptopSizes.includes(15.6));
+  assert.ok(result.monitorSizes.includes(24));
+  assert.ok(result.monitorSizes.includes(27));
+  assert.ok(result.monitorSizes.includes(32));
+  assert.deepEqual(result.sizes, [...result.laptopSizes, ...result.monitorSizes]);
+});
+test('Mac retains its own known MacBook and monitor choices', () => {
+  const result = screenSizePresets(display(1440, 900, 2, 'Mozilla/5.0 (Macintosh)'));
+  assert.equal(result.kind, 'computer');
+  assert.deepEqual(result.sizes.slice(0,3), [13, 13.3, 13.6]);
+  assert.ok(result.sizes.includes(24));
+  assert.ok(result.sizes.includes(32));
+});
+test('Windows screen size labels show Windows devices before inches', () => {
+  assert.equal(formatScreenSizeOption(13.4, 'windows-computer'), 'Dell XPS 13 (13.4″)');
+  assert.equal(formatScreenSizeOption(13.8, 'windows-computer'), 'Surface Laptop 7 (13.8″)');
+  assert.equal(formatScreenSizeOption(15.6, 'windows-computer'), 'Windows laptop (15.6″)');
+  assert.equal(formatScreenSizeOption(24, 'windows-computer'), 'Desktop monitor (24″)');
+});
+test('Android Galaxy and Pixel screen names appear ahead of inches', () => {
+  const result = screenSizePresets(display(412, 915, 2.625, 'Mozilla/5.0 (Linux; Android 15) Mobile'));
+  assert.equal(result.kind, 'android-phone');
+  assert.equal(formatScreenSizeOption(6.2, result.kind), 'Galaxy S25 / S24 (6.2″)');
+  assert.equal(formatScreenSizeOption(6.3, result.kind), 'Pixel 9 / Pixel 9 Pro (6.3″)');
+  assert.equal(formatScreenSizeOption(6.9, result.kind), 'Galaxy S25 Ultra (6.9″)');
 });
 test('screen rotation does not change the family of size presets', () => {
   const portrait = screenSizePresets(display(393, 852, 3, 'iPhone'));

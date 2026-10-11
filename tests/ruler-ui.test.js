@@ -67,3 +67,16 @@ test('screen-size controls are responsive without overflowing on narrow phones',
   assert.match(mobile, /\.ruler-custom-size\[hidden\]\{display:none!important\}/);
   assert.match(mobile, /grid-template-columns:minmax\(0,1fr\)/);
 });
+
+test('mobile ruler reveals significantly more actual-height measurement space', () => {
+  assert.match(mobile, /height:clamp\(420px,78svh,920px\)/);
+  assert.match(mobile, /\.ruler-scroll\.ruler-is-vertical\{/);
+  // Do not fake extra centimeters by changing the pixels-per-millimeter calculation.
+  assert.match(source, /const total = maxMm \* state\.scale \+ start \+ 26/);
+});
+test('model example choices still save only the inch size as numeric value', () => {
+  assert.match(source, /formatScreenSizeOption\(size, presets\.kind\)/);
+  assert.match(source, /addOption\(size, formatScreenSizeOption\(size, presets\.kind\)\)/);
+  assert.match(source, /option\.value = String\(value\)/);
+  assert.match(source, /Model names are examples, not automatic identification/);
+});

@@ -1,7 +1,7 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { clampScale, toUnits, lengthLabel, buildTicks, estimateScreenScale, scaleFromDiagonal, shouldStartVertical } = require('../assets/actual-ruler.js');
+const { clampScale, toUnits, lengthLabel, buildTicks, estimateScreenScale, scaleFromDiagonal, screenSizePresets, shouldStartVertical } = require('../assets/actual-ruler.js');
 
 test('uses CSS 96dpi as an approximate starting scale only', () => {
   assert.ok(Math.abs(clampScale(NaN) - (96 / 25.4)) < 1e-10);
@@ -136,4 +136,40 @@ test('rejects missing or impossible real screen diagonal values', () => {
   assert.equal(scaleFromDiagonal(screen, 81), null);
   assert.equal(scaleFromDiagonal(screen, 'not a number'), null);
   assert.equal(scaleFromDiagonal({ width: 0, height: 900 }, 13.3), null);
+});
+
+test('phone dropdown begins with phone-sized diagonal presets', () => {
+  const iphone = screenSizePresets(display(393, 852, 3, 'iPhone'));
+  assert.equal(iphone.kind, 'phone');
+  assert.equal(iphone.sizes[0], 5.4);
+  assert.ok(iphone.sizes.includes(6.1));
+  assert.ok(iphone.sizes.includes(6.7));
+  assert.ok(iphone.sizes.every(size => size < 8));
+});
+test('Android phones and tablets have different sensible size choices', () => {
+  const phone = screenSizePresets(display(412, 915, 2.625, 'Mozilla/5.0 (Linux; Android 15) Mobile'));
+  const tablet = screenSizePresets(display(800, 1280, 2, 'Mozilla/5.0 (Linux; Android 15; Tablet)'));
+  assert.equal(phone.kind, 'phone');
+  assert.equal(tablet.kind, 'tablet');
+  assert.ok(tablet.sizes.includes(8.3));
+  assert.ok(tablet.sizes.includes(11));
+});
+test('desktop-mode iPad still receives tablet diagonal presets', () => {
+  const ipad = screenSizePresets(display(834, 1194, 2, 'Mozilla/5.0 (Macintosh)', 5));
+  assert.equal(ipad.kind, 'tablet');
+  assert.ok(ipad.sizes.includes(12.9));
+});
+test('Windows laptops and Macs retain computer and monitor sizes', () => {
+  for (const ua of ['Mozilla/5.0 (Windows NT 10.0)', 'Mozilla/5.0 (Macintosh)']) {
+    const result = screenSizePresets(display(1440, 900, 2, ua));
+    assert.equal(result.kind, 'computer');
+    assert.deepEqual(result.sizes.slice(0,3), [13, 13.3, 13.6]);
+    assert.ok(result.sizes.includes(24));
+    assert.ok(result.sizes.includes(32));
+  }
+});
+test('screen rotation does not change the family of size presets', () => {
+  const portrait = screenSizePresets(display(393, 852, 3, 'iPhone'));
+  const landscape = screenSizePresets(display(852, 393, 3, 'iPhone'));
+  assert.deepEqual(portrait, landscape);
 });

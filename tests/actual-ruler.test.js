@@ -174,24 +174,24 @@ test('screen rotation does not change the family of size presets', () => {
   assert.deepEqual(portrait, landscape);
 });
 
-test('phone dropdown displays both inch and representative model name', () => {
-  assert.match(formatScreenSizeOption(6.1, 'phone'), /^6\.1″ — iPhone 16 \/ 15$/);
-  assert.match(formatScreenSizeOption(6.2, 'phone'), /6\.2″ — Galaxy S25/);
-  assert.match(formatScreenSizeOption(6.7, 'phone'), /iPhone 16 Plus \/ Galaxy S25\+/);
-  assert.match(formatScreenSizeOption(6.9, 'phone'), /Galaxy S25 Ultra/);
+test('phone dropdown shows model names first and inches in parentheses', () => {
+  assert.equal(formatScreenSizeOption(6.1, 'phone'), 'iPhone 16 / 15 (6.1″)');
+  assert.equal(formatScreenSizeOption(6.2, 'phone'), 'Galaxy S25 / S24 (6.2″)');
+  assert.equal(formatScreenSizeOption(6.7, 'phone'), 'iPhone 16 Plus / Galaxy S25+ (6.7″)');
+  assert.equal(formatScreenSizeOption(6.9, 'phone'), 'iPhone 16 Pro Max / Galaxy S25 Ultra (6.9″)');
 });
-test('tablet size dropdown includes illustrative tablet models', () => {
-  assert.match(formatScreenSizeOption(8.3, 'tablet'), /^8\.3″ — iPad mini$/);
-  assert.match(formatScreenSizeOption(11, 'tablet'), /iPad Air 11/);
-  assert.match(formatScreenSizeOption(12.4, 'tablet'), /Galaxy Tab S9\+/);
+test('tablet dropdown displays device names ahead of inch sizes', () => {
+  assert.equal(formatScreenSizeOption(8.3, 'tablet'), 'iPad mini (8.3″)');
+  assert.equal(formatScreenSizeOption(11, 'tablet'), 'iPad Air 11 / Galaxy Tab S9 (11″)');
+  assert.equal(formatScreenSizeOption(12.4, 'tablet'), 'Galaxy Tab S9+ (12.4″)');
 });
-test('laptop and monitor options identify representative device types', () => {
-  assert.match(formatScreenSizeOption(13.6, 'computer'), /MacBook Air 13/);
-  assert.match(formatScreenSizeOption(14.2, 'computer'), /MacBook Pro 14/);
-  assert.match(formatScreenSizeOption(24, 'computer'), /iMac 24 \/ monitors/);
-  assert.match(formatScreenSizeOption(27, 'computer'), /27-inch monitors/);
+test('computer dropdown displays laptop/monitor examples ahead of inches', () => {
+  assert.equal(formatScreenSizeOption(13.6, 'computer'), 'MacBook Air 13 (13.6″)');
+  assert.equal(formatScreenSizeOption(14.2, 'computer'), 'MacBook Pro 14 (14.2″)');
+  assert.equal(formatScreenSizeOption(24, 'computer'), 'iMac 24 / monitors (24″)');
+  assert.equal(formatScreenSizeOption(27, 'computer'), '27-inch monitors (27″)');
 });
-test('every offered size has an example, and all labels still start with the size', () => {
+test('every offered size has a named example followed by parenthesized inches', () => {
   for (const device of [
     display(393, 852, 3, 'iPhone'),
     display(834, 1194, 2, 'iPad'),
@@ -199,9 +199,10 @@ test('every offered size has an example, and all labels still start with the siz
   ]) {
     const presets = screenSizePresets(device);
     for (const size of presets.sizes) {
-      const optionLabel = formatScreenSizeOption(size, presets.kind);
-      assert.ok(optionLabel.startsWith(String(size) + '″ — '));
-      assert.ok(optionLabel.length < 75);
+      const label = formatScreenSizeOption(size, presets.kind);
+      assert.ok(label.endsWith(' (' + size + '″)'), label);
+      assert.ok(!label.startsWith(String(size) + '″'), label);
+      assert.ok(label.length < 75);
     }
   }
 });

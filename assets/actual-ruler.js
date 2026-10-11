@@ -366,14 +366,26 @@
       sizeHelp.textContent = 'Select the physical ' + presets.kind +
         ' screen diagonal, not its resolution or browser window size. Model names are examples, not automatic identification; confirm your device specs. Choose Another size if needed.';
       sizeSelect.replaceChildren();
-      const addOption = (value, label) => {
+      const addOption = (value, label, parent = sizeSelect) => {
         const option = document.createElement('option');
         option.value = String(value);
         option.textContent = label;
-        sizeSelect.appendChild(option);
+        parent.appendChild(option);
       };
       addOption('auto', 'Auto estimate (approximate)');
-      for (const size of presets.sizes) addOption(size, formatScreenSizeOption(size, presets.kind));
+      if (presets.kind === 'windows-computer') {
+        for (const [label, sizes] of [
+          ['Windows laptops', presets.laptopSizes],
+          ['Desktop monitors', presets.monitorSizes]
+        ]) {
+          const group = document.createElement('optgroup');
+          group.label = label;
+          for (const size of sizes) addOption(size, formatScreenSizeOption(size, presets.kind), group);
+          sizeSelect.appendChild(group);
+        }
+      } else {
+        for (const size of presets.sizes) addOption(size, formatScreenSizeOption(size, presets.kind));
+      }
       addOption('custom', 'Another size…');
     }
     populateScreenSizeOptions();

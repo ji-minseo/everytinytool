@@ -239,6 +239,37 @@
       sizes: [13, 13.3, 13.6, 14, 14.2, 15, 15.3, 15.6, 16, 16.2, 17, 21.5, 24, 27, 32]
     };
   }
+  /* Browsers can usually tell us the OS/device family, but not the exact model
+     or physical screen diagonal. Keep the preselected choice truthful. */
+  function describeDetectedScreen(display, estimate) {
+    const kind = screenSizePresets(display).kind;
+    const names = {
+      phone: 'iPhone',
+      'android-phone': 'Android phone',
+      tablet: /iPad|Macintosh/i.test(String(display.userAgent || '')) ? 'iPad' : 'Android tablet',
+      'windows-computer': 'Windows PC',
+      computer: /Macintosh/i.test(String(display.userAgent || '')) ? 'Mac' : 'Computer'
+    };
+    const name = names[kind] || 'This device';
+    const width = Number(display.width) || 0;
+    const height = Number(display.height) || 0;
+    const inferred = Number(estimate && estimate.scale);
+    const allowed = ['phone', 'android-phone', 'tablet'].includes(kind);
+    const diagonal = allowed && width > 0 && height > 0 && inferred > 0
+      ? Math.hypot(width, height) / (inferred * 25.4) : null;
+    const valid = diagonal !== null && Number.isFinite(diagonal) &&
+      diagonal >= 4 && diagonal <= 16;
+    const inches = valid ? Math.round(diagonal * 10) / 10 : null;
+    return {
+      kind,
+      name,
+      inches,
+      label: inches === null
+        ? name + ' · screen size unknown (estimate)'
+        : name + ' · ≈' + inches + '″ (estimated)',
+      isEstimated: true
+    };
+  }
   function scaleFromDiagonal(display, diagonalInches) {
     const width = Number(display.width);
     const height = Number(display.height);
@@ -362,9 +393,9 @@
     const sizeHelp = $('ruler-size-help');
     function populateScreenSizeOptions() {
       const presets = screenSizePresets(screenInfo());
-      sizeLabel.textContent = presets.label;
-      sizeHelp.textContent = 'Select the physical ' + presets.kind +
-        ' screen diagonal, not its resolution or browser window size. Model names are examples, not automatic identification; confirm your device specs. Choose Another size if needed.';
+      const detectedDevice = describeDetectedScreen(screenInfo(), state.estimate);
+      sizeLabel.textContent = 'Your ' + detectedDevice.name + ' display';
+      sizeHelp.textContent = 'Preselected from browser device information. Model examples are not a verified device ID. Open the menu to choose your actual model or screen diagonal. Card calibration is more accurate.';
       sizeSelect.replaceChildren();
       const addOption = (value, label, parent = sizeSelect) => {
         const option = document.createElement('option');
@@ -372,7 +403,9 @@
         option.textContent = label;
         parent.appendChild(option);
       };
-      addOption('auto', 'Auto estimate (approximate)');
+      // Auto mode stays physically approximate, but the first visible selection
+      // now identifies the detected device family instead of saying just "Auto".
+      addOption('auto', detectedDevice.label);
       if (presets.kind === 'windows-computer') {
         for (const [label, sizes] of [
           ['Windows laptops', presets.laptopSizes],
@@ -639,7 +672,8 @@
         localStorage.removeItem(OLD_STORAGE_KEY);
         localStorage.removeItem(SIZE_STORAGE_KEY);
       } catch (_) { /* local storage may be blocked */ }
-      sizeStatus.textContent = 'Using a rough device-family estimate. Choose a diagonal for a better starting point.';
+      const device = describeDetectedScreen(screenInfo(), state.estimate);
+      sizeStatus.textContent = device.name + ' detected as the starting estimate. Select your model if the scale looks wrong.';
       updateCalibrationUI(message || 'Automatic screen estimate applied. Card calibration is optional for better accuracy.');
       render();
     }
@@ -761,15 +795,16 @@
       button.setAttribute('aria-pressed', String((button.dataset.rulerDirection === 'vertical') === state.vertical));
     });
     updateRefButtons();
+    const defaultDevice = describeDetectedScreen(screenInfo(), state.estimate);
     sizeStatus.textContent = state.mode === 'size'
       ? state.diagonalInches + '″ restored from this browser.'
-      : state.mode === 'card' ? 'Your saved bank-card calibration is active.'
-        : 'Choose a diagonal to calculate a better starting scale.';
+      : state.mode === 'card' ? 'Saved bank-card calibration takes priority over device detection.'
+        : 'Preselected ' + defaultDevice.name + ' estimate. Select your model for more accuracy.';
     updateCalibrationUI(state.calibrated ? 'Your previous card calibration was restored.' : 'Automatically estimated from your screen. Check against a card if needed.');
     render();
   }
   if (typeof document !== 'undefined') init();
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { clampScale, estimateScreenScale, screenSizePresets, formatScreenSizeOption, scaleFromDiagonal, shouldStartVertical, toUnits, lengthLabel, buildTicks };
+    module.exports = { clampScale, estimateScreenScale, screenSizePresets, describeDetectedScreen, formatScreenSizeOption, scaleFromDiagonal, shouldStartVertical, toUnits, lengthLabel, buildTicks };
   }
 })();

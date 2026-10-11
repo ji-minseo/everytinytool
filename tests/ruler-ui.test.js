@@ -95,3 +95,20 @@ test('Android-specific screen choices show Galaxy and Pixel model examples', () 
   assert.match(source, /'Galaxy S25 Ultra'/);
   assert.match(source, /addOption\(size, formatScreenSizeOption\(size, presets\.kind\)/);
 });
+
+test('device picker is visible in the toolbar instead of hidden inside technical details', () => {
+  const toolbar = page.indexOf('<div class="ruler-toolbar">');
+  const picker = page.indexOf('<div class="ruler-device-picker">');
+  const details = page.indexOf('<details class="ruler-auto-banner"');
+  assert.ok(toolbar >= 0 && picker > toolbar && details > picker);
+  assert.match(page, /<option value="auto">Detecting your device…<\/option>/);
+  assert.match(mobile, /\.ruler-toolbar \.ruler-device-picker\{/);
+  assert.match(mobile, /grid-column:1\/-1/);
+});
+test('the selector preselects the detected device estimate without inventing a model', () => {
+  assert.match(source, /addOption\('auto', detectedDevice\.label\)/);
+  assert.match(source, /const detectedDevice = describeDetectedScreen\(screenInfo\(\), state\.estimate\)/);
+  assert.match(source, /firstOption\.textContent = state\.mode === 'card'/);
+  assert.match(source, /sizeSelect\.value = option \? option\.value : 'custom'/);
+  assert.match(source, /sizeSelect\.value = 'auto'/);
+});

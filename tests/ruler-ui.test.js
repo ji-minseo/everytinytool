@@ -80,3 +80,18 @@ test('model example choices still save only the inch size as numeric value', () 
   assert.match(source, /option\.value = String\(value\)/);
   assert.match(source, /Model names are examples, not automatic identification/);
 });
+
+test('Windows laptops and desktop monitor sizes have separate selection groups', () => {
+  assert.match(source, /kind === 'windows-computer'/);
+  assert.match(source, /'Windows laptops', presets\.laptopSizes/);
+  assert.match(source, /'Desktop monitors', presets\.monitorSizes/);
+  assert.match(source, /document\.createElement\('optgroup'\)/);
+  assert.match(source, /group\.label = label/);
+  assert.match(source, /sizeSelect\.appendChild\(group\)/);
+});
+test('Android-specific screen choices show Galaxy and Pixel model examples', () => {
+  assert.match(source, /kind: 'android-phone'/);
+  assert.match(source, /'Pixel 9 \/ Pixel 9 Pro'/);
+  assert.match(source, /'Galaxy S25 Ultra'/);
+  assert.match(source, /addOption\(size, formatScreenSizeOption\(size, presets\.kind\)/);
+});

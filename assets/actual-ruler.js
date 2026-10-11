@@ -29,8 +29,6 @@
       (/Macintosh/i.test(ua) && Number(display.touchPoints) > 1);
     const iphone = /iPhone|iPod/i.test(ua);
     const android = /Android/i.test(ua);
-    // Windows Phone 10 UAs sometimes include Android tokens. Check this first.
-    const windowsPhone = /Windows Phone|Windows Mobile|IEMobile/i.test(ua);
     const appleLaptop = !ipad && !iphone && /Macintosh/i.test(ua) && Number(display.touchPoints) === 0;
     const matching = (profiles) => profiles.find(([w, h, pixelRatio]) =>
       Math.abs(short - w) <= 2 && Math.abs(long - h) <= 3 &&
@@ -73,13 +71,6 @@
       pixelsPerMm = ppi / dpr / 25.4;
       label = preset ? 'iPad resolution profile' : 'iPad family estimate';
       confidence = preset ? 'profile' : 'family';
-    } else if (windowsPhone) {
-      // Legacy Windows phones do not expose reliable physical screen sizes.
-      // This is an approximate starting point, not verified hardware PPI.
-      const estimatedWidthMm = short < 370 ? 60 : short < 430 ? 67 : 72;
-      pixelsPerMm = short > 0 ? short / estimatedWidthMm : STANDARD_PX_PER_MM;
-      label = 'Windows Phone screen estimate';
-      confidence = 'family';
     } else if (android && (/Mobile/i.test(ua) || short < 530)) {
       // Unknown Android model: approximate physical display widths only.
       // This is intentionally a soft starting point, never a verified PPI.
@@ -155,13 +146,24 @@
       '6.9': 'Galaxy S25 Ultra',
       '7': 'Other large Android phones'
     },
-    'windows-phone': {
-      '4': 'Lumia 520',
-      '4.5': 'Lumia 920',
-      '5': 'Lumia 930 / Lumia 640',
-      '5.2': 'Lumia 950',
-      '5.7': 'Lumia 950 XL',
-      '6': 'Lumia 1520'
+    'windows-computer': {
+      '13': 'Windows laptop',
+      '13.3': 'Windows ultrabook',
+      '13.4': 'Dell XPS 13',
+      '13.5': 'Surface Laptop 4 / 5',
+      '13.8': 'Surface Laptop 7',
+      '14': 'Windows laptop',
+      '15': 'Windows laptop',
+      '15.6': 'Windows laptop',
+      '16': 'Windows laptop',
+      '17': 'Windows laptop',
+      '17.3': 'Windows gaming laptop',
+      '21.5': 'Desktop monitor',
+      '23.8': 'Desktop monitor',
+      '24': 'Desktop monitor',
+      '27': 'Desktop monitor',
+      '32': 'Desktop monitor',
+      '34': 'Ultrawide desktop monitor'
     },
     tablet: {
       '7.9': 'Older iPad mini',
@@ -204,15 +206,11 @@
     const ipad = /iPad/i.test(ua) || (/Macintosh/i.test(ua) && touches > 1);
     const iphone = /iPhone|iPod/i.test(ua);
     const android = /Android/i.test(ua);
-    const windowsPhone = /Windows Phone|Windows Mobile|IEMobile/i.test(ua);
-    const phone = iphone || windowsPhone || (android && (/Mobile/i.test(ua) || short < 530));
+    const windowsComputer = /Windows NT|Win64|Win32|Windows/i.test(ua) &&
+      !/Windows Phone|Windows Mobile|IEMobile/i.test(ua);
+    const phone = iphone || (android && (/Mobile/i.test(ua) || short < 530));
     const tablet = ipad || (android && !phone) ||
       (!phone && touches > 0 && short >= 530 && short < 1100 && /Tablet/i.test(ua));
-    if (windowsPhone) return {
-      kind: 'windows-phone',
-      label: 'Windows Phone screen diagonal',
-      sizes: [4, 4.5, 5, 5.2, 5.7, 6]
-    };
     if (android && phone) return {
       kind: 'android-phone',
       label: 'Android phone screen diagonal',
@@ -227,6 +225,13 @@
       kind: 'tablet',
       label: 'Tablet screen diagonal',
       sizes: [7.9, 8.3, 9.7, 10.2, 10.5, 10.9, 11, 12.4, 12.9, 13]
+    };
+    if (windowsComputer) return {
+      kind: 'windows-computer',
+      label: 'Windows laptop / desktop monitor diagonal',
+      sizes: [13, 13.3, 13.4, 13.5, 13.8, 14, 15, 15.6, 16, 17, 17.3, 21.5, 23.8, 24, 27, 32, 34],
+      laptopSizes: [13, 13.3, 13.4, 13.5, 13.8, 14, 15, 15.6, 16, 17, 17.3],
+      monitorSizes: [21.5, 23.8, 24, 27, 32, 34]
     };
     return {
       kind: 'computer',

@@ -78,7 +78,7 @@ test('model example choices still save only the inch size as numeric value', () 
   assert.match(source, /formatScreenSizeOption\(size, presets\.kind\)/);
   assert.match(source, /addOption\(size, formatScreenSizeOption\(size, presets\.kind\)\)/);
   assert.match(source, /option\.value = String\(value\)/);
-  assert.match(source, /Model names are examples, not automatic identification/);
+  assert.match(source, /Model examples are not a verified device ID/);
 });
 
 test('Windows laptops and desktop monitor sizes have separate selection groups', () => {

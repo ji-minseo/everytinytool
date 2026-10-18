@@ -12,3 +12,9 @@
 .guide-table td{padding:12px 15px;border-top:1px solid #ece7f2;color:#5c5365;vertical-align:top}
 .guide-table tbody tr:nth-child(even){background:#fcfaff}
 @media(max-width:600px){.guide-table{min-width:450px}.guide-table th,.guide-table td{padding:10px 12px}}
+
+/* Guide illustrations: intrinsic 16:9 size, fluid width, and accessible caption. */
+.guide-visual{margin:26px 0 8px;max-width:100%;overflow:hidden}
+.guide-visual img{display:block;width:100%;height:auto;aspect-ratio:1672/941;object-fit:contain;border-radius:18px;border:1px solid #eee9f6;background:#faf8ff}
+.guide-visual figcaption{margin:9px 2px 0;font-size:11px;line-height:1.6;color:#857b8c}
+@media(max-width:620px){.guide-visual{margin:18px 0 0}.guide-visual img{border-radius:11px}.guide-visual figcaption{font-size:10px}}

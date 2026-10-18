@@ -27,9 +27,22 @@ function init(){
 '.media-item button.btn.ghost,.ett-batch-remove{min-height:0!important;padding:8px!important;font-size:12px!important;font-weight:700!important;border-radius:10px!important}',
 '#meta-count{display:none!important}'
 ].join('\\n');doc.head.append(custom);}
-   const rect=root.getBoundingClientRect();
    const bodyTop=doc.body.getBoundingClientRect().top;
-   const height=Math.max(160,Math.ceil(rect.bottom-bodyTop+8));
+   // Image resize/compress embeds must measure their visible tool content,
+   // not the shell or a previously expanded iframe viewport.
+   let bottom=root.getBoundingClientRect().bottom;
+   if(frame.id==='hub-frame-resize'||frame.id==='hub-frame-compress'){
+     const panel=doc.querySelector('#image-studio .is-panel');
+     if(panel){
+       const visible=[...panel.children].filter(el=>{
+         const style=doc.defaultView.getComputedStyle(el);
+         return !el.hidden && style.display!=='none' && style.visibility!=='hidden';
+       });
+       bottom=visible.length?Math.max(...visible.map(el=>el.getBoundingClientRect().bottom)):panel.getBoundingClientRect().bottom;
+       bottom+=8;
+     }
+   }
+   const height=Math.max(160,Math.ceil(bottom-bodyTop+8));
    if(Math.abs(frame.getBoundingClientRect().height-height)>2){
     frame.style.height=height+'px';
    }

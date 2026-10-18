@@ -183,6 +183,8 @@
 /* Equalize the breathing room before the shared panel footer.
    Inline tools have no iframe wrapper, so provide their own bottom inset. */
 .hub-panel [data-image-panel].hub-inline-tool:not([hidden]){padding-bottom:28px!important;box-sizing:border-box}
+/* Convert has a shorter empty state; use a tighter footer gap. */
+#hub-image-convert:not([hidden]){padding-bottom:12px!important}
 
 /* Interactive Crop editor, matching Image Everything's draggable crop preview. */
 .hub-crop-editor{display:grid;gap:13px;width:100%}

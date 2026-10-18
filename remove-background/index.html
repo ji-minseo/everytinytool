@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Remove Image Background Free — Transparent PNG Maker | Image Everything</title>
+  <meta name="description" content="Remove backgrounds from JPG, PNG and WebP photos in your browser. Preview before and after, download transparent PNG, or add white, black or custom backgrounds.">
+  <meta name="google-site-verification" content="CBlkb_437tiJ5H-kUBL7O8dh-hd-sO5K0XpoibZ67Dg">
+  <link rel="canonical" href="https://everytinytool.com/remove-background/">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="stylesheet" href="../assets/image-tools-base.css?v=20261018-hub">
+  <link rel="stylesheet" href="../assets/background-remover.css?v=20261018-home">
+  <script src="../assets/background-remover.js?v=20261014-bg-2" defer></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811" crossorigin="anonymous"></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Remove Background — Image Everything","url":"https://everytinytool.com/remove-background/","description":"Free browser-only AI background remover for transparent PNG and solid color background exports.","applicationCategory":"MultimediaApplication","operatingSystem":"Modern web browser","isAccessibleForFree":true}</script>
+<link rel="stylesheet" href="../assets/tool-embed.css?v=20261018-hub">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <a class="brand" href="../">Every Tiny Tool <span>✦</span></a>
+    <span class="toplink">Private · Runs in your browser</span>
+  </header>
+  
+  <main class="tool-layout" id="bg-remover">
+    <section class="tool-head">
+      <a class="breadcrumb" href="../">← Every Tiny Tool</a>
+      <h1>Remove Background</h1>
+      <p>Make a transparent PNG from a photo or product image in your browser. Keep the subject, remove the backdrop, and download or choose a new background color.</p>
+    </section>
+
+    <section class="panel bg-panel" aria-label="Background remover tool">
+      <div class="dropzone bg-dropzone" id="bg-dropzone" role="group" tabindex="0" aria-label="Image upload area. Click or press Enter or Space to choose an image, or drag and drop it.">
+        <input class="file-input" id="bg-file" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" aria-label="Choose an image for background removal">
+        <div>
+          <div class="drop-icon" aria-hidden="true">✂️</div>
+          <h2>Drop an image here</h2>
+          <p>JPG, PNG or WebP · Up to 12 MB · No account</p>
+          <button class="btn" type="button" id="bg-choose">Choose image</button>
+        </div>
+      </div>
+      <div class="file-summary bg-file" id="bg-selected" hidden>
+        <div class="bg-file-information">
+          <span class="bg-file-icon" aria-hidden="true">🖼️</span>
+          <div class="bg-file-text"><strong id="bg-filename">your-image.jpg</strong><span id="bg-filemeta">—</span></div>
+        </div>
+        <button type="button" id="bg-remove-file" class="btn secondary bg-clear" aria-label="Remove selected image">Remove</button>
+      </div>
+      <p class="input-note bg-ai-notice">AI-powered · On first use your browser downloads a model (about 45 MB) and may take longer to start. Processing happens on your device; images are not uploaded to our server. Some older browsers or low-memory phones may not support this tool.</p>
+      <div class="actions bg-actions">
+        <button type="button" class="btn" id="bg-run" disabled>Remove background <span aria-hidden="true">↗</span></button>
+      </div>
+      <div class="bg-progress" id="bg-progress" role="status" aria-live="polite" hidden>
+        <span class="bg-spinner" aria-hidden="true"></span>
+        <div><strong>Removing background…</strong><p id="bg-progress-text">Preparing AI model…</p></div>
+      </div>
+      <p class="bg-status" id="bg-status" role="status" aria-live="polite">Your image is processed locally. No uploads to our server.</p>
+
+      <section class="bg-result" id="bg-result" hidden aria-labelledby="bg-result-heading">
+        <div class="bg-result-heading"><div><span class="compression-kicker">RESULT</span><h2 id="bg-result-heading">Background removed</h2></div><span class="bg-result-meta" id="bg-result-meta">—</span></div>
+        <div class="bg-compare">
+          <div class="bg-compare-card">
+            <div class="bg-compare-title">Original</div>
+            <div class="bg-preview-frame"><img id="bg-before" alt="Original uploaded image"></div>
+          </div>
+          <div class="bg-compare-card">
+            <div class="bg-compare-title">Background removed</div>
+            <div class="bg-preview-frame checker" id="bg-after-frame"><img id="bg-after" alt="Subject separated from its background"></div>
+          </div>
+        </div>
+        <div class="bg-export">
+          <div class="bg-export-head"><strong>Choose a background</strong><small>Transparent PNG, or solid-color JPG</small></div>
+          <div class="bg-color-options" role="group" aria-label="Result background">
+            <button type="button" data-bg-mode="transparent" aria-pressed="true" class="active"><span class="bg-chip checker" aria-hidden="true"></span> Transparent</button>
+            <button type="button" data-bg-mode="white" aria-pressed="false"><span class="bg-chip bg-white" aria-hidden="true"></span> White</button>
+            <button type="button" data-bg-mode="black" aria-pressed="false"><span class="bg-chip bg-black" aria-hidden="true"></span> Black</button>
+            <button type="button" data-bg-mode="custom" aria-pressed="false"><span class="bg-chip bg-custom" aria-hidden="true"></span> Custom</button>
+          </div>
+          <div class="bg-custom-wrap" id="bg-custom-wrap" hidden><label for="bg-custom-color">Custom background color</label><input id="bg-custom-color" type="color" value="#f1e6ff" aria-label="Choose a solid background color"></div>
+          <div class="actions bg-download-actions"><a class="btn bg-download" href="#" download id="bg-download">Download transparent PNG ↓</a></div>
+        </div>
+        <p class="notice bg-quality-note">Automatic cutouts are not always perfect. Fine hair, transparent objects, busy scenes and soft shadows may require manual refinement. Check the result before using it.</p>
+      </section>
+    </section>
+
+    <section class="info info-grid" aria-label="How to use background removal">
+      <article class="info-card"><h2>1. Add your image</h2><p>Choose one JPG, PNG or WebP image. Portraits and product photos work best with a clear foreground subject.</p></article>
+      <article class="info-card"><h2>2. Remove its background</h2><p>Click Remove background. An AI model runs in your browser, separating the main subject from the surroundings.</p></article>
+      <article class="info-card"><h2>3. Download a cutout</h2><p>Use transparent PNG for layering, or pick white, black or a custom background color and save as JPG.</p></article>
+    </section>
+
+    <section class="seo-content bg-guide" aria-labelledby="bg-guide-title">
+      <h2 id="bg-guide-title">How to remove the background from an image</h2>
+      <p>Upload a JPG, PNG or WebP photo and choose <strong>Remove background</strong>. The browser downloads a machine-learning model on first use and runs the cutout locally. Once processing is complete, you can compare the original to the transparent result and select a new background color.</p>
+      <p>For the best results, use an image where the subject stands out from the background. High contrast and clear edges help with portraits, ecommerce product pictures, stickers and presentation graphics. Complex hair, fine glass and overlapping objects may not be separated perfectly.</p>
+      <h2>Transparent PNG or solid-color JPG?</h2>
+      <p><strong>Transparent PNG</strong> preserves the empty backdrop so you can place the subject into another design. <strong>JPG</strong> cannot preserve transparency, so selecting a white, black or custom color will combine the cutout with that solid background.</p>
+      <h2>Frequently asked questions</h2>
+      <div class="faq-list">
+        <details><summary>Can I remove image backgrounds for free?</summary><p>Yes. This browser-based tool offers automatic background removal with no sign-up. A model is downloaded into the browser on first use, so a modern browser and a reliable internet connection are recommended.</p></details>
+        <details><summary>Is my photo uploaded to a server?</summary><p>No. Your image is read and processed locally by the model in your browser. The JavaScript library and model weights are downloaded from third-party hosting, but your photo isn't uploaded by this tool.</p></details>
+        <details><summary>How do I save an image with a transparent background?</summary><p>Keep Transparent selected and choose Download transparent PNG. A JPG cannot preserve transparent pixels, so PNG is the right format for use in designs or over other photos.</p></details>
+        <details><summary>Can I change the background to white?</summary><p>Yes. After removing the original background, select White or Black, or use Custom to pick a color. The solid-background version downloads as JPG.</p></details>
+        <details><summary>Why does the AI take time to start?</summary><p>The background removal model requires a first-time download of roughly 45 MB and local preparation. Browsers often cache the model, so later runs may start faster, but speed depends on your device and connection.</p></details>
+        <details><summary>Which images work best?</summary><p>A clear foreground subject with visible edges produces better results. Fine hair, furry objects, transparent objects, and busy backgrounds are more difficult, and manual cleanup may still be needed.</p></details>
+        <details><summary>Does the tool work on mobile phones?</summary><p>Modern phones may run the model, but AI inference can require substantial memory. Large photos, older devices or certain browsers may fail. The limit is 12 MB and 16 megapixels per image.</p></details>
+      </div>
+    </section>
+
+    <section class="network">
+      <div class="network-label">More from <strong>Every Tiny Tool ✦</strong></div>
+      <div class="network-grid">
+        <a class="network-card random" href="https://random.everytinytool.com/"><div class="network-icon">🎲</div><div><h2>Random Everything</h2><p>Random choices, numbers, names, teams and more.</p><span>Explore random tools →</span></div></a>
+        <a class="network-card calculate" href="https://calculate.everytinytool.com/"><div class="network-icon">🧮</div><div><h2>Calculate Everything</h2><p>Quick calculators for numbers, dates and everyday math.</p><span>Explore calculators →</span></div></a>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>Every Tiny Tool ✦</span><nav class="footer-trust-links"><a href="../">Home</a><a href="../about/">About</a><a href="../privacy/">Privacy</a><a href="../contact/">Contact</a></nav></footer>
+</div>
+</body>
+</html>

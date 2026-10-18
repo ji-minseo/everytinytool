@@ -8,7 +8,7 @@
 <link rel="canonical" href="https://everytinytool.com/quick-image-studio/">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="stylesheet" href="../assets/styles.css?v=20261018-workspace-1">
-<link rel="stylesheet" href="../assets/quick-image-studio.css?v=20261019-queue51">
+<link rel="stylesheet" href="../assets/quick-image-studio.css?v=20261019-flat55">
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script><script defer src="../assets/quick-image-studio.js?v=20261019-uniform54"></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811" crossorigin="anonymous"></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Quick Image Studio — Resize, Compress and Convert","url":"https://everytinytool.com/quick-image-studio/","applicationCategory":"MultimediaApplication","operatingSystem":"Modern web browser","isAccessibleForFree":true,"description":"Resize, compress and convert JPG, PNG and WebP images locally in a web browser."}</script>
@@ -22,10 +22,10 @@
 <div class="is-dropzone" id="is-dropzone" tabindex="0" role="group" aria-label="Image upload area. Click or press Enter or Space to select a photo, or drag and drop an image.">
 <input id="is-file" class="is-file-input" type="file" multiple accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" aria-label="Choose a JPG, PNG or WebP image">
 <img id="is-upload-preview" class="is-upload-preview" alt="Selected image thumbnail" hidden><div class="is-upload-icon" aria-hidden="true">🖼️</div><h2>Drop images here</h2><p>JPG, PNG or WebP · Up to 10 images · 25 MB each</p><button type="button" class="button" id="is-choose">Choose images</button></div>
-<div class="ett-batch" id="is-batch" hidden><h3>Selected images</h3><p>Process up to 10 images together. Each result has its own download link.</p><div class="ett-batch-list" id="is-batch-list"></div></div>
+<div id="is-batch" hidden><div class="ett-batch-list" id="is-batch-list"></div></div>
 <div id="is-details" hidden>
 <div class="is-file-line"><div><strong id="is-file-name">photo.jpg</strong><span id="is-input-size">—</span></div><button type="button" id="is-clear" class="is-quiet">Remove image</button></div>
-<div class="is-settings-head"><span class="is-number">01</span><div><h2>Choose your output</h2><p>Keep proportions automatically, or pick the original size to convert and compress only.</p></div></div>
+
 <div class="is-options" id="is-sizing-options">
 <div class="is-control is-size-control"><label for="is-size-mode">Image sizing</label><select id="is-size-mode"><option value="width">Resize to width</option><option value="height">Resize to height</option><option value="percent">Scale by percent</option><option value="original">Keep original dimensions</option></select></div>
 <div class="is-control"><label id="is-size-value-label" for="is-size-value">Width (px)</label><input id="is-size-value" type="number" min="1" max="12000" step="1" value="1200" inputmode="numeric"></div>

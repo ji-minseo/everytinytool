@@ -1,0 +1,11 @@
+/* Shared visual language for embedded PDF, video and background tools. */
+.pdfc-dropzone,.bg-dropzone,.vs-dropzone{border:1.5px dashed #c7b8e6!important;border-radius:18px!important;background:#fcfaff!important;transition:background .2s,border-color .2s!important}
+.pdfc-dropzone:hover,.bg-dropzone:hover,.vs-dropzone:hover{border-color:#8869d2!important;background:#f7f2ff!important}
+.drop-icon,.vs-upload-icon{display:grid!important;place-items:center!important;width:52px!important;height:52px!important;margin:0 auto 12px!important;background:#f1ebff!important;border-radius:15px!important;color:#7656d3!important;font-size:25px!important}
+.pdfc-panel .btn,.bg-panel .btn,.vs-panel .button,.vs-panel .vs-secondary,.vs-panel .ett-batch-remove{min-height:42px!important;padding:10px 16px!important;border-radius:12px!important;border:1px solid #d9ccef!important;background:#f0e9ff!important;color:#55349c!important;line-height:1.4!important;font-size:13px!important;font-weight:700!important;box-shadow:none!important}
+.pdfc-panel .btn:hover,.bg-panel .btn:hover,.vs-panel .button:hover{background:#e7dcff!important}
+.bg-file,.pdfc-file-selected,.vs-selected,.vs-panel .ett-batch-row{border:1px solid #ebe5f3!important;border-radius:14px!important;background:#fff!important;padding:12px!important}
+.vs-panel .ett-batch-list{display:grid;gap:10px}
+.vs-panel .ett-batch-row{display:flex;gap:12px;align-items:center}
+.vs-panel .ett-batch-row img{height:55px;width:55px;object-fit:cover;border-radius:10px}
+.bg-file-icon{display:grid;place-items:center;width:54px;height:54px;border-radius:10px;background:#f1ebff}

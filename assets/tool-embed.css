@@ -67,3 +67,9 @@ html[data-embedded="true"] .vs-main{padding:0!important;margin:0!important}
 .ett-batch .ett-batch-progress{margin-top:11px}
 .ett-batch-progress progress{width:100%;accent-color:#7c5cfc}
 @media(max-width:500px){.ett-batch-row{gap:7px}.ett-batch-row img,.ett-batch-row video{width:42px;height:42px}}
+
+/* PDF tab: align upload card with Image and Video tabs and restore vertical breathing room. */
+html[data-embedded="true"] .pdfc-page{padding:0!important;margin:0!important}
+html[data-embedded="true"] .pdfc-page>.pdfc-panel{padding:0!important;margin:0!important;border:0!important;box-shadow:none!important;background:transparent!important}
+html[data-embedded="true"] .pdfc-page .pdfc-dropzone{margin:0 0 22px!important;min-height:225px;box-sizing:border-box}
+html[data-embedded="true"] .pdfc-page .pdfc-controls{margin-top:0!important}

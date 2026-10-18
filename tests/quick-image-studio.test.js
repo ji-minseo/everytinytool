@@ -60,7 +60,7 @@ test('image pipeline draws the decoded bitmap at correct scaled dimensions',asyn
    createCanvas(){return canvas;}
  });
  assert.equal(output.width,800);assert.equal(output.height,600);
- assert.ok(calls.some(c=>c[0]==='draw'&&c[1]===bmp&&c[4]===600));
+ assert.ok(calls.some(c=>c[0]==='draw'&&c[1]===bmp&&c[4]===800&&c[5]===600));
  assert.ok(calls.some(c=>c[0]==='background'&&c[1]==='#ffffff'));
  assert.ok(calls.some(c=>c[0]==='encoded'&&c[1]==='image/jpeg'));
 });

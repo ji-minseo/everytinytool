@@ -20,3 +20,17 @@ html[data-embedded="true"] .is-main .utility-related,html[data-embedded="true"] 
 html[data-embedded="true"] .is-file-input{position:absolute;opacity:0}
 html[data-embedded="true"] .vs-file{position:absolute;opacity:0}
 html[data-embedded="true"] .pdfc-controls,html[data-embedded="true"] .bg-panel{margin-top:0}
+
+/* Shared embedded-tool starting baseline: no mode-specific top offset. */
+html[data-embedded="true"] .is-panel,
+html[data-embedded="true"] .bg-panel,
+html[data-embedded="true"] .vs-panel{padding:0!important;margin:0!important;border:0!important;box-shadow:none!important;background:transparent!important}
+html[data-embedded="true"] .is-dropzone,
+html[data-embedded="true"] .bg-dropzone,
+html[data-embedded="true"] .vs-dropzone{margin:0!important;min-height:225px}
+html[data-embedded="true"] .is-dropzone.has-image,
+html[data-embedded="true"] .bg-dropzone.has-image{min-height:180px}
+html[data-embedded="true"] .vs-dropzone.has-video{min-height:225px}
+html[data-embedded="true"] .is-main,
+html[data-embedded="true"] #bg-remover,
+html[data-embedded="true"] .vs-main{padding:0!important;margin:0!important}

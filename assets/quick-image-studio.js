@@ -116,7 +116,7 @@ function init(){
    const remove=document.createElement('button');remove.type='button';remove.className='ett-batch-remove';remove.textContent='Remove';remove.onclick=async()=>{if(busy)return;const next=batchFiles.filter((_,i)=>i!==index);showBatch(next);if(next.length)await select(next[0]);else await select(null);};row.append(thumb,label,state,remove);batchList.appendChild(row);
   }
  }
- if(compressMode){$('is-size-mode').value='original';$('is-sizing-options').hidden=true;$('is-size-presets').hidden=true;$('is-upscale-row').hidden=true;$('is-advanced').open=true;$('is-run').textContent='Compress images ↗';$('is-choose').textContent='Choose images to compress';}
+ if(compressMode){$('is-size-mode').value='original';$('is-sizing-options').hidden=true;$('is-size-presets').hidden=true;$('is-upscale-row').hidden=true;$('is-advanced').open=true;$('is-run').textContent='Compress images ↗';$('is-choose').textContent='Choose images';}
  else {$('is-advanced').open=false;$('is-run').textContent='Resize images ↗';}
  const controls=['is-size-mode','is-size-value','is-upscale','is-format','is-quality','is-target','is-background','is-custom-color'];
  function revoke(url){if(url)URL.revokeObjectURL(url);}

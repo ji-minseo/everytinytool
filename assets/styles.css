@@ -488,3 +488,9 @@ h1{
 .image-local-card{background:#f8faff;border-color:#e0e8fb}
 @media(max-width:760px){.home-image-quick{grid-template-columns:1fr;padding:23px}}
 @media(max-width:440px){.home-image-quick{padding:17px}.home-image-quick-form{padding:13px}}
+
+/* Global seven-link navigation, consistent across tools and editorial pages */
+.topbar .nav{display:flex;align-items:center;gap:clamp(9px,1.7vw,19px);flex-wrap:wrap}
+.topbar .nav a{white-space:nowrap;text-decoration:none}
+.topbar .nav a[aria-current="page"]{color:#6742af}
+@media(max-width:760px){.topbar .nav{width:100%;justify-content:flex-start;gap:7px 15px;padding-top:4px}.topbar .nav a{font-size:12px;line-height:1.7}}

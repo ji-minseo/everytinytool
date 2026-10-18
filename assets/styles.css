@@ -445,3 +445,22 @@ h1{
 .collection-section-heading{max-width:770px;margin-bottom:20px}
 .collection-section-heading h2{margin:13px 0 7px;font-size:clamp(30px,4.5vw,43px);line-height:1.1;letter-spacing:-.045em}
 .collection-section-heading p{margin:0;color:var(--muted);font-size:15px}
+
+/* Tiny Workspace launch: flagship utility on the main domain. */
+.workspace-feature{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:28px;align-items:center;padding:34px;border:1px solid #E7E2F5;border-radius:27px;background:#FAF9FF;margin:2px 0 35px}
+.workspace-feature-copy h2{font-size:clamp(31px,4.5vw,49px);letter-spacing:-.05em;line-height:1.1;margin:15px 0 12px}
+.workspace-feature-copy>p{max-width:550px;color:#655e70;line-height:1.7;font-size:14px}
+.workspace-feature-links{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:18px}
+.workspace-feature-secondary{font-size:12px;font-weight:800;color:#5e46c8}
+.workspace-feature-links .button{padding:12px 17px;flex:none;font-size:13px}
+.workspace-feature-meta{margin:14px 0 0!important;font-size:11px!important;color:#766d85!important}
+.workspace-feature-demo{padding:21px;border:1px solid #E4DEFA;border-radius:18px;background:#fff;box-shadow:0 12px 22px rgba(65,40,130,.05)}
+.workspace-demo-caption{display:block;font-size:10px;font-weight:850;letter-spacing:.12em;color:#7763a6;margin-bottom:12px}
+.workspace-demo-line{display:flex;align-items:center;gap:10px;border:1px solid #ECE9F3;border-radius:10px;padding:12px;margin:7px 0;font-size:12px;font-weight:760}
+.workspace-demo-line span{font-size:11px;color:#8665cf}
+.workspace-demo-line strong{margin-left:auto;color:#19a37f}
+.workspace-demo-total{display:flex;justify-content:space-between;gap:8px;margin-top:17px;font-size:11px;color:#625b6f}
+.workspace-demo-total strong{color:#6752c2}
+.workspace-local-card{background:#FBF9FF;border-color:#E7DEFF}
+@media(max-width:720px){.workspace-feature{grid-template-columns:1fr;padding:24px;gap:15px}.workspace-feature-demo{max-width:540px}}
+@media(max-width:440px){.workspace-feature{padding:19px}.workspace-feature-links .button{width:100%;text-align:center}.workspace-feature-demo{padding:14px}}

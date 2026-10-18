@@ -1,0 +1,36 @@
+name: Main toolbox and video checks
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'assets/hub-capsules.*'
+      - 'assets/video-studio.*'
+      - 'assets/tool-embed.css'
+      - 'video-studio/**'
+      - 'pdf-compressor/**'
+      - 'remove-background/**'
+      - 'tests/hub-capsules-and-video.test.js'
+      - '.github/workflows/hub-capsules-and-video.yml'
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'assets/hub-capsules.*'
+      - 'assets/video-studio.*'
+      - 'video-studio/**'
+      - 'tests/hub-capsules-and-video.test.js'
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check assets/hub-capsules.js
+      - run: node --check assets/video-studio.js
+      - run: node --check assets/pdf-compressor.js
+      - run: node --check assets/background-remover.js
+      - run: node --test tests/hub-capsules-and-video.test.js

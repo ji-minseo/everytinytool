@@ -112,8 +112,8 @@ function init(){
    row.append(thumb,label,state);batchList.appendChild(row);
   }
  }
- if(compressMode){$('is-size-mode').value='original';$('is-sizing-options').hidden=true;$('is-size-presets').hidden=true;$('is-upscale-row').hidden=true;$('is-advanced').open=true;$('is-run').textContent='Compress image ↗';$('is-choose').textContent='Choose image to compress';}
- else {$('is-advanced').open=false;$('is-run').textContent='Resize image ↗';}
+ if(compressMode){$('is-size-mode').value='original';$('is-sizing-options').hidden=true;$('is-size-presets').hidden=true;$('is-upscale-row').hidden=true;$('is-advanced').open=true;$('is-run').textContent='Compress images ↗';$('is-choose').textContent='Choose images to compress';}
+ else {$('is-advanced').open=false;$('is-run').textContent='Resize images ↗';}
  const controls=['is-size-mode','is-size-value','is-upscale','is-format','is-quality','is-target','is-background','is-custom-color'];
  function revoke(url){if(url)URL.revokeObjectURL(url);}
  function notify(t,error=false){status.textContent=t;status.dataset.error=String(error);}

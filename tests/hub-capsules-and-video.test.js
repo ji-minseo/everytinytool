@@ -13,7 +13,7 @@ test('capsules cover image PDF video workspace and more',()=>{
   assert.match(html,new RegExp('data-panel="'+type+'"'));
  }
  assert.equal([...html.matchAll(/data-hub-tab="/g)].length,5);
- assert.equal([...html.matchAll(/data-image-tab="/g)].length,2);
+ assert.equal([...html.matchAll(/data-image-tab="/g)].length,3);
 });
 test('home exposes no unstyled native file selection',()=>{
  assert.doesNotMatch(html,/<input[^>]*type="file"/);
@@ -64,4 +64,15 @@ test('video page includes real output controls, progress and limits',()=>{
 test('main domain sitemap lists all new working tools',()=>{
  const sitemap=fs.readFileSync(path.join(root,'sitemap.xml'),'utf8');
  for(const url of ['/pdf-compressor/','/remove-background/','/video-studio/','/quick-image-studio/','/workspace/'])assert.ok(sitemap.includes('https://everytinytool.com'+url));
+});
+
+test('image actions are separately labeled and file previews are present',()=>{
+ for(const name of ['resize','compress','remove'])assert.match(html,new RegExp('data-image-tab="'+name+'"'));
+ const resize=fs.readFileSync(path.join(root,'quick-image-studio/index.html'),'utf8');
+ const bg=fs.readFileSync(path.join(root,'remove-background/index.html'),'utf8');
+ const video=fs.readFileSync(path.join(root,'video-studio/index.html'),'utf8');
+ assert.match(resize,/id="is-upload-preview"/);
+ assert.match(bg,/id="bg-upload-preview"/);
+ assert.match(video,/id="vs-preview"/);
+ assert.match(html,/mode=compress/);
 });

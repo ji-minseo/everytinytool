@@ -76,3 +76,16 @@
   .bg-color-options button { font-size:11px; padding:8px; }
 }
 @media(prefers-reduced-motion:reduce) { .bg-spinner { animation:none; } }
+
+/* In-dropzone image preview with matching dimensions across image modes. */
+.bg-dropzone{min-height:225px}
+.bg-dropzone.has-image{min-height:180px;padding:18px 20px}
+.bg-upload-preview{display:block;max-height:125px;max-width:min(100%,240px);object-fit:contain;margin:0 auto 9px;border-radius:11px;border:1px solid #e5def1;background:#fff}
+.bg-upload-preview[hidden]{display:none!important}
+.bg-dropzone.has-image .drop-icon{display:none}
+.bg-dropzone.has-image h2{font-size:16px}
+.bg-dropzone.has-image p{margin-bottom:12px}
+.bg-ai-notice{padding:12px 14px;border-radius:12px;background:#faf9fe;border:1px solid #ede8f5}
+.bg-actions{display:flex;gap:10px}
+.bg-actions .btn{min-height:44px}
+@media(max-width:650px){.bg-dropzone.has-image{padding:14px}}

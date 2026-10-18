@@ -226,173 +226,102 @@
   function init() {
     const $ = id => document.getElementById(id);
     if (!$('pdf-compressor')) return;
-    const dropzone = $('pdf-dropzone'), input = $('pdf-file');
-    const choose = $('pdf-choose'), selected = $('pdf-file-selected');
-    const filename = $('pdf-filename'), fileSize = $('pdf-original-label');
-    const remove = $('pdf-remove'), quality = $('pdf-quality');
-    const qualityValue = $('pdf-quality-value');
-    const toggle = $('pdf-target-toggle'), targetOptions = $('pdf-target-options');
-    const limitField = $('pdf-limit');
-    const presets = [...document.querySelectorAll('[data-pdf-size]')];
-    const runButton = $('pdf-compress'), status = $('pdf-status');
-    const progress = $('pdf-progress'), result = $('pdf-result');
-    const originalLabel = $('pdf-input-size'), outputLabel = $('pdf-output-size');
-    const savedLabel = $('pdf-saved'), outputCaption = $('pdf-result-caption');
-    const resultTitle = $('pdf-result-title'), resultNote = $('pdf-outcome');
-    const bar = $('pdf-result-bar'), download = $('pdf-download');
-    let file = null, busy = false, downloadUrl = null;
-
-    function message(text, error = false) {
-      status.textContent = text;
-      status.dataset.error = String(error);
+    const dropzone=$('pdf-dropzone'),input=$('pdf-file'),choose=$('pdf-choose'),quality=$('pdf-quality'),qualityValue=$('pdf-quality-value');
+    const toggle=$('pdf-target-toggle'),targetOptions=$('pdf-target-options'),limitField=$('pdf-limit');
+    const presets=[...document.querySelectorAll('[data-pdf-size]')],run=$('pdf-compress'),status=$('pdf-status'),progress=$('pdf-progress');
+    const oldSelected=$('pdf-file-selected'),oldResult=$('pdf-result');
+    oldSelected.hidden=true;oldResult.hidden=true;
+    input.multiple=true;choose.textContent='Choose PDFs';
+    const queue=document.createElement('div');queue.className='pdfc-queue';dropzone.insertAdjacentElement('afterend',queue);
+    const results=document.createElement('div');results.className='pdfc-batch-results';oldResult.insertAdjacentElement('afterend',results);
+    const zip=document.createElement('button');zip.type='button';zip.className='btn pdfc-zip';zip.textContent='Download all as ZIP';zip.hidden=true;run.insertAdjacentElement('afterend',zip);
+    let files=[],outputs=[],busy=false,urls=[];
+    const message=(text,error=false)=>{status.textContent=text;status.dataset.error=String(error)};
+    const revoke=()=>{urls.forEach(u=>URL.revokeObjectURL(u));urls=[]};
+    function clearOutput(){revoke();outputs=[];results.replaceChildren();zip.hidden=true;oldResult.hidden=true}
+    function updateControls(){
+      run.disabled=busy||!files.length;choose.disabled=busy;input.disabled=busy;quality.disabled=busy;
+      toggle.disabled=busy;limitField.disabled=busy||!toggle.checked;
+      presets.forEach(b=>b.disabled=busy||!toggle.checked);
+      queue.querySelectorAll('button').forEach(b=>b.disabled=busy);
     }
-    function clearResult() {
-      result.hidden = true;
-      download.hidden = true;
-      download.removeAttribute('href');
-      if (downloadUrl) root.URL.revokeObjectURL(downloadUrl);
-      downloadUrl = null;
+    function render(){
+      queue.replaceChildren();
+      files.forEach((f,i)=>{
+        const row=document.createElement('div');row.className='pdfc-queue-row';
+        const icon=document.createElement('span');icon.className='pdfc-queue-icon';icon.textContent='PDF';
+        const meta=document.createElement('div');meta.className='pdfc-queue-info';
+        const name=document.createElement('strong');name.textContent=f.name;
+        const size=document.createElement('small');size.textContent=formatSize(f.size);meta.append(name,size);
+        const del=document.createElement('button');del.type='button';del.className='pdfc-queue-remove';del.textContent='Remove';
+        del.onclick=()=>{if(busy)return;files.splice(i,1);clearOutput();render()};
+        row.append(icon,meta,del);queue.append(row);
+      });updateControls();
     }
-    function updateControls() {
-      runButton.disabled = !file || busy;
-      choose.disabled = busy;
-      remove.disabled = busy;
-      input.disabled = busy;
-      quality.disabled = busy;
-      toggle.disabled = busy;
-      limitField.disabled = busy || !toggle.checked;
-      presets.forEach(button => { button.disabled = busy || !toggle.checked; });
+    function addFiles(incoming){
+      if(busy)return;
+      const next=[...incoming].filter(f=>f.type==='application/pdf'||/\\.pdf$/i.test(f.name));
+      files.push(...next);input.value='';clearOutput();render();
+      if(!next.length&&incoming.length)message('Please choose PDF files.',true);
+      else message('');
     }
-    function setFile(next) {
-      if (busy) return;
-      clearResult();
-      file = next || null;
-      input.value = '';
-      selected.hidden = !file;
-      if (file) {
-        filename.textContent = file.name || 'document.pdf';
-        fileSize.textContent = formatSize(file.size);
-        message('Your file is ready. Choose a quality and compress.');
-      } else {
-        message('Files are processed locally in your browser. Nothing is uploaded.');
-      }
-      updateControls();
+    function openPicker(){if(!busy)input.click()}
+    choose.onclick=openPicker;
+    dropzone.addEventListener('click',e=>{if(e.target===input||e.target.closest('button,input'))return;openPicker()});
+    dropzone.addEventListener('keydown',e=>{if(e.target===dropzone&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openPicker()}});
+    input.addEventListener('change',()=>addFiles(input.files));
+    ['dragenter','dragover'].forEach(n=>dropzone.addEventListener(n,e=>{e.preventDefault();if(!busy)dropzone.classList.add('dragover')}));
+    ['drop','dragleave'].forEach(n=>dropzone.addEventListener(n,e=>{e.preventDefault();dropzone.classList.remove('dragover');if(n==='drop'&&!busy)addFiles(e.dataTransfer.files)}));
+    function clearOnSettings(){if(!busy)clearOutput()}
+    function setLimit(value){limitField.value=String(value);presets.forEach(b=>b.classList.toggle('active',Number(b.dataset.pdfSize)===Number(value)));clearOnSettings()}
+    presets.forEach(b=>b.addEventListener('click',()=>setLimit(b.dataset.pdfSize)));
+    limitField.addEventListener('input',()=>setLimit(limitField.value));
+    quality.addEventListener('input',()=>{qualityValue.textContent=quality.value+'%';clearOnSettings()});
+    toggle.addEventListener('change',()=>{targetOptions.hidden=!toggle.checked;clearOnSettings();updateControls()});
+    function download(blob,name){
+      const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);
     }
-    function setLimit(value) {
-      if (busy) return;
-      limitField.value = String(value);
-      presets.forEach(button => button.classList.toggle(
-        'active', Number(button.dataset.pdfSize) === Number(value)));
-      clearResult();
-    }
-    function updateQuality() {
-      qualityValue.textContent = quality.value + '%';
-      clearResult();
-    }
-    function updateTarget() {
-      targetOptions.hidden = !toggle.checked;
-      updateControls();
-      clearResult();
-    }
-    // Match the other image compressors: click anywhere in the upload area.
-    // Ignore clicks bubbling from its button or the hidden file input itself,
-    // otherwise a synthetic input.click() could reopen the picker recursively.
-    function openFilePicker() {
-      if (!busy) input.click();
-    }
-    choose.addEventListener('click', openFilePicker);
-    dropzone.addEventListener('click', event => {
-      if (busy || event.target === input || event.target.closest('button, input')) return;
-      openFilePicker();
-    });
-    dropzone.addEventListener('keydown', event => {
-      if (busy || event.target !== dropzone || !['Enter', ' '].includes(event.key)) return;
-      event.preventDefault();
-      openFilePicker();
-    });
-    input.addEventListener('change', () => setFile(input.files && input.files[0]));
-    remove.addEventListener('click', () => setFile(null));
-    ['dragenter', 'dragover'].forEach(name => dropzone.addEventListener(name, event => {
-      event.preventDefault();
-      if (!busy) dropzone.classList.add('dragover');
-    }));
-    ['drop', 'dragleave'].forEach(name => dropzone.addEventListener(name, event => {
-      event.preventDefault();
-      dropzone.classList.remove('dragover');
-      if (name === 'drop' && !busy && event.dataTransfer && event.dataTransfer.files.length) {
-        setFile(event.dataTransfer.files[0]);
-      }
-    }));
-    presets.forEach(button => button.addEventListener('click', () => setLimit(button.dataset.pdfSize)));
-    limitField.addEventListener('input', () => setLimit(limitField.value));
-    quality.addEventListener('input', updateQuality);
-    toggle.addEventListener('change', updateTarget);
-
-    runButton.addEventListener('click', async () => {
-      if (!file || busy) return;
-      const settings = {
-        quality: quality.value,
-        targetEnabled: toggle.checked,
-        limit: limitField.value
-      };
-      if (parseQuality(settings.quality) === null) {
-        message('Choose quality from 65% to 100%.', true); return;
-      }
-      if (settings.targetEnabled && targetBytes(settings.limit) === null) {
-        message('Enter a file-size goal between 0.1 and 1000 MB.', true); return;
-      }
-      busy = true;
-      updateControls();
-      clearResult();
-      progress.hidden = false;
-      message('Optimizing PDF…');
-      await new Promise(resolve => root.requestAnimationFrame
-        ? root.requestAnimationFrame(resolve) : resolve());
-      try {
-        const outcome = await optimizePdf(file, settings, text => message(text));
-        result.hidden = false;
-        originalLabel.textContent = formatSize(file.size);
-        outputLabel.textContent = formatSize(outcome.bytes);
-        savedLabel.textContent = outcome.saving.toFixed(1) + '%';
-        outputCaption.textContent = outcome.original ? 'Original file' : 'Compressed PDF';
-        bar.style.width = Math.min(100, outcome.bytes / file.size * 100) + '%';
-
-        const imageInfo = outcome.jpegImages > 0
-          ? ' JPEG images optimized: ' + outcome.jpegImages + '.'
-          : ' No compatible JPEG image was recompressed; quality may not change this PDF.';
-        if (outcome.reason === 'not-smaller') {
-          resultTitle.textContent = 'No smaller PDF available';
-          resultNote.textContent = 'The original file was kept because the result would not be smaller.' + imageInfo;
-        } else if (outcome.reached === true) {
-          resultTitle.textContent = 'Target reached';
-          resultNote.textContent = 'The output meets your optional limit.' + imageInfo +
-            ' Check forms and signatures before use.';
-        } else if (outcome.reached === false) {
-          resultTitle.textContent = 'PDF compressed · target not reached';
-          resultNote.textContent = 'Some bytes were saved, but your optional limit was not reached.' + imageInfo;
-        } else {
-          resultTitle.textContent = 'Your PDF is ready';
-          resultNote.textContent = 'PDF structure optimized.' + imageInfo +
-            ' Text and vector pages were not rasterized. Check forms and signatures before use.';
+    run.addEventListener('click',async()=>{
+      if(busy||!files.length)return;
+      const settings={quality:quality.value,targetEnabled:toggle.checked,limit:limitField.value};
+      if(parseQuality(settings.quality)===null){message('Choose quality from 65% to 100%.',true);return}
+      if(settings.targetEnabled&&targetBytes(settings.limit)===null){message('Enter a file-size goal between 0.1 and 1000 MB.',true);return}
+      busy=true;clearOutput();updateControls();progress.hidden=false;
+      const batch=files.slice();let errors=0;
+      for(let i=0;i<batch.length;i++){
+        const f=batch[i];message('Compressing '+(i+1)+' / '+batch.length+'…');
+        try{
+          const out=await optimizePdf(f,settings);
+          const name=out.original?f.name:outputName(f.name);
+          outputs.push({name,blob:out.blob});
+          const row=document.createElement('div');row.className='pdfc-result-row';
+          const icon=document.createElement('span');icon.className='pdfc-queue-icon';icon.textContent='PDF';
+          const meta=document.createElement('div');meta.className='pdfc-queue-info';
+          const title=document.createElement('strong');title.textContent=name;
+          const detail=document.createElement('small');detail.textContent=formatSize(f.size)+' → '+formatSize(out.bytes)+' · '+out.saving.toFixed(1)+'% smaller';
+          meta.append(title,detail);
+          const button=document.createElement('button');button.type='button';button.className='btn';button.textContent='Download';
+          button.onclick=()=>download(out.blob,name);
+          row.append(icon,meta,button);results.append(row);
+        }catch(error){
+          errors++;
+          const line=document.createElement('p');line.className='pdfc-batch-error';line.textContent=f.name+': '+(error.message||'Could not compress PDF');results.append(line);
         }
-        downloadUrl = root.URL.createObjectURL(outcome.blob);
-        download.href = downloadUrl;
-        download.download = outcome.original ? file.name : outputName(file.name);
-        download.hidden = false;
-        message(outcome.reached === false ? 'Finished — size goal not reached.' :
-          'Finished — download your PDF.');
-      } catch (error) {
-        message(error && error.message ? error.message : 'This PDF could not be compressed.', true);
-      } finally {
-        progress.hidden = true;
-        busy = false;
-        updateControls();
       }
+      zip.hidden=outputs.length<2;progress.hidden=true;busy=false;updateControls();
+      message(errors?outputs.length+' completed · '+errors+' failed.':outputs.length+' PDF'+(outputs.length===1?'':'s')+' ready.',outputs.length===0);
     });
-    setLimit(10);
-    updateQuality();
-    updateTarget();
-    updateControls();
+    zip.onclick=async()=>{
+      if(!root.JSZip){message('ZIP library unavailable. Download files separately.',true);return}
+      zip.disabled=true;
+      try{const archive=new root.JSZip(),used=new Set();outputs.forEach(o=>{let name=o.name,n=2;while(used.has(name))name=o.name.replace(/(\\.pdf)$/i,'-'+(n++)+'$1');used.add(name);archive.file(name,o.blob)});
+      download(await archive.generateAsync({type:'blob'}),'compressed-pdfs.zip')}
+      catch(e){message('ZIP creation failed: '+e.message,true)}
+      finally{zip.disabled=false}
+    };
+    qualityValue.textContent=quality.value+'%';
+    targetOptions.hidden=!toggle.checked;
+    render();message('');
   }
 
   if (typeof document !== 'undefined') {

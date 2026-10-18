@@ -30,3 +30,6 @@
 .guide-article p a[href^="../"]:hover{color:#48248e;background:#f5eeff;text-decoration-color:#8054dc}
 .guide-article p a[href^="../"]:focus-visible{outline:2px solid #9672e6;outline-offset:3px}
 @media(max-width:640px){.guide-article .guide-expanded h2+ul:has(a[href^="../"]){grid-template-columns:1fr;gap:9px}.guide-article .guide-expanded h2+ul:has(a[href^="../"]) a{min-height:64px;padding:13px 40px 13px 15px}}
+
+/* Shared rounded eyebrow pill for guide library and article pages */
+.guide-main .guide-label{display:inline-flex;align-items:center;width:max-content;max-width:100%;padding:7px 12px;border-radius:999px;background:#f5f2ff;border:1px solid #ebe2ff;color:#6245d6;font-size:12px;font-weight:800;letter-spacing:.045em;line-height:1.4}

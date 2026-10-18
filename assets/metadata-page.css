@@ -52,3 +52,12 @@
 .ett-meta-simple small{display:block;margin-top:3px;color:#81758d;font-size:11px!important;font-weight:400;line-height:1.45}
 #meta-list:empty,#meta-results:empty{display:none!important;margin:0!important;padding:0!important}
 @media(max-width:500px){.ett-meta-simple>div{grid-template-columns:minmax(130px,48%) minmax(0,1fr)!important}.ett-meta-simple>div>div{padding:11px!important}}
+
+/* Image thumbnail beside inspection data, without squeezing the report. */
+#meta-results .ett-meta-inspect-result{display:flex;align-items:flex-start;gap:13px}
+#meta-results .ett-meta-inspect-result .ett-meta-result-thumb{flex:0 0 55px;width:55px;height:55px;max-width:55px;object-fit:cover;border:1px solid #eee8f5;border-radius:10px;background:#faf9fc}
+#meta-results .ett-meta-inspect-result .ett-meta-report{flex:1;min-width:0}
+#meta-results :is(button.btn,a.btn),#meta-list button.btn{
+ font-family:inherit!important;font-weight:700!important;font-size:13px!important;line-height:20px!important;letter-spacing:normal!important;
+}
+@media(max-width:530px){#meta-results .ett-meta-inspect-result{gap:9px}}

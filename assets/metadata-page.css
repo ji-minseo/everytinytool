@@ -13,3 +13,20 @@
 .ett-meta-table dt{font-size:11px;font-weight:750;color:#776a88;margin:0 0 5px}
 .ett-meta-table dd{font-size:13px;font-weight:700;color:#2e263a;line-height:1.55;margin:0;overflow-wrap:anywhere}
 @media(max-width:520px){.ett-meta-table{grid-template-columns:1fr}.ett-meta-table>div:nth-child(odd){border-right:0}.ett-meta-table>div:last-child{grid-column:auto}}
+
+/* Metadata Inspector is the shared visual reference for uploaded file queues. */
+#meta-count{display:none!important}
+.media-queue{display:grid;gap:10px;margin:12px 0}
+.media-queue .media-item,#meta-results>.media-item{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #ebe5f3;border-radius:14px;background:#fff}
+.media-queue .media-item>div,#meta-results>.media-item>div{flex:1;min-width:0}
+.media-queue .media-item strong{display:block;overflow-wrap:anywhere}
+.media-queue .media-preview{width:55px;height:55px;object-fit:cover;border-radius:10px;background:#f7f4fb}
+.ett-meta-report{width:100%;min-width:0}
+.ett-meta-report>strong{display:block;margin-bottom:12px;overflow-wrap:anywhere}
+.ett-meta-table{margin:0;display:grid;border:1px solid #eae2f3;border-radius:12px;overflow:hidden}
+.ett-meta-table>div{display:grid;grid-template-columns:minmax(120px,35%) minmax(0,1fr);border-bottom:1px solid #eee8f4}
+.ett-meta-table>div:last-child{border-bottom:0}
+.ett-meta-table dt,.ett-meta-table dd{padding:12px 14px;margin:0;line-height:1.5;overflow-wrap:anywhere}
+.ett-meta-table dt{font-weight:700;color:#5f4d7b;background:#faf7ff}
+.ett-meta-table dd{color:#312a38}
+@media(max-width:550px){.ett-meta-table>div{grid-template-columns:110px minmax(0,1fr)}.ett-meta-table dt,.ett-meta-table dd{padding:10px}}

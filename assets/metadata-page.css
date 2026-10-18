@@ -2,3 +2,14 @@
 /* Match the main toolbox dropzone interactions. */
 .dropzone{transition:background-color .18s ease,border-color .18s ease,box-shadow .18s ease}
 .dropzone:is(:hover,.dragover,.drag-over){background:#f5f0ff;border-color:#a68be9;box-shadow:0 0 0 2px rgba(124,92,252,.045)}
+
+/* Metadata Inspector: labeled values instead of a crowded one-line summary. */
+.ett-meta-report{min-width:0;width:100%}
+.ett-meta-report>strong{display:block;font-size:14px;margin-bottom:12px;overflow-wrap:anywhere}
+.ett-meta-table{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border:1px solid #e8e3f1;border-radius:12px;overflow:hidden;margin:0}
+.ett-meta-table>div{padding:12px 14px;background:#fcfbff;border-bottom:1px solid #eee9f5;min-width:0}
+.ett-meta-table>div:nth-child(odd){border-right:1px solid #eee9f5}
+.ett-meta-table>div:last-child{grid-column:1/-1;border-bottom:0;border-right:0}
+.ett-meta-table dt{font-size:11px;font-weight:750;color:#776a88;margin:0 0 5px}
+.ett-meta-table dd{font-size:13px;font-weight:700;color:#2e263a;line-height:1.55;margin:0;overflow-wrap:anywhere}
+@media(max-width:520px){.ett-meta-table{grid-template-columns:1fr}.ett-meta-table>div:nth-child(odd){border-right:0}.ett-meta-table>div:last-child{grid-column:auto}}

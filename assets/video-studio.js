@@ -28,6 +28,20 @@ function init(){
  const format=$('vs-format'),size=$('vs-size'),rate=$('vs-bitrate'),download=$('vs-download');
  const supported=outputFormats(root.MediaRecorder),canEncode=supported.length>0&&typeof root.HTMLCanvasElement?.prototype?.captureStream==='function',names={webm:'WebM',mp4:'MP4'};
  let file=null,source=null,output=null,busy=false,abort=false,recorder=null,video=null,stream=null,audioContext=null,decodedDuration=0,frames=0;
+ let queue=[],batchProcessing=false,batchCancelled=false,batchOutputs=[];
+ const batchBox=$('vs-batch'),batchList=$('vs-batch-list');
+ function clearBatchOutputs(){for(const url of batchOutputs)URL.revokeObjectURL(url);batchOutputs=[];}
+ function setQueue(items){
+  queue=items.slice(0,3);
+  clearBatchOutputs();batchList.replaceChildren();batchBox.hidden=queue.length<2;
+  if(queue.length<2)return;
+  for(const item of queue){
+   const row=document.createElement('div');row.className='ett-batch-row';
+   const name=document.createElement('span');name.textContent=item.name+' · '+bytesText(item.size);
+   const state=document.createElement('strong');state.textContent='Ready';
+   row.append(name,state);batchList.appendChild(row);
+  }
+ }
  function report(msg,error=false){status.textContent=msg;status.dataset.error=String(error);}
  function cleanup(){stream?.getTracks().forEach(t=>t.stop());stream=null;if(video){video.pause();video.removeAttribute('src');video.load();video=null;}if(audioContext){audioContext.close().catch(()=>{});audioContext=null;}recorder=null;}
  function setBusy(v){busy=v;input.disabled=v||!canEncode;choose.disabled=v||!canEncode;run.disabled=v||!file||!canEncode;cancel.hidden=!v;format.disabled=v||!canEncode;size.disabled=v||!canEncode;rate.disabled=v||!canEncode;}
@@ -35,7 +49,7 @@ function init(){
  function resetInput(next){
   if(busy)return;
   resetOutput();if(source)URL.revokeObjectURL(source);source=null;file=null;
-  if(!next){options.hidden=true;preview.hidden=true;preview.removeAttribute('src');$('vs-dropzone').classList.remove('has-video');input.value='';report('Choose a video to start.');setBusy(false);return;}
+  if(!next){setQueue([]);options.hidden=true;preview.hidden=true;preview.removeAttribute('src');$('vs-dropzone').classList.remove('has-video');input.value='';report('Choose a video to start.');setBusy(false);return;}
   const err=limits(next);if(err){report(err,true);return;}
   file=next;source=URL.createObjectURL(file);preview.src=source;preview.hidden=false;$('vs-dropzone').classList.add('has-video');options.hidden=false;
   $('vs-file-name').textContent=file.name||'Video';
@@ -50,12 +64,17 @@ function init(){
  choose.addEventListener('click',openPicker);
  $('vs-dropzone').addEventListener('click',e=>{if(e.target===input||e.target.closest?.('button,input,label,a,video'))return;openPicker();});
  $('vs-dropzone').addEventListener('keydown',e=>{if(e.target!==$('vs-dropzone')||!['Enter',' '].includes(e.key))return;e.preventDefault();openPicker();});
- input.addEventListener('change',()=>{if(input.files?.[0])resetInput(input.files[0]);});
+ input.addEventListener('change',()=>{
+  const files=Array.from(input.files||[]);
+  if(!files.length)return;
+  resetInput(files[0]);setQueue(files);
+  if(files.length>3)report('Only the first 3 clips will be processed.');
+ });
  ['dragover','dragenter'].forEach(t=>$('vs-dropzone').addEventListener(t,e=>{e.preventDefault();if(!busy)$('vs-dropzone').classList.add('dragover');}));
- ['drop','dragleave'].forEach(t=>$('vs-dropzone').addEventListener(t,e=>{e.preventDefault();$('vs-dropzone').classList.remove('dragover');if(t==='drop'&&!busy&&e.dataTransfer?.files?.[0])resetInput(e.dataTransfer.files[0]);}));
+ ['drop','dragleave'].forEach(t=>$('vs-dropzone').addEventListener(t,e=>{e.preventDefault();$('vs-dropzone').classList.remove('dragover');if(t==='drop'&&!busy&&e.dataTransfer?.files?.[0]){const files=Array.from(e.dataTransfer.files);resetInput(files[0]);setQueue(files);}}));
  $('vs-clear').addEventListener('click',()=>resetInput(null));
  for(const id of ['vs-size','vs-bitrate','vs-format'])$(id).addEventListener('change',resetOutput);
- cancel.addEventListener('click',()=>{abort=true;report('Stopping video processing…');recorder?.state==='recording'&&recorder.stop();if(video)video.pause();});
+ cancel.addEventListener('click',()=>{batchCancelled=true;abort=true;report('Stopping video processing…');recorder?.state==='recording'&&recorder.stop();if(video)video.pause();});
  async function encode(){
   if(!file||busy)return;
   const choice=getOutputType(supported,format.value);if(!choice){report('Choose a supported output format.',true);return;}
@@ -116,11 +135,39 @@ function init(){
    $('vs-size-note').textContent=blob.size<file.size?'Saved '+Math.round((1-blob.size/file.size)*100)+'% of original size':'Output is larger than the original. Try a lower bitrate or smaller resolution.';
    result.hidden=false;progress.value=100;$('vs-percent').textContent='100%';
    report('Video ready! Download the processed file.');
+   return {url:output,filename:outputName(file.name,choice.ext),bytes:blob.size};
   }catch(e){report(e?.message||'Video conversion failed. Try a different browser or input format.',true);}
   finally{if(timeoutHandle)root.clearTimeout(timeoutHandle);cleanup();progress.hidden=true;setBusy(false);}
  }
- run.addEventListener('click',encode);
- root.addEventListener?.('pagehide',()=>{abort=true;if(recorder?.state==='recording')recorder.stop();cleanup();if(source)URL.revokeObjectURL(source);if(output)URL.revokeObjectURL(output);});
+ run.addEventListener('click',async()=>{
+  if(!file||busy||batchProcessing)return;
+  const files=queue.length?queue.slice():[file],firstUrl=source,firstFile=file;
+  batchProcessing=true;batchCancelled=false;
+  let successes=0,failures=0;
+  for(let i=0;i<files.length;i++){
+   if(batchCancelled)break;
+   const item=files[i],row=batchList.children[i],state=row?.querySelector('strong');
+   file=item;
+   source=i===0?firstUrl:URL.createObjectURL(item);
+   if(state)state.textContent='Encoding…';
+   const encoded=await encode();
+   if(encoded){
+    successes++;
+    if(files.length>1){
+     batchOutputs.push(encoded.url);
+     if(state)state.textContent=bytesText(encoded.bytes);
+     const link=document.createElement('a');link.href=encoded.url;link.download=encoded.filename;link.textContent='Download ↓';
+     row?.appendChild(link);
+     output=null; // Batch links retain ownership, do not revoke on the next encode.
+    }
+   }else{failures++;if(state){state.textContent=batchCancelled?'Stopped':'Could not convert';state.classList.add('ett-error');}}
+   if(i!==0){URL.revokeObjectURL(source);}
+  }
+  source=firstUrl;file=firstFile;batchProcessing=false;
+  if(files.length>1)report('Finished '+successes+' of '+files.length+' videos'+(batchCancelled?' · stopped early':'')+'. Download completed clips individually.',successes===0);
+  setBusy(false);
+ });
+ root.addEventListener?.('pagehide',()=>{abort=true;if(recorder?.state==='recording')recorder.stop();cleanup();if(source)URL.revokeObjectURL(source);if(output)URL.revokeObjectURL(output);clearBatchOutputs();});
  options.hidden=true;result.hidden=true;cancel.hidden=true;
  setBusy(false);
 }

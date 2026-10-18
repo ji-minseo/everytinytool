@@ -25,7 +25,7 @@
  width:auto!important;min-width:140px!important;height:44px!important;min-height:44px!important;
  margin:0!important;padding:0 18px!important;border:1px solid #d9ccef!important;border-radius:12px!important;
  background:#f0e9ff!important;color:var(--ett-drop-purple)!important;box-shadow:none!important;
- font:700 13px/1.3 inherit!important;text-decoration:none!important;white-space:nowrap!important
+ font-family:inherit!important;font-size:13px!important;font-weight:700!important;line-height:1.3!important;letter-spacing:0!important;text-decoration:none!important;white-space:nowrap!important
 }
 :is(.hub-inline-dropzone,.is-dropzone,.bg-dropzone,.pdfc-dropzone,.vs-dropzone,#meta-drop) :is(.hub-inline-pick,#is-choose,#bg-choose,#pdf-choose,#vs-choose,.btn):hover{background:#e7dcff!important}
 :is(.is-dropzone,.bg-dropzone,.pdfc-dropzone,.vs-dropzone).has-image,
@@ -44,3 +44,13 @@
 /* Consistent empty states for all embeds / homepage. */
 :is(.hub-upload-list,.hub-inline-results,.media-queue,.pdfc-queue,.pdfc-batch-results,.ett-batch-list):empty{display:none!important;margin:0!important;padding:0!important;min-height:0!important}
 :is(.hub-inline-controls,.ett-batch,.pdfc-file,.file-summary)[hidden]{display:none!important;margin:0!important;padding:0!important}
+
+/* Dropzone action typography, shared across Image, PDF, Video and Metadata. */
+:is(.is-dropzone,.pdfc-dropzone,.vs-dropzone,#meta-drop) :is(button#is-choose,button#pdf-choose,button#vs-choose,.btn,.button),
+.hub-inline-dropzone .hub-inline-pick{
+ box-sizing:border-box!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ min-width:140px!important;height:44px!important;min-height:44px!important;padding:0 18px!important;
+ font-family:inherit!important;font-size:13px!important;font-weight:700!important;line-height:1.3!important;
+ letter-spacing:0!important;text-transform:none!important;
+ border:1px solid #d9ccef!important;border-radius:12px!important;background:#f0e9ff!important;color:#55349c!important;box-shadow:none!important
+}

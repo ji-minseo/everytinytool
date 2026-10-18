@@ -76,3 +76,6 @@
  .hub-explore{margin-top:50px}
 }
 @media(prefers-reduced-motion:reduce){.hub-capsules button,.hub-subcaps button,.hub-banner,.hub-more-grid a{transition:none}}
+
+/* Compact toolbox headline; keep tool navigation immediately in view. */
+.hub-tools-head h1{font-size:clamp(28px,3.3vw,39px)!important;line-height:1.12!important;letter-spacing:-.045em!important;margin:10px 0 0!important;font-weight:850!important}

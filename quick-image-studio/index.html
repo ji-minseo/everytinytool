@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Resize & Compress Image Online — JPG, PNG, WebP | Every Tiny Tool</title>
+<meta name="description" content="Resize images, reduce photo file size and convert between JPG, PNG and WebP. Preview sizes before and after. Free browser-based image optimizer, no upload or sign-up.">
+<meta name="google-site-verification" content="CBlkb_437tiJ5H-kUBL7O8dh-hd-sO5K0XpoibZ67Dg">
+<link rel="canonical" href="https://everytinytool.com/quick-image-studio/">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="../assets/styles.css?v=20261018-workspace-1">
+<link rel="stylesheet" href="../assets/quick-image-studio.css?v=20261018-img-studio-1">
+<script defer src="../assets/quick-image-studio.js?v=20261018-img-studio-1"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Quick Image Studio — Resize, Compress and Convert","url":"https://everytinytool.com/quick-image-studio/","applicationCategory":"MultimediaApplication","operatingSystem":"Modern web browser","isAccessibleForFree":true,"description":"Resize, compress and convert JPG, PNG and WebP images locally in a web browser."}</script>
+</head><body><div class="shell">
+<header class="topbar"><a class="brand" href="../">Every Tiny Tool <span>✦</span></a><nav class="nav" aria-label="Primary navigation"><a href="../">Home</a><a href="../#more-tools">Tools</a><a href="../about/">About</a><a href="../privacy/">Privacy</a><a href="../contact/">Contact</a></nav></header>
+<main class="is-main" id="image-studio">
+<section class="is-hero"><a href="../" class="utility-back">← All tiny tools</a><span class="eyebrow">Everyday photo tools · All in one</span><h1>Quick Image Studio<span class="is-dot">.</span></h1><p>One image, three jobs: resize its dimensions, reduce its file size, or change its format. Preview the result before downloading — right in your browser.</p><div class="is-pill-row"><span>Private · No photo upload</span><span>JPG · PNG · WebP</span><span>No account</span></div></section>
+<section class="is-panel" aria-label="Image optimization tool">
+<div class="is-dropzone" id="is-dropzone" tabindex="0" role="group" aria-label="Image upload area. Click or press Enter or Space to select a photo, or drag and drop an image.">
+<input id="is-file" class="is-file-input" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" aria-label="Choose a JPG, PNG or WebP image">
+<div class="is-upload-icon" aria-hidden="true">🖼️</div><h2>Drop an image here</h2><p>JPEG, PNG or WebP · Up to 25 MB</p><button type="button" class="button" id="is-choose">Choose an image</button></div>
+<div id="is-details" hidden>
+<div class="is-file-line"><div><strong id="is-file-name">photo.jpg</strong><span id="is-input-size">—</span></div><button type="button" id="is-clear" class="is-quiet">Remove image</button></div>
+<div class="is-settings-head"><span class="is-number">01</span><div><h2>Choose your output</h2><p>Keep proportions automatically, or pick the original size to convert and compress only.</p></div></div>
+<div class="is-options">
+<div class="is-control is-size-control"><label for="is-size-mode">Image sizing</label><select id="is-size-mode"><option value="width">Resize to width</option><option value="height">Resize to height</option><option value="percent">Scale by percent</option><option value="original">Keep original dimensions</option></select></div>
+<div class="is-control"><label id="is-size-value-label" for="is-size-value">Width (px)</label><input id="is-size-value" type="number" min="1" max="12000" step="1" value="1200" inputmode="numeric"></div>
+<div class="is-control"><label for="is-format">Export format</label><select id="is-format"><option value="image/jpeg">JPG · small photos</option><option value="image/png">PNG · transparency</option><option value="image/webp">WebP · efficient</option></select></div>
+</div>
+<div class="is-presets" role="group" aria-label="Popular target widths"><span>Popular sizes</span><button type="button" data-is-preset="640">640 px</button><button type="button" data-is-preset="1080">1080 px</button><button type="button" data-is-preset="1200">1200 px</button><button type="button" data-is-preset="1920">1920 px</button></div>
+<label class="is-checkline" for="is-upscale"><input id="is-upscale" type="checkbox"> Allow upscaling smaller images (may look blurry)</label>
+<div class="is-options is-options-secondary">
+<div class="is-control" id="is-quality-box"><label for="is-quality">Quality <strong id="is-quality-label">82%</strong></label><input id="is-quality" type="range" min="20" max="100" step="1" value="82"></div>
+<div class="is-control"><label for="is-target">Target size (KB) <small>optional</small></label><input id="is-target" type="number" min="0" step="1" value="0" placeholder="e.g. 250"></div>
+<div class="is-control" id="is-background-box"><label for="is-background">Transparent area for JPG / WebP</label><select id="is-background"><option value="white">White</option><option value="black">Black</option><option value="custom">Custom color</option></select></div>
+<div class="is-control" id="is-custom-box" hidden><label for="is-custom-color">Custom background</label><input id="is-custom-color" type="color" value="#ffffff"></div>
+</div>
+<p id="is-target-note" class="is-hint">Optional target is best effort and may not be achievable at this resolution.</p>
+<div class="is-output-hint">Estimated output dimensions: <strong id="is-output-size">—</strong></div>
+<div class="is-process-row"><button id="is-run" type="button" class="button" disabled>Process image ↗</button><p>Pixels are processed on your device.</p></div>
+</div>
+<p id="is-status" class="is-status" role="status" aria-live="polite">Choose a photo to start. Nothing is uploaded to our server.</p>
+<div id="is-result" class="is-result" hidden aria-labelledby="is-result-title">
+<div class="is-settings-head"><span class="is-number">02</span><div><h2 id="is-result-title">Image ready</h2><p>Compare your original to the optimized version.</p></div></div>
+<div class="is-preview-grid"><div><strong>Original</strong><div class="is-preview-frame"><img id="is-before" alt="Original image before processing"></div></div><div><strong>Processed</strong><div class="is-preview-frame is-checker"><img id="is-after" alt="Resized or compressed image after processing"></div></div></div>
+<div class="is-result-summary"><div><span>Output</span><strong id="is-output-summary">—</strong></div><div><span>File size</span><strong id="is-saving">—</strong></div></div>
+<a href="#" class="button is-download" id="is-download" download>Download optimized image ↓</a>
+</div>
+</section>
+<section class="is-guide">
+<span class="eyebrow">Why use Quick Image Studio?</span><h2>Resize, compress and convert in one step.</h2>
+<div class="is-cases"><article><h3>Get the right dimensions</h3><p>Scale a photo to a common width like 1080 or 1920 pixels, or enter an exact width or height. The other dimension changes proportionally, so your image won't stretch.</p></article><article><h3>Reduce image file size</h3><p>Export JPG or WebP at adjustable quality, and optionally try for a target file size. The browser encodes your image locally. A target size is best effort; the result may be bigger than the original.</p></article><article><h3>Choose a compatible format</h3><p>Need a transparent PNG for a design, a regular JPG for a form or a WebP for a website? Export in the format you need, with a before-and-after visual preview.</p></article></div>
+<h2>How it works</h2><p>Upload a JPG, PNG or WebP, choose width, height or percentage and select your format. The aspect ratio stays locked. Press Process image to create a file locally using browser canvas APIs, then review dimensions and size before downloading.</p><p>Images are not uploaded to Every Tiny Tool servers. A maximum input of 25 MB and decoded size of 24 megapixels helps avoid browser memory problems. Color profiles, EXIF metadata and some advanced transparency information may change during export.</p>
+<h2>Frequently asked questions</h2><div class="utility-faq">
+<details><summary>How do I resize a photo without stretching it?</summary><p>Choose Resize to width or Resize to height, then enter the target dimension. The other dimension is calculated automatically to maintain the original aspect ratio.</p></details>
+<details><summary>Will reducing dimensions make the file smaller?</summary><p>Usually, but not always. File size also depends on image content, output format and quality. Check the actual file size in the result before downloading.</p></details>
+<details><summary>Can I resize a picture to 1080 pixels wide?</summary><p>Yes. Select the 1080 px preset, process and download. If the original is smaller, enable Allow upscaling to enlarge it.</p></details>
+<details><summary>How do I turn a PNG into a JPG?</summary><p>Choose JPG as the export format. Transparent regions are composited over the background color you select because JPG doesn't support transparency.</p></details>
+<details><summary>Does PNG use the quality slider?</summary><p>No. PNG uses lossless encoding in this tool, so the quality slider and target size search do not apply to PNG exports.</p></details>
+<details><summary>Can I process multiple images?</summary><p>This quick tool handles one file at a time so you can inspect the result. For batch converters and compressors, use <a href="https://image.everytinytool.com/">Image Everything</a>.</p></details>
+</div></section>
+<aside class="utility-related"><div><span class="eyebrow">More image tools</span><h2>Need something more specialized?</h2><p>More ways to finish an image or PDF task.</p></div><div class="utility-related-links"><a href="https://image.everytinytool.com/pdf-compressor/">Compress a PDF →</a><a href="https://image.everytinytool.com/remove-background/">AI Background Remover →</a><a href="https://image.everytinytool.com/">Browse Image Everything →</a></div></aside>
+</main><footer class="footer"><span>Every Tiny Tool ✦ Small tools for everyday tasks.</span><div class="footer-links"><a href="../about/">About</a><a href="../privacy/">Privacy</a><a href="../contact/">Contact</a></div></footer>
+</div></body></html>

@@ -1,0 +1,145 @@
+/* PDF Compressor · local enhancements only.
+   Overall width, headings, form panels, navigation, footer and sections use
+   the shared Image Everything assets/styles.css for visual consistency. */
+.pdfc-page [hidden]{display:none!important}
+.pdfc-page .pdfc-panel{width:100%;max-width:none}
+.pdfc-page .pdfc-dropzone{min-height:240px;cursor:pointer}
+.pdfc-page .pdfc-dropzone:focus-visible{
+  outline:3px solid var(--accent);
+  outline-offset:4px;
+}
+.pdfc-file:not([hidden]){
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px
+}
+.pdfc-file-main{display:flex;align-items:center;min-width:0;gap:12px}
+.pdfc-file-icon{
+  display:grid;place-items:center;flex:none;
+  width:48px;height:54px;border-radius:11px;
+  color:#6b4ad2;background:#efe9ff;
+  font-size:12px;font-weight:900
+}
+.pdfc-file-meta{display:grid;gap:2px;min-width:0}
+.pdfc-file-meta strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
+.pdfc-file-meta span{font-size:12px;color:var(--muted)}
+.pdfc-file-remove{flex:none;padding:9px 12px!important;font-size:12px}
+.pdfc-controls{margin-top:22px}
+.pdfc-control-hint{margin:0 0 13px;color:var(--muted);font-size:13px;line-height:1.6}
+.pdfc-preset-row{gap:9px}
+.pdfc-preset-row .preset-btn{
+  padding:11px 17px;
+  font-size:13px;
+  min-height:44px
+}
+.pdfc-limit-field{
+  display:flex;align-items:center;
+  justify-content:space-between;
+  gap:14px;flex-wrap:wrap;
+  margin-top:18px
+}
+.pdfc-limit-field>label{margin:0!important}
+.pdfc-input-suffix{
+  display:flex;align-items:center;
+  max-width:180px;
+  width:100%;
+  border:1px solid #e5e1ef;border-radius:14px;background:#fff;
+  overflow:hidden
+}
+.pdfc-input-suffix:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.pdfc-input-suffix input{
+  border:0!important;box-shadow:none!important;
+  outline:0;text-align:right;min-width:0;padding:11px 9px
+}
+.pdfc-input-suffix span{padding-right:13px;color:#7b7187;font-size:12px;font-weight:800}
+.pdfc-note{
+  border:1px solid #e9e4f2;
+  background:#faf9fd;
+  border-radius:14px;
+  padding:13px 15px;
+  line-height:1.65
+}
+.pdfc-note strong{color:#5543a2}
+.pdfc-actions{margin-top:18px}
+.pdfc-status{margin:9px 0 0;color:var(--muted);font-size:12px;line-height:1.5}
+.pdfc-status[data-error="true"]{color:#b34252;font-weight:750}
+.pdfc-progress{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  margin-top:19px;
+  padding:15px 16px;border-radius:16px;
+  border:1px solid #e9e3f8;background:#faf9fd;
+  font-size:13px
+}
+.pdfc-progress span:last-child{color:var(--muted);font-size:12px}
+.pdfc-spinner{
+  width:19px;height:19px;flex:none;
+  border:3px solid #e0d9f5;border-top-color:var(--accent);
+  border-radius:50%;animation:pdfc-spin .8s linear infinite
+}
+@keyframes pdfc-spin{to{transform:rotate(360deg)}}
+.pdfc-result{margin-top:24px}
+.pdfc-result .compression-bar.original{width:100%}
+.pdfc-result .compression-bar.compressed{width:0}
+.pdfc-result .compression-summary-head strong{font-size:22px}
+.pdfc-saving{margin:17px 0 0;color:#665a78;font-size:13px}
+.pdfc-saving strong{color:#5f42d3;font-size:19px}
+.pdfc-result-message{color:#716979;font-size:12px;line-height:1.6;margin:9px 0 0}
+.pdfc-guide{width:100%;max-width:none}
+.pdfc-guide>p{max-width:850px;color:#666;line-height:1.75}
+.pdfc-page .faq-list{margin-top:13px}
+.pdfc-page .faq-list details{background:#faf9fd}
+@media(max-width:720px){
+  .pdfc-file-meta strong{max-width:60vw}
+  .pdfc-preset-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .pdfc-preset-row .preset-btn{padding:10px 6px;font-size:12px}
+  .pdfc-result .compression-summary-head strong{font-size:20px}
+  .pdfc-page .pdfc-dropzone{min-height:240px}
+  .pdfc-page .pdfc-panel{max-width:none}
+}
+@media(max-width:460px){
+  .pdfc-file-meta strong{max-width:44vw}
+  .pdfc-limit-field{align-items:stretch}
+  .pdfc-input-suffix{max-width:none}
+  .pdfc-page .compression-row{grid-template-columns:69px minmax(0,1fr) 72px;gap:8px}
+  .pdfc-page .compression-row>strong{font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){.pdfc-spinner{animation:none}}
+
+/* Quality-first PDF compressor: same two-column controls as JPG Compressor. */
+.pdfc-page .pdfc-settings-row{align-items:start;gap:16px}
+.pdfc-page .pdfc-settings-row>.control{min-width:0}
+.pdfc-page #pdf-quality{margin:4px 0 7px}
+.pdfc-page #pdf-quality-value{color:var(--accent-strong);font-weight:850;margin-left:4px}
+.pdfc-page .pdfc-target-control{padding:0;min-width:0}
+.pdfc-page .pdfc-target-toggle{
+  display:flex;align-items:center;gap:8px;margin-bottom:9px;
+  font-size:13px;font-weight:800;cursor:pointer
+}
+.pdfc-page .pdfc-target-toggle input{
+  flex:none;width:17px;height:17px;accent-color:var(--accent);
+  margin:0
+}
+.pdfc-page .pdfc-target-toggle .optional{font-size:11px;color:var(--muted);font-weight:650}
+.pdfc-page .pdfc-target-options{margin-top:12px;padding:14px;border:1px solid #eee9fa;background:#fbfaff;border-radius:16px}
+.pdfc-page .pdfc-preset-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.pdfc-page .pdfc-preset-row .preset-btn{
+  min-height:40px;padding:9px 5px;font-size:11px;line-height:1.3
+}
+.pdfc-page .pdfc-limit-field{margin-top:12px;gap:8px}
+.pdfc-page .pdfc-limit-field>label{font-size:12px!important;font-weight:750}
+.pdfc-page .pdfc-input-suffix{max-width:140px}
+.pdfc-page .pdfc-input-suffix input{min-height:40px;padding:8px}
+.pdfc-page .pdfc-target-note{
+  margin:9px 0 0;font-size:11px;color:#716778;line-height:1.55
+}
+@media(max-width:720px){
+  .pdfc-page .pdfc-settings-row{grid-template-columns:minmax(0,1fr);gap:20px}
+  .pdfc-page .pdfc-target-control{padding-top:16px;border-top:1px solid #efebf5}
+  .pdfc-page .pdfc-input-suffix{max-width:180px}
+}
+@media(max-width:440px){
+  .pdfc-page .pdfc-preset-row{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .pdfc-page .pdfc-target-options{padding:11px}
+  .pdfc-page .pdfc-preset-row .preset-btn{font-size:11px;min-width:0}
+}

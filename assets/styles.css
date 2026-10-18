@@ -464,3 +464,27 @@ h1{
 .workspace-local-card{background:#FBF9FF;border-color:#E7DEFF}
 @media(max-width:720px){.workspace-feature{grid-template-columns:1fr;padding:24px;gap:15px}.workspace-feature-demo{max-width:540px}}
 @media(max-width:440px){.workspace-feature{padding:19px}.workspace-feature-links .button{width:100%;text-align:center}.workspace-feature-demo{padding:14px}}
+
+/* Functional homepage quick image resizing, using established Every Tiny Tool cards. */
+.home-image-quick{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;padding:30px;margin:0 0 35px;border:1px solid #e3e0ef;border-radius:26px;background:#faf9ff}
+.home-image-quick-copy h2{font-size:clamp(30px,4.4vw,47px);letter-spacing:-.05em;line-height:1.1;margin:15px 0 12px}
+.home-image-quick-copy p{color:var(--muted);font-size:14px;line-height:1.75;max-width:490px}
+.home-image-full-link{display:inline-block;margin-top:9px;font-size:13px;font-weight:850;color:#6245cf}
+.home-image-quick-form{display:grid;gap:9px;background:#fff;border-radius:19px;border:1px solid #e7e2ef;padding:18px;min-width:0}
+.home-image-quick-form label{font-size:12px;font-weight:800;color:#464050}
+.home-image-quick-form input[type=file]{width:100%;min-width:0;border:1px solid #e7e2ed;background:#faf9fc;border-radius:11px;padding:10px;font:12px inherit}
+.home-image-quick-form select{border:1px solid #ded9e9;border-radius:11px;background:#fff;padding:11px;color:#322d3d;font:13px inherit}
+.home-image-quick-form button{border:0;cursor:pointer}
+.home-image-quick-form button:disabled{opacity:.48;cursor:not-allowed}
+.home-image-inline-preview{display:flex;align-items:center;gap:12px;min-height:55px}
+.home-image-inline-preview img{object-fit:contain;width:55px;height:55px;border:1px solid #e9e4f0;border-radius:10px}
+.home-image-inline-preview img[hidden]{display:none}
+.home-image-inline-preview span{font-size:11px;color:var(--muted);overflow-wrap:anywhere}
+.home-image-download{width:100%;background:#6545ce}
+.home-image-download[hidden]{display:none}
+.home-image-result{color:#5b4a8b;margin:0;font-size:12px;font-weight:850}
+.home-image-status{color:var(--muted);font-size:11px;margin:0;line-height:1.65}
+.home-image-status[data-error=true]{color:#b73554}
+.image-local-card{background:#f8faff;border-color:#e0e8fb}
+@media(max-width:760px){.home-image-quick{grid-template-columns:1fr;padding:23px}}
+@media(max-width:440px){.home-image-quick{padding:17px}.home-image-quick-form{padding:13px}}

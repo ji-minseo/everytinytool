@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tiny Workspace — Clean, Compare & Export Lists | Every Tiny Tool</title>
+<meta name="description" content="Turn messy lists into clean files using step-by-step workflows. Remove duplicates, sort, filter, find and replace, compare two lists and export TXT, CSV or JSON. Free in-browser tool.">
+<meta name="google-site-verification" content="CBlkb_437tiJ5H-kUBL7O8dh-hd-sO5K0XpoibZ67Dg">
+<link rel="canonical" href="https://everytinytool.com/workspace/">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="../assets/styles.css?v=20261018-hub-review-1">
+<link rel="stylesheet" href="../assets/tiny-workspace.css?v=20261018-workspace-1">
+<script defer src="../assets/tiny-workspace.js?v=20261018-workspace-1"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Tiny Workspace — List Processing Workflows","url":"https://everytinytool.com/workspace/","applicationCategory":"UtilitiesApplication","operatingSystem":"Modern browser","isAccessibleForFree":true,"description":"Clean, transform and compare text lists using a sequence of operations, with TXT, CSV and JSON exports."}</script>
+</head><body><div class="shell">
+<header class="topbar"><a class="brand" href="../">Every Tiny Tool <span>✦</span></a><nav class="nav" aria-label="Primary navigation"><a href="../">Home</a><a href="../#more-tools">Tools</a><a href="../about/">About</a><a href="../privacy/">Privacy</a><a href="../contact/">Contact</a></nav></header>
+<main class="workspace-page" id="workspace">
+<section class="workspace-hero">
+<a class="utility-back" href="../">← All tiny tools</a>
+<span class="eyebrow">A better way to handle messy lists</span>
+<h1>Tiny Workspace<span class="workspace-period">.</span></h1>
+<p>Paste a list once. Chain steps like <strong>clean → deduplicate → filter → sort</strong>, see every intermediate result, compare against another list and download exactly what you need.</p>
+<div class="workspace-meta"><span>Free · No account</span><span>Private browser processing</span><span>Up to 10,000 lines</span></div>
+</section>
+<section class="ws-workbench" aria-label="List processing workspace">
+<div class="ws-toolbar"><div><span class="ws-kicker">01 / INPUT</span><h2>Start with your data</h2><p>Paste one item per line. Try an example to see a complete workflow.</p></div><div class="ws-toolbar-actions"><button class="ws-minor" id="ws-example" type="button">Try example</button><button class="ws-minor" id="ws-clear-all" type="button">Clear all</button></div></div>
+<div class="ws-columns">
+<div class="ws-field"><label for="ws-input">Your list</label><textarea id="ws-input" rows="10" maxlength="200000" spellcheck="false" placeholder="Apple&#10;Banana&#10;apple&#10;Orange&#10;Banana"></textarea></div>
+<div class="ws-field"><label for="ws-output">Result <small>updates automatically</small></label><textarea id="ws-output" rows="10" readonly spellcheck="false" placeholder="Your cleaned result will appear here."></textarea></div>
+</div>
+<div class="ws-metrics" aria-label="Live workflow totals"><div><span>Original lines</span><strong id="ws-original-count">0</strong></div><div><span>Result lines</span><strong id="ws-result-count">0</strong></div><div><span>Fewer lines</span><strong id="ws-removed-count">0</strong></div></div>
+<div class="ws-section-heading"><div><span class="ws-kicker">02 / BUILD</span><h2>Build your own workflow</h2><p>Choose steps in order. Dragging isn't required — move them with the arrows to change the sequence.</p></div><button id="ws-default" type="button" class="ws-minor">Reset to defaults</button></div>
+<div class="ws-editor">
+<div><h3>Add a step</h3><div class="ws-palette" aria-label="Available workflow steps">
+<button type="button" data-ws-step="trim">Trim spaces <span>+</span></button>
+<button type="button" data-ws-step="blank">Remove blanks <span>+</span></button>
+<button type="button" data-ws-step="unique">Remove duplicates <span>+</span></button>
+<button type="button" data-ws-step="sort">Sort A–Z <span>+</span></button>
+<button type="button" data-ws-step="lower">lowercase <span>+</span></button>
+<button type="button" data-ws-step="upper">UPPERCASE <span>+</span></button>
+<button type="button" data-ws-step="filter">Filter by keyword <span>+</span></button>
+<button type="button" data-ws-step="replace">Find &amp; replace <span>+</span></button>
+<button type="button" data-ws-step="prefix">Add prefix <span>+</span></button>
+<button type="button" data-ws-step="suffix">Add suffix <span>+</span></button>
+</div></div>
+<div><div class="ws-step-title"><h3>Your steps <small>order matters</small></h3><button id="ws-clear-steps" type="button" class="ws-text-button">Remove all</button></div><ol id="ws-stages" class="ws-steps"></ol><p class="ws-empty" id="ws-no-steps" hidden>No steps yet. Add an action from the left.</p></div>
+</div>
+<details class="ws-advanced" open><summary>Options for filtering, matching &amp; adding text</summary>
+<div class="ws-option-grid">
+<label class="ws-check"><input id="ws-matchCase" type="checkbox"> Case-sensitive matching</label>
+<label>Keep lines containing<input id="ws-query" type="text" maxlength="300" placeholder="e.g. green"></label>
+<label>Find text<input id="ws-find" type="text" maxlength="300" placeholder="e.g. old"></label>
+<label>Replace with<input id="ws-replacement" type="text" maxlength="300" placeholder="e.g. new"></label>
+<label>Prefix<input id="ws-prefix" type="text" maxlength="300" placeholder="e.g. SKU-"></label>
+<label>Suffix<input id="ws-suffix" type="text" maxlength="300" placeholder="e.g. -2026"></label>
+</div><p>These options apply only when their corresponding step is in your workflow. Find &amp; replace treats your search as ordinary text, not a regex.</p></details>
+<div class="ws-section-heading"><div><span class="ws-kicker">03 / REVIEW</span><h2>See every step</h2><p>Select a stage below to preview what changed. Downloads always use the final result.</p></div></div>
+<div id="ws-history" class="ws-history" aria-label="Step-by-step result history"></div>
+<p role="status" aria-live="polite" class="ws-status" id="ws-status">Paste your list or try the example.</p>
+<div class="ws-section-heading"><div><span class="ws-kicker">04 / OPTIONAL</span><h2>Compare with another list</h2><p>Find what's only in your processed list, shared by both lists or only in the reference list.</p></div>
+<label class="ws-toggle"><input type="checkbox" id="ws-compare-toggle"> Enable comparison</label></div>
+<div class="ws-reference" id="ws-reference-wrap" hidden><label for="ws-reference">Reference list · one item per line</label><textarea id="ws-reference" rows="5" maxlength="200000" spellcheck="false" placeholder="Apple&#10;Mango&#10;Banana"></textarea></div>
+<div class="ws-compare" id="ws-comparison" hidden>
+<div><div class="ws-compare-head"><label for="ws-only-a">Only in result <strong id="count-onlyA">0</strong></label><button type="button" data-ws-copy-group="onlyA">Copy</button></div><textarea readonly id="ws-only-a" rows="6"></textarea></div>
+<div><div class="ws-compare-head"><label for="ws-shared">In both <strong id="count-shared">0</strong></label><button type="button" data-ws-copy-group="shared">Copy</button></div><textarea readonly id="ws-shared" rows="6"></textarea></div>
+<div><div class="ws-compare-head"><label for="ws-only-b">Only in reference <strong id="count-onlyB">0</strong></label><button type="button" data-ws-copy-group="onlyB">Copy</button></div><textarea readonly id="ws-only-b" rows="6"></textarea></div>
+</div>
+<div class="ws-section-heading"><div><span class="ws-kicker">05 / FINISH</span><h2>Export or save your workflow</h2><p>Download clean data, or save your steps locally to repeat the same cleanup next time.</p></div></div>
+<div class="ws-export"><div class="ws-export-actions"><button id="ws-copy" type="button" class="button" disabled>Copy final result</button><label for="ws-format">Download as</label><select id="ws-format"><option value="txt">TXT</option><option value="csv">CSV</option><option value="json">JSON</option></select><button id="ws-download" type="button" class="button" disabled>Download ↓</button></div><div class="ws-recipes"><label for="ws-recipe-name">Name your workflow</label><input type="text" id="ws-recipe-name" maxlength="45" placeholder="e.g. Weekly product cleanup"><button id="ws-save-recipe" type="button" class="ws-minor">Save workflow</button><label for="ws-saved-recipe">Saved locally</label><select id="ws-saved-recipe"><option value="">Choose a saved workflow</option></select><button id="ws-load-recipe" type="button" class="ws-minor">Load</button><button id="ws-delete-recipe" type="button" class="ws-text-button">Delete</button></div><p class="ws-privacy">Only workflow settings are saved in your browser. Your pasted list stays on this page and is not sent to a server.</p></div>
+</section>
+<section class="ws-guide" aria-labelledby="ws-guide-title"><span class="eyebrow">The workflow advantage</span><h2 id="ws-guide-title">Clean messy data without switching between tools.</h2><div class="ws-info-grid">
+<article><h3>Product and SKU lists</h3><p>Paste product names, trim stray spaces, remove duplicate names, filter to a collection, add a SKU prefix and download a CSV ready for your spreadsheet. You can review every stage before exporting.</p></article>
+<article><h3>Compare two exports</h3><p>Clean two sets of names, then compare your processed list to a reference export. Spot new additions, missing names and shared entries without combining files manually.</p></article>
+<article><h3>Repeat the same cleanup</h3><p>Save a named workflow in this browser. Next week, load those steps and paste a new list. Only settings are saved — never the pasted data.</p></article>
+</div><h2>How to use Tiny Workspace</h2><p>Begin with one entry on each line. Choose a sequence from ten available transformations. Each step uses the previous step's output, so filtering before sorting gives a different preview path from sorting before filtering. Move steps with the arrows, remove any you don't need, and click a history chip to preview that stage.</p>
+<p>Use <strong>Compare with another list</strong> to see only-in-result, shared and only-in-reference entries. Comparison ignores duplicates and blank lines in each set; matching is case-insensitive by default. For export, select TXT, CSV (one column named <em>item</em>) or JSON (an array of strings).</p>
+<h2>Important limits</h2><p>Text is processed locally. Each input supports up to 200,000 characters and 10,000 lines. This workspace is designed for line-separated items, not complex spreadsheet tables: commas remain part of a line and quoted CSV columns are not parsed. For structured multi-column spreadsheets, use a dedicated spreadsheet app.</p>
+<h2>Frequently asked questions</h2><div class="utility-faq">
+<details><summary>What's different from a regular duplicate remover?</summary><p>A duplicate remover performs one action. Tiny Workspace lets you combine cleanup, keyword filtering, find and replace, sorting and prefix or suffix changes into one ordered sequence, previewing each stage and saving the steps for reuse.</p></details>
+<details><summary>Is the order of operations important?</summary><p>Yes. For example, trimming before duplicate removal makes " Apple " and "Apple" identical, while removing duplicates first may keep the different whitespace versions. Move steps to control exactly what happens.</p></details>
+<details><summary>Are my lists uploaded or stored?</summary><p>No file upload or external API is used to process your text. Your list is held in the current browser page only. If you save a workflow, only the step configuration and named settings are kept in your browser's local storage.</p></details>
+<details><summary>Can I export the result as Excel or CSV?</summary><p>You can download CSV, TXT or JSON. CSV is a one-column export that can be opened in Excel or Google Sheets; it isn't an .xlsx workbook.</p></details>
+<details><summary>Can I compare lists before or after cleaning?</summary><p>Comparison uses the final processed output against your unmodified reference list. If you want to compare raw lines, remove all transformation steps first.</p></details>
+</div></section>
+<aside class="utility-related" aria-label="Related tools"><div><span class="eyebrow">More tiny tools</span><h2>Single tasks, too.</h2><p>Need only one operation? Open a smaller dedicated tool.</p></div><div class="utility-related-links"><a href="../list-comparer/">Compare two lists →</a><a href="../word-counter/">Count words →</a><a href="../actual-size-ruler/">Screen ruler →</a></div></aside>
+</main>
+<footer class="footer"><span>Every Tiny Tool ✦ Small tools for everyday tasks.</span><div class="footer-links"><a href="../about/">About</a><a href="../privacy/">Privacy</a><a href="../contact/">Contact</a></div></footer>
+</div></body></html>

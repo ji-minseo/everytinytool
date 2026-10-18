@@ -35,9 +35,9 @@ function init(){
  function resetInput(next){
   if(busy)return;
   resetOutput();if(source)URL.revokeObjectURL(source);source=null;file=null;
-  if(!next){options.hidden=true;preview.hidden=true;input.value='';report('Choose a video to start.');setBusy(false);return;}
+  if(!next){options.hidden=true;preview.hidden=true;preview.removeAttribute('src');$('vs-dropzone').classList.remove('has-video');input.value='';report('Choose a video to start.');setBusy(false);return;}
   const err=limits(next);if(err){report(err,true);return;}
-  file=next;source=URL.createObjectURL(file);preview.src=source;preview.hidden=false;options.hidden=false;
+  file=next;source=URL.createObjectURL(file);preview.src=source;preview.hidden=false;$('vs-dropzone').classList.add('has-video');options.hidden=false;
   $('vs-file-name').textContent=file.name||'Video';
   $('vs-original-size').textContent=bytesText(file.size);
   report('Video selected. Preview it, then choose your output. Processing takes approximately the video duration.');
@@ -48,7 +48,7 @@ function init(){
  if(supported.length)format.value=supported[0].type;
  function openPicker(){if(!busy)input.click();}
  choose.addEventListener('click',openPicker);
- $('vs-dropzone').addEventListener('click',e=>{if(e.target===input||e.target.closest?.('button,input,label,a'))return;openPicker();});
+ $('vs-dropzone').addEventListener('click',e=>{if(e.target===input||e.target.closest?.('button,input,label,a,video'))return;openPicker();});
  $('vs-dropzone').addEventListener('keydown',e=>{if(e.target!==$('vs-dropzone')||!['Enter',' '].includes(e.key))return;e.preventDefault();openPicker();});
  input.addEventListener('change',()=>{if(input.files?.[0])resetInput(input.files[0]);});
  ['dragover','dragenter'].forEach(t=>$('vs-dropzone').addEventListener(t,e=>{e.preventDefault();if(!busy)$('vs-dropzone').classList.add('dragover');}));

@@ -16,10 +16,10 @@ test('processes multiple steps in sequence with stage previews',()=>{
  assert.equal(result.history[2].rows.length,6);
  assert.equal(result.history[3].rows.length,4);
 });
-test('step order has a real effect on duplicate detection',()=>{
- const data=' Apple \nApple';
- assert.deepEqual(api.process(data,['trim','unique']).rows,['Apple']);
- assert.deepEqual(api.process(data,['unique','trim']).rows,['Apple','Apple']);
+test('step order has a real effect on filtering and replacement',()=>{
+ const data='red\nblue',opts={find:'red',replacement:'green',query:'green'};
+ assert.deepEqual(api.process(data,['replace','filter'],opts).rows,['green']);
+ assert.deepEqual(api.process(data,['filter','replace'],opts).rows,[]);
 });
 test('filters by literal text and honors case-sensitive mode',()=>{
  assert.deepEqual(api.process('APPLE\napple\nPear',['filter'],{query:'app'}).rows,['APPLE','apple']);

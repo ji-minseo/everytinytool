@@ -123,3 +123,32 @@
 .hub-inline-run:hover{filter:brightness(1.05)}
 .hub-inline-run:disabled{opacity:.55;cursor:wait}
 .hub-inline-results{font-size:12px;color:#655a72;line-height:1.6;min-height:20px}
+
+/* Unified image studio: same upload cards, buttons, and clean dropzones. */
+.hub-inline-icon{background:transparent;border-radius:0;width:auto;height:auto;font-size:31px;margin-bottom:4px}
+.hub-inline-dropzone{min-height:230px}
+.hub-inline-pick,.hub-inline-run,.hub-inline-zip,.hub-output-row button{border:1px solid #aa96eb;border-radius:12px;min-height:44px;padding:10px 17px;background:#7c5cfc;color:#fff;font-family:inherit;font-size:13px;font-weight:800;line-height:1.3;box-shadow:none;cursor:pointer}
+.hub-inline-pick{pointer-events:none;display:inline-flex}
+.hub-inline-zip{background:#fff;color:#694cbd}
+.hub-upload-list{display:grid;gap:12px;margin:18px 0 0}
+.hub-file-row.media-item{display:flex;align-items:center;gap:16px;padding:12px;border:1px solid #e8e5ef;border-radius:14px;background:#fff;min-width:0}
+.hub-file-thumb{display:grid;place-items:center;flex:0 0 76px;width:76px;height:65px;border-radius:8px;overflow:hidden;background:#f7f7fa}
+.hub-file-thumb img{height:100%;width:100%;object-fit:contain}
+.hub-file-detail{flex:1;min-width:0}
+.hub-file-detail strong{display:block;font-size:16px;font-weight:700;overflow-wrap:anywhere;line-height:1.4}
+.hub-file-detail small{display:block;font-size:12px;color:#777;margin-top:4px}
+.hub-file-remove{flex:none;padding:8px;background:#fff;border:1px solid #e8e5ef;border-radius:10px;font-size:12px;font-weight:700;color:#51465e;cursor:pointer}
+.hub-file-remove:hover{background:#f5f0ff;border-color:#cfc4f7}
+.hub-inline-results{display:grid;gap:12px;margin-top:14px}
+.hub-output-row{display:flex;align-items:center;gap:12px;border:1px solid #e8e5ef;border-radius:14px;padding:12px;min-width:0}
+.hub-output-row img{width:76px;height:65px;object-fit:contain;background:#f7f7fa;border-radius:8px}
+.hub-output-row>div{flex:1;min-width:0}
+.hub-output-row strong,.hub-output-row small{display:block;overflow-wrap:anywhere}
+.hub-output-row small{font-size:12px;color:#777}
+.hub-rotate-buttons{display:flex;gap:9px;flex-wrap:wrap;width:100%}
+.hub-rotate-buttons button{padding:10px 13px;border-radius:11px;background:#fff;border:1px solid #d9d0e7;font-size:13px;font-weight:750;cursor:pointer}
+.hub-rotate-buttons button:hover{background:#f5f0ff}
+.hub-rotate-preview{width:100%;text-align:center;background:#f8f6fb;border-radius:14px;padding:15px}
+.hub-rotate-preview canvas{max-width:100%;max-height:310px;width:auto;height:auto}
+.hub-inline-zip[hidden],.hub-rotate-preview[hidden]{display:none!important}
+@media(max-width:620px){.hub-file-row.media-item{gap:9px}.hub-output-row{flex-wrap:wrap}.hub-output-row button{width:100%}}

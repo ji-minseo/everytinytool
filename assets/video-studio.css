@@ -1,0 +1,45 @@
+/* Video Studio */
+.vs-main{padding-bottom:48px}
+.vs-main [hidden]{display:none!important}
+.vs-hero{padding:48px 0 28px}
+.vs-hero h1{font-size:clamp(47px,7vw,77px);line-height:1;margin:18px 0}
+.vs-dot{color:#7c5cfc}
+.vs-hero p{max-width:730px;color:var(--muted);font-size:17px}
+.vs-panel{border:1px solid #e9e2f2;border-radius:25px;padding:25px;background:#fff;box-shadow:0 12px 33px rgba(25,20,35,.035)}
+.vs-dropzone{position:relative;display:grid;place-items:center;text-align:center;background:#faf9ff;border:2px dashed #cfc3ea;border-radius:18px;padding:28px;cursor:pointer;min-height:220px}
+.vs-dropzone:hover,.vs-dropzone.dragover{background:#f5f0ff;border-color:#a68be9}
+.vs-file{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.vs-upload-icon{display:grid;place-items:center;color:#6850c5;background:#eee9ff;border-radius:16px;width:53px;height:53px;font-size:24px}
+.vs-dropzone h2{margin:12px 0 0;font-size:23px}
+.vs-dropzone p{font-size:12px;color:var(--muted);margin:8px 0 17px}
+.vs-dropzone button{border:0;cursor:pointer}
+.vs-options{margin-top:19px}
+.vs-selected{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:12px 16px;border:1px solid #eee9f4;border-radius:13px}
+.vs-selected strong{font-size:13px;word-break:break-all}
+.vs-selected p{margin:4px 0 0;font-size:12px;color:var(--muted)}
+.vs-secondary{border:1px solid #ded6ed;border-radius:10px;padding:10px 14px;background:#fff;color:#65518a;cursor:pointer;font-size:12px;font-weight:800}
+.vs-preview{display:block;max-height:330px;width:100%;border-radius:15px;background:#111;margin:17px 0}
+.vs-options>h2{margin:25px 0 16px;font-size:25px}
+.vs-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.vs-controls label{font-size:12px;font-weight:850;display:grid;gap:8px}
+.vs-controls select{min-width:0;width:100%;border:1px solid #e0dbe9;background:#fff;border-radius:11px;font:13px inherit;color:#2a2630;padding:12px}
+.vs-support-note{font-size:12px;line-height:1.75;color:#716779;margin:18px 0}
+.vs-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.vs-actions .button{border:0;cursor:pointer}
+.vs-actions .button:disabled{opacity:.48;cursor:not-allowed}
+.vs-progress-wrap{display:flex;align-items:center;gap:12px;margin-top:14px;font-size:12px;color:#7154c1}
+.vs-progress-wrap progress{width:min(100%,420px);accent-color:#7c5cfc}
+.vs-status{font-size:12px;color:#6d647a;background:#f9f7fd;border-radius:11px;padding:13px 15px;margin:16px 0 0}
+.vs-status[data-error=true]{background:#fff2f4;color:#b23a4a}
+.vs-result{margin-top:22px;border-top:1px solid #ede8f4;padding-top:18px}
+.vs-result>h2{font-size:24px}
+.vs-result-stats{display:flex;gap:11px;flex-wrap:wrap;margin:14px 0}
+.vs-result-stats>div{background:#fbf9ff;border-radius:12px;padding:13px;display:grid;gap:6px;min-width:140px;font-size:12px;color:#726b7b}
+.vs-result-stats strong{font-size:18px;color:#29212e}
+.vs-result>p{font-size:12px;color:var(--muted)}
+.vs-guide{padding:70px 0 22px;max-width:850px}
+.vs-guide h2{font-size:26px;margin:30px 0 14px}
+.vs-guide p{line-height:1.75;color:var(--muted);font-size:14px}
+.vs-guide .utility-faq{margin-top:18px}
+.vs-main button:focus-visible,.vs-main input:focus-visible,.vs-main a:focus-visible,.vs-main select:focus-visible,.vs-dropzone:focus-visible{outline:3px solid #b7a3ff;outline-offset:3px}
+@media(max-width:760px){.vs-controls{grid-template-columns:1fr}.vs-panel{padding:17px}.vs-result-stats>div{flex:1}}

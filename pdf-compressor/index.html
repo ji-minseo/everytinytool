@@ -10,9 +10,10 @@
   <link rel="canonical" href="https://everytinytool.com/pdf-compressor/">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="stylesheet" href="../assets/image-tools-base.css?v=20261018-hub">
-  <link rel="stylesheet" href="../assets/pdf-compressor.css?v=20261018-home">
+  <link rel="stylesheet" href="../assets/pdf-compressor.css?v=20261018-pdfbatch12">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" defer></script>
-  <script src="../assets/pdf-compressor.js?v=20261013-click-dropzone-v1" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+  <script src="../assets/pdf-compressor.js?v=20261018-pdfbatch12" defer></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811" crossorigin="anonymous"></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"PDF Compressor — Image Everything","url":"https://everytinytool.com/pdf-compressor/","description":"Browser-based PDF compressor with JPEG image quality control and optional size targets without page rasterization.","applicationCategory":"UtilitiesApplication","operatingSystem":"Web browser","isAccessibleForFree":true}</script>
 <link rel="stylesheet" href="../assets/tool-embed.css?v=20261018-hover-unified">
@@ -33,8 +34,8 @@
     </section>
     <section class="panel pdfc-panel" aria-label="PDF optimizer">
       <div class="dropzone pdfc-dropzone" id="pdf-dropzone" role="group" tabindex="0" aria-label="PDF upload area. Click or press Enter or Space to choose a PDF, or drag and drop a file.">
-        <input class="file-input" id="pdf-file" type="file" accept=".pdf,application/pdf" aria-label="Choose a PDF file">
-        <div><div class="drop-icon">📄</div><h2>Drop your PDF here</h2><p>PDF files up to 180 MB · Browser-only processing</p><button class="btn" id="pdf-choose" type="button">Choose PDF</button></div>
+        <input class="file-input" id="pdf-file" type="file" multiple accept=".pdf,application/pdf" aria-label="Choose a PDF file">
+        <div><div class="drop-icon">📄</div><h2>Drop PDFs here</h2><p>PDF files up to 180 MB · Browser-only processing</p><button class="btn" id="pdf-choose" type="button">Choose PDFs</button></div>
       </div>
       <div class="file-summary pdfc-file" id="pdf-file-selected" hidden>
         <div class="pdfc-file-main"><span class="pdfc-file-icon" aria-hidden="true">PDF</span><div class="pdfc-file-meta"><strong id="pdf-filename">document.pdf</strong><span id="pdf-original-label">—</span></div></div>

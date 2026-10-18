@@ -18,3 +18,15 @@
 .guide-visual img{display:block;width:100%;height:auto;aspect-ratio:1672/941;object-fit:contain;border-radius:18px;border:1px solid #eee9f6;background:#faf8ff}
 .guide-visual figcaption{margin:9px 2px 0;font-size:11px;line-height:1.6;color:#857b8c}
 @media(max-width:620px){.guide-visual{margin:18px 0 0}.guide-visual img{border-radius:11px}.guide-visual figcaption{font-size:10px}}
+
+/* Related reading — editorial link cards, plus subtle in-paragraph links. */
+.guide-article .guide-expanded h2+ul:has(a[href^="../"]){list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0 28px;padding:0}
+.guide-article .guide-expanded h2+ul:has(a[href^="../"]) li{margin:0;padding:0;min-width:0}
+.guide-article .guide-expanded h2+ul:has(a[href^="../"]) a{position:relative;display:flex;align-items:center;min-height:75px;height:100%;box-sizing:border-box;padding:16px 42px 16px 17px;border:1px solid #e8def3;border-radius:15px;background:linear-gradient(145deg,#fff 15%,#faf7ff 100%);color:#443453;font-size:14px;font-weight:750;line-height:1.45;text-decoration:none!important;overflow-wrap:anywhere;transition:border-color .18s,background .18s,transform .18s,box-shadow .18s}
+.guide-article .guide-expanded h2+ul:has(a[href^="../"]) a::after{content:"↗";position:absolute;right:15px;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:25px;height:25px;border-radius:8px;background:#f0e9ff;color:#6944b5;font-size:15px;font-weight:800}
+.guide-article .guide-expanded h2+ul:has(a[href^="../"]) a:hover{border-color:#cbb5ee;background:#f5eeff;transform:translateY(-2px);box-shadow:0 7px 16px rgba(75,41,117,.08)}
+.guide-article .guide-expanded h2+ul:has(a[href^="../"]) a:focus-visible{outline:3px solid #9672e6;outline-offset:3px}
+.guide-article p a[href^="../"]{color:#6944b5;font-weight:700;text-decoration:underline;text-decoration-color:#c6b4ed;text-decoration-thickness:1.5px;text-underline-offset:3px;border-radius:3px;transition:color .15s,background .15s}
+.guide-article p a[href^="../"]:hover{color:#48248e;background:#f5eeff;text-decoration-color:#8054dc}
+.guide-article p a[href^="../"]:focus-visible{outline:2px solid #9672e6;outline-offset:3px}
+@media(max-width:640px){.guide-article .guide-expanded h2+ul:has(a[href^="../"]){grid-template-columns:1fr;gap:9px}.guide-article .guide-expanded h2+ul:has(a[href^="../"]) a{min-height:64px;padding:13px 40px 13px 15px}}

@@ -28,18 +28,20 @@ function init(){
  const format=$('vs-format'),size=$('vs-size'),rate=$('vs-bitrate'),download=$('vs-download');
  const supported=outputFormats(root.MediaRecorder),canEncode=supported.length>0&&typeof root.HTMLCanvasElement?.prototype?.captureStream==='function',names={webm:'WebM',mp4:'MP4'};
  let file=null,source=null,output=null,busy=false,abort=false,recorder=null,video=null,stream=null,audioContext=null,decodedDuration=0,frames=0;
- let queue=[],batchProcessing=false,batchCancelled=false,batchOutputs=[];
+ let queue=[],batchProcessing=false,batchCancelled=false,batchOutputs=[],batchThumbs=[];
  const batchBox=$('vs-batch'),batchList=$('vs-batch-list');
  function clearBatchOutputs(){for(const url of batchOutputs)URL.revokeObjectURL(url);batchOutputs=[];}
+ function clearBatchThumbs(){for(const url of batchThumbs)URL.revokeObjectURL(url);batchThumbs=[];}
  function setQueue(items){
   queue=items.slice(0,3);
-  clearBatchOutputs();batchList.replaceChildren();batchBox.hidden=queue.length<2;
+  clearBatchOutputs();clearBatchThumbs();batchList.replaceChildren();batchBox.hidden=queue.length<2;
   if(queue.length<2)return;
   for(const item of queue){
    const row=document.createElement('div');row.className='ett-batch-row';
+   const thumbnail=document.createElement('video');thumbnail.muted=true;thumbnail.preload='metadata';thumbnail.playsInline=true;const thumbUrl=URL.createObjectURL(item);batchThumbs.push(thumbUrl);thumbnail.src=thumbUrl;
    const name=document.createElement('span');name.textContent=item.name+' · '+bytesText(item.size);
    const state=document.createElement('strong');state.textContent='Ready';
-   row.append(name,state);batchList.appendChild(row);
+   row.append(thumbnail,name,state);batchList.appendChild(row);
   }
  }
  function report(msg,error=false){status.textContent=msg;status.dataset.error=String(error);}
@@ -167,7 +169,7 @@ function init(){
   if(files.length>1)report('Finished '+successes+' of '+files.length+' videos'+(batchCancelled?' · stopped early':'')+'. Download completed clips individually.',successes===0);
   setBusy(false);
  });
- root.addEventListener?.('pagehide',()=>{abort=true;if(recorder?.state==='recording')recorder.stop();cleanup();if(source)URL.revokeObjectURL(source);if(output)URL.revokeObjectURL(output);clearBatchOutputs();});
+ root.addEventListener?.('pagehide',()=>{abort=true;if(recorder?.state==='recording')recorder.stop();cleanup();if(source)URL.revokeObjectURL(source);if(output)URL.revokeObjectURL(output);clearBatchOutputs();clearBatchThumbs();});
  options.hidden=true;result.hidden=true;cancel.hidden=true;
  setBusy(false);
 }

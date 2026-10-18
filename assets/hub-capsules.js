@@ -9,20 +9,28 @@ function init(){
  let active='image',imageActive='resize';
  const frameFor={resize:'hub-frame-resize',remove:'hub-frame-remove',pdf:'hub-frame-pdf',video:'hub-frame-video',workspace:'hub-frame-workspace'};
  const frames=Object.fromEntries(Object.entries(frameFor).map(([key,id])=>[key,document.getElementById(id)]));
+ // Measure the real content inside each same-origin tool, not the iframe's
+ // scrollHeight (which includes the iframe viewport and prevents shrinking).
  const resizeFrame=frame=>{
-  if(!frame?.contentDocument)return;
+  if(!frame||!frame.getAttribute('src')||frame.closest('[hidden]'))return;
   try{
    const doc=frame.contentDocument;
-   if(!doc.body)return;
-   const contentHeight=Math.max(doc.body.scrollHeight,doc.documentElement.scrollHeight);
-   frame.style.height=Math.max(280,Math.ceil(contentHeight+8))+'px';
-  }catch(_){frame.style.height='780px';}
+   if(!doc?.body)return;
+   const root=doc.querySelector('.shell')||doc.body;
+   const rect=root.getBoundingClientRect();
+   const bodyTop=doc.body.getBoundingClientRect().top;
+   const height=Math.max(160,Math.ceil(rect.bottom-bodyTop+8));
+   if(Math.abs(frame.getBoundingClientRect().height-height)>2){
+    frame.style.height=height+'px';
+   }
+  }catch(_){frame.style.height='680px';}
  };
  function loadFrame(frame){
   if(!frame)return;
   if(!frame.getAttribute('src')){
    const src=frame.dataset.src;
    if(!src||!src.startsWith('/'))return;
+   frame.style.height='320px';
    frame.src=src;
   }
   requestAnimationFrame(()=>resizeFrame(frame));
@@ -33,10 +41,11 @@ function init(){
    resizeFrame(frame);
    try{
     const doc=frame.contentDocument;
-    if(!doc)return;
+    if(!doc?.body)return;
+    const root=doc.querySelector('.shell')||doc.body;
     if('ResizeObserver' in window){
      const observer=new ResizeObserver(()=>resizeFrame(frame));
-     observer.observe(doc.body);
+     observer.observe(root);
      frame._observer=observer;
     }
     const within=()=>requestAnimationFrame(()=>resizeFrame(frame));
@@ -44,7 +53,7 @@ function init(){
     doc.addEventListener('change',within);
     doc.addEventListener('input',within);
     setTimeout(within,200);
-  }catch(_){}
+   }catch(_){}
   });
  }
  function activateMain(which,focus=false){

@@ -152,3 +152,20 @@
 .hub-rotate-preview canvas{max-width:100%;max-height:310px;width:auto;height:auto}
 .hub-inline-zip[hidden],.hub-rotate-preview[hidden]{display:none!important}
 @media(max-width:620px){.hub-file-row.media-item{gap:9px}.hub-output-row{flex-wrap:wrap}.hub-output-row button{width:100%}}
+
+/* Unified upload system · October 2026 */
+.hub-inline-icon{display:grid!important;place-items:center!important;width:52px!important;height:52px!important;margin:0 auto 12px!important;border-radius:15px!important;background:#f1ebff!important;color:#7656d3!important;font-size:25px!important}
+.hub-inline-dropzone{border:1.5px dashed #c7b8e6!important;border-radius:18px!important;background:#fcfaff!important;transition:background .2s,border-color .2s!important;cursor:pointer}
+.hub-inline-dropzone:hover,.hub-inline-dropzone.dragover{background:#f7f2ff!important;border-color:#8869d2!important}
+.hub-inline-pick,.hub-inline-run,.hub-inline-zip,.hub-output-row button,.hub-file-remove,.hub-rotate-buttons button{min-height:42px!important;border:1px solid #d9ccef!important;border-radius:12px!important;padding:10px 16px!important;font-size:13px!important;font-weight:700!important;background:#f0e9ff!important;color:#55349c!important;box-shadow:none!important;line-height:1.4!important}
+.hub-file-remove{background:#fff!important;color:#655872!important}
+.hub-inline-pick:hover,.hub-inline-run:hover,.hub-inline-zip:hover,.hub-output-row button:hover,.hub-rotate-buttons button:hover{background:#e7dcff!important}
+.hub-upload-list,.hub-inline-results{display:grid;gap:10px}
+.hub-file-row.media-item,.hub-output-row{display:flex;align-items:center;gap:12px;border:1px solid #ece6f4;border-radius:14px;background:#fff;padding:10px 12px}
+.hub-file-thumb,.hub-output-row>img{flex:none;width:54px;height:54px;border-radius:10px;overflow:hidden;background:#f8f5fc;object-fit:cover}
+.hub-file-thumb img{width:100%;height:100%;object-fit:cover}
+.hub-file-detail,.hub-output-row>div{min-width:0;flex:1}
+.hub-file-detail strong,.hub-output-row strong{display:block;overflow-wrap:anywhere}
+.hub-rotate-buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.hub-rotate-preview{border:1px solid #eee5f8;margin-top:10px}
+@media(max-width:620px){.hub-rotate-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}}

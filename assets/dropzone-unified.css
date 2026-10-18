@@ -90,3 +90,10 @@
  :is(.hub-upload-list,.ett-batch-list,.media-queue,.pdfc-queue) :is(.hub-file-row.media-item,.ett-batch-row,.media-item){flex-wrap:nowrap!important;gap:8px!important;padding:9px!important}
  :is(.hub-upload-list,.ett-batch-list,.media-queue,.pdfc-queue) :is(.hub-file-remove,.ett-batch-remove,button.btn.ghost){min-width:72px!important;padding:9px 11px!important}
 }
+
+/* Consistent button typography across hub upload, process and download actions. */
+:is(.hub-inline-tool,.hub-panel,.is-panel,.pdfc-panel,.vs-panel,.bg-panel)
+:is(button.hub-inline-run,button.hub-inline-zip,.hub-output-row button,.hub-file-remove,.ett-batch-remove,#is-run,#is-download-zip,.btn,.button){
+ font-family:inherit!important;font-size:13px!important;font-weight:700!important;line-height:20px!important;
+ letter-spacing:normal!important;
+}

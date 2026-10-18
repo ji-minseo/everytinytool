@@ -1,0 +1,33 @@
+name: Tiny Workspace tests
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/tiny-workspace.js'
+      - 'assets/tiny-workspace.css'
+      - 'workspace/**'
+      - 'index.html'
+      - 'sitemap.xml'
+      - 'tests/tiny-workspace.test.js'
+      - '.github/workflows/tiny-workspace.yml'
+  pull_request:
+    paths:
+      - 'assets/tiny-workspace.js'
+      - 'assets/tiny-workspace.css'
+      - 'workspace/**'
+      - 'index.html'
+      - 'sitemap.xml'
+      - 'tests/tiny-workspace.test.js'
+      - '.github/workflows/tiny-workspace.yml'
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check assets/tiny-workspace.js
+      - run: node --test tests/tiny-workspace.test.js

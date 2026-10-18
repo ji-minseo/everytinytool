@@ -89,3 +89,17 @@
 .is-process-row{padding-top:8px;border-top:1px solid #eeeaf5}
 html[data-embedded=true] .is-dropzone{margin-top:0}
 @media(max-width:650px){.is-advanced{padding:13px}.is-dropzone.has-image{padding:14px}}
+
+/* Match the primary upload action to Remove Background's violet gradient button. */
+.is-dropzone #is-choose,
+.vs-dropzone #vs-choose{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:45px;padding:12px 17px;border:0;border-radius:14px;
+  background:linear-gradient(135deg,#9279ff,#7c5cfc);
+  color:#fff;font-family:inherit;font-size:14px;font-weight:850;line-height:1.35;
+  box-shadow:0 8px 20px rgba(124,92,252,.22);
+  cursor:pointer;transition:filter .16s ease;
+}
+.is-dropzone #is-choose:hover:not(:disabled),
+.vs-dropzone #vs-choose:hover:not(:disabled){filter:brightness(1.05)}
+.is-dropzone #is-choose:disabled,.vs-dropzone #vs-choose:disabled{opacity:.48;cursor:not-allowed}

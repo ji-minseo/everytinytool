@@ -169,3 +169,5 @@
 .hub-rotate-buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .hub-rotate-preview{border:1px solid #eee5f8;margin-top:10px}
 @media(max-width:620px){.hub-rotate-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.hub-upload-list .hub-file-remove{height:42px!important;min-height:42px!important;min-width:89px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:10px 16px!important;border:1px solid #ded6ea!important;border-radius:12px!important;background:#fff!important;color:#655872!important;font-size:13px!important;font-weight:700!important;line-height:20px!important;box-shadow:none!important;white-space:nowrap!important;flex:none!important}

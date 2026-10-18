@@ -9,7 +9,7 @@
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="stylesheet" href="../assets/styles.css?v=20261018-workspace-1">
 <link rel="stylesheet" href="../assets/quick-image-studio.css?v=20261018-upload-ui-3">
-<script defer src="../assets/quick-image-studio.js?v=20261018-img-studio-2"></script>
+<script defer src="../assets/quick-image-studio.js?v=20261018-batch-1"></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811" crossorigin="anonymous"></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Quick Image Studio — Resize, Compress and Convert","url":"https://everytinytool.com/quick-image-studio/","applicationCategory":"MultimediaApplication","operatingSystem":"Modern web browser","isAccessibleForFree":true,"description":"Resize, compress and convert JPG, PNG and WebP images locally in a web browser."}</script>
 <link rel="stylesheet" href="../assets/tool-embed.css?v=20261018-hub6">
@@ -19,8 +19,9 @@
 <section class="is-hero"><a href="../" class="utility-back">← All tiny tools</a><span class="eyebrow">Everyday photo tools · All in one</span><h1>Quick Image Studio<span class="is-dot">.</span></h1><p>One image, three jobs: resize its dimensions, reduce its file size, or change its format. Preview the result before downloading — right in your browser.</p><div class="is-pill-row"><span>Private · No photo upload</span><span>JPG · PNG · WebP</span><span>No account</span></div></section>
 <section class="is-panel" aria-label="Image optimization tool">
 <div class="is-dropzone" id="is-dropzone" tabindex="0" role="group" aria-label="Image upload area. Click or press Enter or Space to select a photo, or drag and drop an image.">
-<input id="is-file" class="is-file-input" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" aria-label="Choose a JPG, PNG or WebP image">
+<input id="is-file" class="is-file-input" type="file" multiple accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" aria-label="Choose a JPG, PNG or WebP image">
 <img id="is-upload-preview" class="is-upload-preview" alt="Selected image thumbnail" hidden><div class="is-upload-icon" aria-hidden="true">🖼️</div><h2>Drop an image here</h2><p>JPEG, PNG or WebP · Up to 25 MB</p><button type="button" class="button" id="is-choose">Choose an image</button></div>
+<div class="ett-batch" id="is-batch" hidden><h3>Selected images</h3><p>Process up to 10 images together. Each result has its own download link.</p><div class="ett-batch-list" id="is-batch-list"></div></div>
 <div id="is-details" hidden>
 <div class="is-file-line"><div><strong id="is-file-name">photo.jpg</strong><span id="is-input-size">—</span></div><button type="button" id="is-clear" class="is-quiet">Remove image</button></div>
 <div class="is-settings-head"><span class="is-number">01</span><div><h2>Choose your output</h2><p>Keep proportions automatically, or pick the original size to convert and compress only.</p></div></div>
@@ -40,7 +41,7 @@
 <p id="is-target-note" class="is-hint">Optional target is best effort and may not be achievable at this resolution.</p>
 </details>
 <div class="is-output-hint">Estimated output dimensions: <strong id="is-output-size">—</strong></div>
-<div class="is-process-row"><button id="is-run" type="button" class="button" disabled>Process image ↗</button><p>Pixels are processed on your device.</p></div>
+<div class="is-process-row"><button id="is-run" type="button" class="button" disabled>Process images ↗</button><p>Pixels are processed on your device.</p></div>
 </div>
 <p id="is-status" class="is-status" role="status" aria-live="polite">Choose a photo to start. Nothing is uploaded to our server.</p>
 <div id="is-result" class="is-result" hidden aria-labelledby="is-result-title">

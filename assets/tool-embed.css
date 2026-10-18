@@ -73,3 +73,7 @@ html[data-embedded="true"] .pdfc-page{padding:0!important;margin:0!important}
 html[data-embedded="true"] .pdfc-page>.pdfc-panel{padding:0!important;margin:0!important;border:0!important;box-shadow:none!important;background:transparent!important}
 html[data-embedded="true"] .pdfc-page .pdfc-dropzone{margin:0 0 22px!important;min-height:225px;box-sizing:border-box}
 html[data-embedded="true"] .pdfc-page .pdfc-controls{margin-top:0!important}
+
+/* Unified dropzone hover/drag feedback for every embedded toolbox. */
+html[data-embedded="true"] :is(.is-dropzone,.bg-dropzone,.vs-dropzone,.pdfc-dropzone,.dropzone){transition:background-color .18s ease,border-color .18s ease,box-shadow .18s ease!important}
+html[data-embedded="true"] :is(.is-dropzone,.bg-dropzone,.vs-dropzone,.pdfc-dropzone,.dropzone):is(:hover,.dragover,.drag-over){background:#f5f0ff!important;border-color:#a68be9!important;box-shadow:0 0 0 2px rgba(124,92,252,.045)!important}

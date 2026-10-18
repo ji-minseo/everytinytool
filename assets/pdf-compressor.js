@@ -232,7 +232,7 @@
     const oldSelected=$('pdf-file-selected'),oldResult=$('pdf-result');
     oldSelected.hidden=true;oldResult.hidden=true;
     input.multiple=true;choose.textContent='Choose PDFs';
-    const queue=document.createElement('div');queue.className='pdfc-queue';dropzone.insertAdjacentElement('afterend',queue);
+    const queue=document.createElement('div');queue.className='pdfc-queue ett-upload-queue';dropzone.insertAdjacentElement('afterend',queue);
     const results=document.createElement('div');results.className='pdfc-batch-results';oldResult.insertAdjacentElement('afterend',results);
     const zip=document.createElement('button');zip.type='button';zip.className='btn pdfc-zip';zip.textContent='Download all as ZIP';zip.hidden=true;run.insertAdjacentElement('afterend',zip);
     let files=[],outputs=[],busy=false,urls=[];
@@ -248,12 +248,12 @@
     function render(){
       queue.replaceChildren();
       files.forEach((f,i)=>{
-        const row=document.createElement('div');row.className='pdfc-queue-row';
-        const icon=document.createElement('span');icon.className='pdfc-queue-icon';icon.textContent='PDF';
-        const meta=document.createElement('div');meta.className='pdfc-queue-info';
+        const row=document.createElement('div');row.className='pdfc-queue-row ett-upload-item';
+        const icon=document.createElement('span');icon.className='pdfc-queue-icon ett-upload-thumb';icon.textContent='PDF';
+        const meta=document.createElement('div');meta.className='pdfc-queue-info ett-upload-info';
         const name=document.createElement('strong');name.textContent=f.name;
         const size=document.createElement('small');size.textContent=formatSize(f.size);meta.append(name,size);
-        const del=document.createElement('button');del.type='button';del.className='pdfc-queue-remove';del.textContent='Remove';
+        const del=document.createElement('button');del.type='button';del.className='pdfc-queue-remove ett-upload-remove';del.textContent='Remove';
         del.onclick=()=>{if(busy)return;files.splice(i,1);clearOutput();render()};
         row.append(icon,meta,del);queue.append(row);
       });updateControls();

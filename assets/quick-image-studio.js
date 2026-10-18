@@ -109,11 +109,11 @@ function init(){
   batchBox.hidden=batchFiles.length===0;
   if(!batchFiles.length)return;
   for(const [index,candidate] of batchFiles.entries()){
-   const row=document.createElement('div');row.className='ett-batch-row';
-   const thumb=document.createElement('img');thumb.alt='';const src=URL.createObjectURL(candidate);batchThumbUrls.push(src);thumb.src=src;
-   const label=document.createElement('span');label.textContent=candidate.name+' · '+formatBytes(candidate.size);
+   const row=document.createElement('div');row.className='ett-batch-row hub-file-row media-item';
+   const thumb=document.createElement('img');thumb.alt='';thumb.className='hub-file-preview';const src=URL.createObjectURL(candidate);batchThumbUrls.push(src);thumb.src=src;
+   const label=document.createElement('div');label.className='hub-file-detail';const name=document.createElement('strong');name.textContent=candidate.name;const size=document.createElement('small');size.textContent=formatBytes(candidate.size);label.append(name,size);
    
-   const remove=document.createElement('button');remove.type='button';remove.className='ett-batch-remove';remove.textContent='Remove';remove.onclick=async()=>{if(busy)return;const next=batchFiles.filter((_,i)=>i!==index);showBatch(next);if(next.length)await select(next[0]);else await select(null);};row.append(thumb,label,remove);batchList.appendChild(row);
+   const remove=document.createElement('button');remove.type='button';remove.className='ett-batch-remove hub-file-remove';remove.textContent='Remove';remove.onclick=async()=>{if(busy)return;const next=batchFiles.filter((_,i)=>i!==index);showBatch(next);if(next.length)await select(next[0]);else await select(null);};row.append(thumb,label,remove);batchList.appendChild(row);
   }
  }
  if(compressMode){$('is-size-mode').value='original';$('is-sizing-options').hidden=true;$('is-size-presets').hidden=true;$('is-upscale-row').hidden=true;$('is-advanced').open=true;$('is-run').textContent='Compress images ↗';$('is-choose').textContent='Choose images';}

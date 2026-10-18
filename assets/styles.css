@@ -494,3 +494,8 @@ h1{
 .topbar .nav a{white-space:nowrap;text-decoration:none}
 .topbar .nav a[aria-current="page"]{color:#6742af}
 @media(max-width:760px){.topbar .nav{width:100%;justify-content:flex-start;gap:7px 15px;padding-top:4px}.topbar .nav a{font-size:12px;line-height:1.7}}
+
+/* Editorial inline links for Privacy Policy and Terms of Use */
+.page-main a.inline,.page-main p a:not(.button):not(.btn),.page-main li a:not(.button):not(.btn){color:#6642ad!important;text-decoration:underline!important;text-decoration-color:#c9b8e9!important;text-decoration-thickness:1.5px!important;text-underline-offset:3px;border-radius:3px;font-weight:650;transition:color .18s,background .18s,text-decoration-color .18s}
+.page-main a.inline:hover,.page-main p a:not(.button):not(.btn):hover,.page-main li a:not(.button):not(.btn):hover{color:#46238e!important;background:#f5efff;text-decoration-color:#8054dc!important}
+.page-main a.inline:focus-visible,.page-main p a:not(.button):not(.btn):focus-visible,.page-main li a:not(.button):not(.btn):focus-visible{outline:2px solid #9672e6;outline-offset:3px}

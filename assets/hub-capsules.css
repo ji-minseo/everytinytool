@@ -171,3 +171,11 @@
 @media(max-width:620px){.hub-rotate-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 .hub-upload-list .hub-file-remove{height:42px!important;min-height:42px!important;min-width:89px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:10px 16px!important;border:1px solid #ded6ea!important;border-radius:12px!important;background:#fff!important;color:#655872!important;font-size:13px!important;font-weight:700!important;line-height:20px!important;box-shadow:none!important;white-space:nowrap!important;flex:none!important}
+
+/* Empty panel sections must not create whitespace below the dropzone. */
+.hub-inline-tool .hub-upload-list:empty,.hub-inline-tool .hub-inline-results:empty,
+.hub-inline-tool .hub-inline-controls[hidden]{display:none!important;margin:0!important;padding:0!important;min-height:0!important;gap:0!important}
+.hub-inline-tool .hub-upload-list:not(:empty){margin-top:14px}
+.hub-inline-tool .hub-inline-controls:not([hidden]){margin-top:16px}
+.hub-inline-tool .hub-inline-results:not(:empty){margin-top:14px}
+.hub-inline-tool .hub-inline-controls[hidden] *{display:none!important}

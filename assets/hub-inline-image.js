@@ -34,9 +34,10 @@ zone.addEventListener('dragleave',()=>zone.classList.remove('dragover'));
 zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('dragover');files=Array.from(e.dataTransfer.files).filter(f=>mode==='heic'?/\.(heic|heif)$/i.test(f.name):f.type.startsWith('image/'));renderFiles();});
 input.addEventListener('change',()=>{files=Array.from(input.files);renderFiles();});
 run.addEventListener('click',async()=>{if(!files.length)return;run.disabled=true;results.textContent='Processing images…';const config={};controls.querySelectorAll('[data-key]').forEach(e=>config[e.dataset.key]=e.type==='checkbox'?e.checked:e.value);
-let done=0;const errors=[];
-for(const file of files){try{const out=await transform(file,mode,config);exportFile(out.result,out.name);done++;}catch(e){errors.push(file.name+': '+e.message);}}
-results.textContent=done+' file(s) downloaded.'+(errors.length?' '+errors.join(' | '):'');run.disabled=false;
+let done=0;const errors=[],outputs=[];
+for(const file of files){try{outputs.push(await transform(file,mode,config));done++;}catch(e){errors.push(file.name+': '+e.message);}}
+try{if(outputs.length>1&&window.JSZip){const zip=new window.JSZip();const used=new Set();for(const out of outputs){let name=out.name,i=2;while(used.has(name))name=out.name.replace(/(\\.[^.]+)$/,'-'+i+++'$1');used.add(name);zip.file(name,out.result);}const packed=await zip.generateAsync({type:'blob'});exportFile(packed,names[mode].toLowerCase().replace(/[^a-z]+/g,'-')+'-images.zip');}else for(const out of outputs)exportFile(out.result,out.name);}catch(e){errors.push('Download: '+e.message);}
+results.textContent=done+' file(s) processed.'+(errors.length?' '+errors.join(' | '):'');run.disabled=false;
 });
 });
 }if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();

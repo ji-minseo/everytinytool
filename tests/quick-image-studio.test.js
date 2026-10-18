@@ -82,9 +82,9 @@ test('markup includes functional main-domain image workspace and one-click previ
  assert.equal(ids.length,new Set(ids).size);
  assert.equal(homeIds.length,new Set(homeIds).size);
  for(const id of ['is-dropzone','is-file','is-run','is-download','is-before','is-after','is-size-mode','is-format'])assert.ok(ids.includes(id),id);
- for(const id of ['home-image-file','home-image-run','home-image-preview','home-image-download'])assert.ok(homeIds.includes(id),id);
- assert.match(home,/href="\.\/quick-image-studio\/"/);
- assert.match(home,/src="\.\/assets\/quick-image-studio.js/);
+ for(const id of ['hub-frame-resize','hub-frame-compress','hub-frame-remove'])assert.ok(homeIds.includes(id),id);
+ assert.match(home,/data-src="\/quick-image-studio\/\?embed=1"/);
+ assert.match(home,/mode=compress/);
  assert.match(fs.readFileSync(path.join(root,'sitemap.xml'),'utf8'),/https:\/\/everytinytool.com\/quick-image-studio\//);
 });
 test('responsive CSS and image privacy statements exist',()=>{
@@ -93,4 +93,14 @@ test('responsive CSS and image privacy statements exist',()=>{
  assert.match(page,/No photo upload/);
  assert.match(page,/image\.everytinytool\.com\/pdf-compressor/);
  assert.match(page,/image\.everytinytool\.com\/remove-background/);
+});
+
+test('multi-image upload has per-file batch list and download controls',()=>{
+ assert.match(page,/id="is-file"[^>]*multiple/);
+ assert.match(page,/id="is-batch-list"/);
+ const src=fs.readFileSync(path.join(root,'assets/quick-image-studio.js'),'utf8');
+ assert.match(src,/files\.slice\(0,10\)/);
+ assert.match(src,/for\(let i=0;i<queue\.length;i\+\+\)/);
+ assert.match(src,/batchThumbUrls/);
+ assert.match(src,/row\?\.appendChild\(link\)/);
 });

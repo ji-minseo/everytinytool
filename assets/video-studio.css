@@ -73,3 +73,13 @@
 
 /* Keep the dropzone icon visible even after selecting files. */
 .vs-dropzone .vs-upload-icon,.vs-dropzone.has-video .vs-upload-icon{display:grid!important;place-items:center!important;width:52px!important;height:52px!important;background:#f1ebff!important;border-radius:15px!important;color:#7656d3!important;margin:0 auto 12px!important;font-size:25px!important}
+
+/* Files live in the thumbnail list, never inside the upload dropzone. */
+#vs-dropzone #vs-preview{display:none!important}
+#vs-dropzone.has-video{padding:28px!important;min-height:225px!important;gap:0!important}
+#vs-dropzone.has-video h2{font-size:23px!important;margin-top:12px!important}
+#vs-dropzone.has-video p{font-size:12px!important;margin:8px 0 17px!important}
+#vs-batch{margin-top:14px}
+#vs-batch .ett-batch-row video{display:block;width:55px;height:55px;object-fit:cover;border-radius:10px;background:#f2edfa;flex:none}
+#vs-batch .ett-batch-row span{flex:1;min-width:0;overflow-wrap:anywhere}
+#vs-batch .ett-batch-remove{height:42px!important;min-width:89px!important;border-radius:12px!important;background:#fff!important;color:#655872!important;border:1px solid #ded6ea!important}

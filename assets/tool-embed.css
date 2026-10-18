@@ -1,0 +1,13 @@
+/* Applied to direct tool routes only when opened via ?embed=1 from the homepage.
+ Standalone visits retain their full content and SEO semantics. */
+body:has(html) {} 
+html[data-embedded="true"]{scrollbar-width:none}
+html[data-embedded="true"] .topbar,html[data-embedded="true"] .tool-head,html[data-embedded="true"] .info-grid,html[data-embedded="true"] .seo-content,html[data-embedded="true"] .network,html[data-embedded="true"] .footer,html[data-embedded="true"] .utility-related,html[data-embedded="true"] .bg-guide{display:none!important}
+html[data-embedded="true"] body{margin:0;background:transparent}
+html[data-embedded="true"] .shell{width:100%;max-width:none}
+html[data-embedded="true"] .tool-layout{padding:0;margin:0}
+html[data-embedded="true"] .panel{padding:10px 0;box-shadow:none;border:0;background:transparent}
+html[data-embedded="true"] .pdfc-page,html[data-embedded="true"] #bg-remover{min-height:0}
+html[data-embedded="true"] .dropzone{margin-top:0}
+html[data-embedded="true"] .bg-panel,html[data-embedded="true"] .pdfc-panel{max-width:none}
+html[data-embedded="true"] .pdfc-page>.panel,html[data-embedded="true"] #bg-remover>.panel{margin:0}

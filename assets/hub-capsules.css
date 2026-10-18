@@ -105,3 +105,21 @@
 .hub-related-tools{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:13px}
 .hub-related-tools a{font-size:12px;text-decoration:none;color:#7053ce;border:1px solid #dfd5f4;background:white;border-radius:99px;padding:7px 11px;font-weight:720}
 .hub-related-tools a:hover{background:#f5f0ff;border-color:#a68be9}
+
+/* Image Studio inline tools: align file pickers with existing embedded dropzones. */
+.hub-inline-dropzone{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:7px;min-height:225px;padding:25px 18px;background:#faf9ff;border:2px dashed #cfc4f7;border-radius:19px;cursor:pointer;transition:background-color .18s ease,border-color .18s ease,box-shadow .18s ease}
+.hub-inline-dropzone:hover,.hub-inline-dropzone.dragover,.hub-inline-dropzone:focus-visible{background:#f5f0ff;border-color:#a68be9;box-shadow:0 0 0 2px rgba(124,92,252,.045)}
+.hub-inline-dropzone:focus-visible{outline:3px solid #b7a3ff;outline-offset:4px}
+.hub-inline-dropzone input[type=file]{display:none}
+.hub-inline-icon{display:grid;place-items:center;font-size:25px;width:48px;height:48px;border-radius:13px;background:#f0eaff;color:#6949be}
+.hub-inline-dropzone h4{font-size:22px;letter-spacing:-.035em;margin:2px 0 0}
+.hub-inline-dropzone p{font-size:13px;color:#77717e;line-height:1.5;margin:0 0 5px}
+.hub-inline-pick,.hub-inline-run{display:inline-flex;align-items:center;justify-content:center;min-height:45px;padding:12px 17px;border:0;border-radius:14px;background:linear-gradient(135deg,#9279ff,#7c5cfc);color:white;font:800 14px inherit;box-shadow:0 8px 20px rgba(124,92,252,.22)}
+.hub-inline-controls{display:flex;align-items:end;flex-wrap:wrap;gap:12px;padding:18px 0 10px}
+.hub-inline-controls[hidden]{display:none!important}
+.hub-inline-controls label{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#655a72}
+.hub-inline-controls select{border:1px solid #d9d0e7;border-radius:10px;padding:10px;background:white;color:#342b3e}
+.hub-inline-run{cursor:pointer;font-family:inherit}
+.hub-inline-run:hover{filter:brightness(1.05)}
+.hub-inline-run:disabled{opacity:.55;cursor:wait}
+.hub-inline-results{font-size:12px;color:#655a72;line-height:1.6;min-height:20px}

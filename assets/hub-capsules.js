@@ -77,8 +77,12 @@ function init(){
   imageTabs.forEach(t=>{const selected=t.dataset.imageTab===which;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;if(selected&&focus)t.focus();});
   document.querySelectorAll('[data-image-panel]').forEach(p=>p.hidden=p.dataset.imagePanel!==which);
   const link=document.querySelector('[data-image-full]');
-  if(link){link.href=which==='remove'?'/remove-background/':which==='compress'?'/quick-image-studio/?mode=compress':'/quick-image-studio/';link.textContent=which==='remove'?'Open full background remover ↗':which==='compress'?'Open full image compressor ↗':'Open full image resizer ↗';}
-  if(active==='image')loadFrame(frames[which]);
+  const external={crop:['crop-image','Crop Image'],convert:['convert-image','Convert Image'],rotate:['rotate-image','Rotate Image'],jpgpng:['png-to-jpg','PNG to JPG'],webp:['image-to-webp','Image to WebP'],heic:['heic-to-jpg','HEIC to JPG']};
+  if(link){
+   if(external[which]){link.href='https://image.everytinytool.com/'+external[which][0]+'/';link.textContent='Open full '+external[which][1]+' tool ↗';link.target='_blank';link.rel='noopener noreferrer';}
+   else {link.removeAttribute('target');link.removeAttribute('rel');link.href=which==='remove'?'/remove-background/':which==='compress'?'/quick-image-studio/?mode=compress':'/quick-image-studio/';link.textContent=which==='remove'?'Open full background remover ↗':which==='compress'?'Open full image compressor ↗':'Open full image resizer ↗';}
+  }
+  if(active==='image'&&frames[which])loadFrame(frames[which]);
  }
  function activateMetadata(which,focus=false){
   if(!metadataTabs.some(x=>x.dataset.metadataTab===which))return;
@@ -115,6 +119,7 @@ function init(){
  else if(fragment==='workspace')activateMain('workspace');
  else if(fragment==='remove-background'){activateMain('image');activateImage('remove');}
  else if(fragment==='compress-image'){activateMain('image');activateImage('compress');}
+ else if(['crop','convert','rotate','jpgpng','webp','heic'].includes(fragment)){activateMain('image');activateImage(fragment);}
  else activateMain('image');
  window.addEventListener('resize',()=>{for(const frame of Object.values(frames))if(frame?.getAttribute('src'))resizeFrame(frame);});
 }

@@ -48,7 +48,47 @@ async function decodeFile(file){
  if(root.createImageBitmap){const bitmap=await root.createImageBitmap(file);return {image:bitmap,width:bitmap.width,height:bitmap.height,close(){bitmap.close?.()}};}
  return new Promise((resolve,reject)=>{const img=new Image(),url=URL.createObjectURL(file);img.onload=()=>{URL.revokeObjectURL(url);resolve({image:img,width:img.naturalWidth,height:img.naturalHeight,close(){}})};img.onerror=()=>{URL.revokeObjectURL(url);reject(Error('Could not decode this image.'))};img.src=url;});
 }
+function initMini(){
+ const $=id=>document.getElementById(id);if(!$('home-image-quick'))return;
+ const input=$('home-image-file'),width=$('home-image-width'),status=$('home-image-status'),preview=$('home-image-preview'),download=$('home-image-download'),btn=$('home-image-run');
+ let selected=null,decoded=null,sourceUrl=null,outputUrl=null,busy=false;
+ const revoke=u=>{if(u)URL.revokeObjectURL(u);};
+ function notify(message,isError=false){status.textContent=message;status.dataset.error=String(isError);}
+ function invalidate(){revoke(outputUrl);outputUrl=null;download.hidden=true;btn.disabled=!selected||busy;}
+ function selectFile(file){
+  if(busy)return;
+  const err=validateFile(file);if(err){notify(err,true);return;}
+  invalidate();revoke(sourceUrl);sourceUrl=null;decoded?.close();
+  decoded=null;selected=null;
+  (async()=>{
+   try{
+    const img=await decodeFile(file);if(!isSafeSize(img.width,img.height)){img.close();throw Error('Image is too large for this browser tool.');}
+    decoded=img;selected=file;sourceUrl=URL.createObjectURL(file);
+    preview.src=sourceUrl;preview.hidden=false;
+    $('home-image-name').textContent=file.name+' · '+formatBytes(file.size);
+    btn.disabled=false;notify('Ready to resize — your image stays on this device.');
+   }catch(error){notify(error.message||'Could not read image.',true);}
+  })();
+ }
+ input.addEventListener('change',()=>{if(input.files?.[0])selectFile(input.files[0]);});
+ width.addEventListener('change',invalidate);
+ btn.addEventListener('click',async()=>{
+  if(!selected||!decoded||busy)return;
+  busy=true;btn.disabled=true;input.disabled=true;notify('Resizing and compressing in your browser…');
+  try{
+   const result=await convertImage(decoded,{mode:'width',value:Number(width.value),allowUpscale:false,format:'image/jpeg',quality:82,background:'white'});
+   revoke(outputUrl);outputUrl=URL.createObjectURL(result.blob);
+   download.href=outputUrl;download.download=fileName(selected.name,'image/jpeg');download.hidden=false;
+   $('home-image-result').textContent=result.width+' × '+result.height+' · '+formatBytes(result.blob.size);
+   notify('Done! Your resized photo is ready.');
+  }catch(e){notify(e.message||'Unable to resize this image.',true);}
+  finally{busy=false;btn.disabled=!selected;input.disabled=false;}
+ });
+ root.addEventListener?.('pagehide',()=>{revoke(sourceUrl);revoke(outputUrl);decoded?.close();});
+ download.hidden=true;btn.disabled=true;
+}
 function init(){
+ initMini();
  const $=id=>document.getElementById(id);if(!$('image-studio'))return;
  const zone=$('is-dropzone'),input=$('is-file'),choose=$('is-choose'),run=$('is-run'),details=$('is-details'),result=$('is-result');
  const status=$('is-status'),original=$('is-before'),preview=$('is-after'),download=$('is-download');

@@ -1,0 +1,32 @@
+name: Quick Image Studio checks
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/quick-image-studio.js'
+      - 'assets/quick-image-studio.css'
+      - 'quick-image-studio/**'
+      - 'index.html'
+      - 'sitemap.xml'
+      - 'tests/quick-image-studio.test.js'
+      - '.github/workflows/quick-image-studio.yml'
+  pull_request:
+    paths:
+      - 'assets/quick-image-studio.js'
+      - 'assets/quick-image-studio.css'
+      - 'quick-image-studio/**'
+      - 'index.html'
+      - 'tests/quick-image-studio.test.js'
+      - '.github/workflows/quick-image-studio.yml'
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check assets/quick-image-studio.js
+      - run: node --test tests/quick-image-studio.test.js

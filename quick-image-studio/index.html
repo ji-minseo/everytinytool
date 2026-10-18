@@ -8,8 +8,8 @@
 <link rel="canonical" href="https://everytinytool.com/quick-image-studio/">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="stylesheet" href="../assets/styles.css?v=20261018-workspace-1">
-<link rel="stylesheet" href="../assets/quick-image-studio.css?v=20261018-img-studio-1">
-<script defer src="../assets/quick-image-studio.js?v=20261018-img-studio-1"></script>
+<link rel="stylesheet" href="../assets/quick-image-studio.css?v=20261018-img-studio-2">
+<script defer src="../assets/quick-image-studio.js?v=20261018-img-studio-2"></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811" crossorigin="anonymous"></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Quick Image Studio — Resize, Compress and Convert","url":"https://everytinytool.com/quick-image-studio/","applicationCategory":"MultimediaApplication","operatingSystem":"Modern web browser","isAccessibleForFree":true,"description":"Resize, compress and convert JPG, PNG and WebP images locally in a web browser."}</script>
 <link rel="stylesheet" href="../assets/tool-embed.css?v=20261018-hub2">
@@ -20,24 +20,25 @@
 <section class="is-panel" aria-label="Image optimization tool">
 <div class="is-dropzone" id="is-dropzone" tabindex="0" role="group" aria-label="Image upload area. Click or press Enter or Space to select a photo, or drag and drop an image.">
 <input id="is-file" class="is-file-input" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" aria-label="Choose a JPG, PNG or WebP image">
-<div class="is-upload-icon" aria-hidden="true">🖼️</div><h2>Drop an image here</h2><p>JPEG, PNG or WebP · Up to 25 MB</p><button type="button" class="button" id="is-choose">Choose an image</button></div>
+<img id="is-upload-preview" class="is-upload-preview" alt="Selected image thumbnail" hidden><div class="is-upload-icon" aria-hidden="true">🖼️</div><h2>Drop an image here</h2><p>JPEG, PNG or WebP · Up to 25 MB</p><button type="button" class="button" id="is-choose">Choose an image</button></div>
 <div id="is-details" hidden>
 <div class="is-file-line"><div><strong id="is-file-name">photo.jpg</strong><span id="is-input-size">—</span></div><button type="button" id="is-clear" class="is-quiet">Remove image</button></div>
 <div class="is-settings-head"><span class="is-number">01</span><div><h2>Choose your output</h2><p>Keep proportions automatically, or pick the original size to convert and compress only.</p></div></div>
-<div class="is-options">
+<div class="is-options" id="is-sizing-options">
 <div class="is-control is-size-control"><label for="is-size-mode">Image sizing</label><select id="is-size-mode"><option value="width">Resize to width</option><option value="height">Resize to height</option><option value="percent">Scale by percent</option><option value="original">Keep original dimensions</option></select></div>
 <div class="is-control"><label id="is-size-value-label" for="is-size-value">Width (px)</label><input id="is-size-value" type="number" min="1" max="12000" step="1" value="1200" inputmode="numeric"></div>
 <div class="is-control"><label for="is-format">Export format</label><select id="is-format"><option value="image/jpeg">JPG · small photos</option><option value="image/png">PNG · transparency</option><option value="image/webp">WebP · efficient</option></select></div>
 </div>
-<div class="is-presets" role="group" aria-label="Popular target widths"><span>Popular sizes</span><button type="button" data-is-preset="640">640 px</button><button type="button" data-is-preset="1080">1080 px</button><button type="button" data-is-preset="1200">1200 px</button><button type="button" data-is-preset="1920">1920 px</button></div>
-<label class="is-checkline" for="is-upscale"><input id="is-upscale" type="checkbox"> Allow upscaling smaller images (may look blurry)</label>
-<div class="is-options is-options-secondary">
+<div class="is-presets" id="is-size-presets" role="group" aria-label="Popular target widths"><span>Popular sizes</span><button type="button" data-is-preset="640">640 px</button><button type="button" data-is-preset="1080">1080 px</button><button type="button" data-is-preset="1200">1200 px</button><button type="button" data-is-preset="1920">1920 px</button></div>
+<label class="is-checkline" id="is-upscale-row" for="is-upscale"><input id="is-upscale" type="checkbox"> Allow upscaling smaller images (may look blurry)</label>
+<details class="is-advanced" id="is-advanced"><summary>More options · Quality, size target &amp; background</summary><div class="is-options is-options-secondary">
 <div class="is-control" id="is-quality-box"><label for="is-quality">Quality <strong id="is-quality-label">82%</strong></label><input id="is-quality" type="range" min="20" max="100" step="1" value="82"></div>
 <div class="is-control"><label for="is-target">Target size (KB) <small>optional</small></label><input id="is-target" type="number" min="0" step="1" value="0" placeholder="e.g. 250"></div>
 <div class="is-control" id="is-background-box"><label for="is-background">Transparent area for JPG / WebP</label><select id="is-background"><option value="white">White</option><option value="black">Black</option><option value="custom">Custom color</option></select></div>
 <div class="is-control" id="is-custom-box" hidden><label for="is-custom-color">Custom background</label><input id="is-custom-color" type="color" value="#ffffff"></div>
 </div>
 <p id="is-target-note" class="is-hint">Optional target is best effort and may not be achievable at this resolution.</p>
+</details>
 <div class="is-output-hint">Estimated output dimensions: <strong id="is-output-size">—</strong></div>
 <div class="is-process-row"><button id="is-run" type="button" class="button" disabled>Process image ↗</button><p>Pixels are processed on your device.</p></div>
 </div>

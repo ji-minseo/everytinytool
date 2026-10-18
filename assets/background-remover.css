@@ -89,3 +89,11 @@
 .bg-actions{display:flex;gap:10px}
 .bg-actions .btn{min-height:44px}
 @media(max-width:650px){.bg-dropzone.has-image{padding:14px}}
+
+/* Keep the dropzone unchanged after selection; display the preview only in the queue. */
+#bg-remover .bg-dropzone .drop-icon{display:grid!important;place-items:center!important;width:52px!important;height:52px!important;border-radius:15px!important;background:#f1ebff!important;color:#7656d3!important;margin:0 auto 13px!important;font-size:25px!important;line-height:1!important}
+#bg-remover .bg-dropzone.has-image{min-height:240px;padding:34px 20px}
+#bg-remover .bg-dropzone.has-image h2{font-size:22px}
+#bg-remover .bg-file-thumbnail{display:block;flex:none;width:55px;height:55px;object-fit:cover;border-radius:10px;background:#f8f5fc;border:1px solid #eee8f5}
+#bg-remover .bg-file-information{min-width:0;flex:1}
+@media(max-width:650px){#bg-remover .bg-dropzone.has-image{min-height:210px;padding:28px 16px}}

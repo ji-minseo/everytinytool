@@ -11,8 +11,9 @@
   <meta name="google-site-verification" content="CBlkb_437tiJ5H-kUBL7O8dh-hd-sO5K0XpoibZ67Dg">
   <link rel="canonical" href="https://everytinytool.com/">
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
-  <link rel="stylesheet" href="./assets/styles.css?v=20261018-workspace-1">
+  <link rel="stylesheet" href="./assets/styles.css?v=20261018-image-studio-1">
   <script src="./assets/text-tidy.js?v=20261010" defer></script>
+  <script src="./assets/quick-image-studio.js?v=20261018-image-studio-1" defer></script>
 </head>
 <body>
 <div class="shell">
@@ -30,7 +31,7 @@
     <section class="hero">
       <span class="eyebrow">Tiny tools, useful every day</span>
       <h1>One home for small tools that just work.</h1>
-      <p>Build a list workflow, compare data, count words or measure on screen — right here. Need a calculator, random picker or image converter? Explore the related collections.</p>
+      <p>Resize and compress photos, build a list workflow, compare data, count words or measure on screen — right here. More specialized image, PDF and calculator tools are one click away.</p>
     </section>
 
     <section class="workspace-feature" aria-labelledby="workspace-feature-title">
@@ -44,9 +45,24 @@
       </div>
     </section>
 
+    <section class="home-image-quick" id="home-image-quick" aria-labelledby="home-image-title">
+      <div class="home-image-quick-copy"><span class="eyebrow">Try it right here · No signup</span><h2 id="home-image-title">Make that photo the right size.</h2><p>Upload a photo, choose a popular width and get a smaller JPG in seconds. Nothing is uploaded. Need PNG, WebP or detailed quality controls? Open the full studio.</p><a href="./quick-image-studio/" class="home-image-full-link">Open full Image Studio →</a></div>
+      <div class="home-image-quick-form">
+        <label class="home-image-file-label" for="home-image-file">Choose JPG, PNG or WebP</label>
+        <input id="home-image-file" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
+        <div class="home-image-inline-preview"><img id="home-image-preview" alt="Selected photo" hidden><span id="home-image-name">No photo selected</span></div>
+        <label for="home-image-width">Resize to width</label><select id="home-image-width"><option value="640">640 px · small</option><option value="1080" selected>1080 px · social</option><option value="1200">1200 px · general</option><option value="1920">1920 px · HD</option></select>
+        <button type="button" class="button" id="home-image-run" disabled>Resize &amp; compress photo →</button>
+        <a class="button home-image-download" id="home-image-download" download hidden>Download JPG ↓</a>
+        <p id="home-image-result" class="home-image-result"></p>
+        <p id="home-image-status" role="status" aria-live="polite" class="home-image-status">Images are processed locally in your browser.</p>
+      </div>
+    </section>
+
     <section class="local-tools" id="more-tools" aria-labelledby="local-tools-title">
-      <div class="local-tools-heading"><div><span class="eyebrow">Tools you can use right here</span><h2 id="local-tools-title">Start with a tool.</h2><p>Compare two lists, count words, or measure on screen. All three are available on this site, without an account.</p></div></div>
+      <div class="local-tools-heading"><div><span class="eyebrow">Tools you can use right here</span><h2 id="local-tools-title">Start with a tool.</h2><p>Resize an image, build a workflow, compare data, count words or measure on screen. Use each tool directly on this site.</p></div></div>
       <div class="local-tools-grid">
+        <a class="local-tool-card image-local-card" href="./quick-image-studio/"><span class="local-tool-icon" aria-hidden="true">🖼️</span><h3>Quick Image Studio</h3><p>Resize, compress and convert images with an original/processed preview and direct download.</p><span class="cta">Optimize an image →</span></a>
         <a class="local-tool-card workspace-local-card" href="./workspace/">
           <span class="local-tool-icon" aria-hidden="true">✦</span>
           <h3>Tiny Workspace</h3>

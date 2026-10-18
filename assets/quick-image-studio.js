@@ -215,7 +215,7 @@ function init(){
       resultUrl=queue.length>1?null:url;
       preview.src=url;
       $('is-output-summary').textContent=out.width+' × '+out.height+' px · '+formatBytes(blob.size);
-      $('is-saving').textContent=blob.size<=current.size?'Saved '+savedPercent(current.size,blob.size)+'% of original size':'File is '+Math.round((blob.size/current.size-1)*100)+'% larger';
+      $('is-saving').textContent=blob.size<=current.size?'Saved '+savedPercent(current.size,blob.size)+'% of original size':'File is '+Math.round((blob.size/current.size-1)*100)+'% larger';if(compressMode){let chart=$('is-compression-chart');if(!chart){chart=document.createElement('div');chart.id='is-compression-chart';chart.className='is-compression-chart';result.append(chart)}chart.replaceChildren();const max=Math.max(current.size,blob.size,1);for(const [label,value] of [['Original',current.size],['Compressed',blob.size]]){const row=document.createElement('div');row.className='is-comparison-row';const caption=document.createElement('span');caption.textContent=label;const track=document.createElement('div');track.className='is-comparison-track';const fill=document.createElement('span');fill.className='is-comparison-fill'+(label==='Compressed'?' compressed':'');track.append(fill);const amount=document.createElement('strong');amount.textContent=formatBytes(value);row.append(caption,track,amount);chart.append(row);requestAnimationFrame(()=>requestAnimationFrame(()=>fill.style.width=Math.max(3,value/max*100)+'%'));}}
       download.href=url;download.download=fileName(current.name,out.format);download.disabled=false;
       result.hidden=false;
      }else if(queue.length===1){revoke(url);}

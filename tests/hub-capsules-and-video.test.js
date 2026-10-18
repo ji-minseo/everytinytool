@@ -59,7 +59,7 @@ test('video page includes real output controls, progress and limits',()=>{
  for(const id of ['vs-file','vs-format','vs-size','vs-bitrate','vs-run','vs-cancel','vs-progress','vs-download','vs-status'])assert.match(page,new RegExp('id="'+id+'"'));
  assert.match(page,/(5 min|five minutes)/);
  assert.match(page,/browser supports/);
- assert.match(page,/not be supported/);
+ assert.match(page,/(may be silent|audio capture)/);
 });
 test('main domain sitemap lists all new working tools',()=>{
  const sitemap=fs.readFileSync(path.join(root,'sitemap.xml'),'utf8');

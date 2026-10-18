@@ -70,3 +70,6 @@
 .is-dropzone #is-choose:hover:not(:disabled),
 .vs-dropzone #vs-choose:hover:not(:disabled){filter:brightness(1.05)}
 .is-dropzone #is-choose:disabled,.vs-dropzone #vs-choose:disabled{opacity:.48;cursor:not-allowed}
+
+/* Keep the dropzone icon visible even after selecting files. */
+.vs-dropzone .vs-upload-icon,.vs-dropzone.has-video .vs-upload-icon{display:grid!important;place-items:center!important;width:52px!important;height:52px!important;background:#f1ebff!important;border-radius:15px!important;color:#7656d3!important;margin:0 auto 12px!important;font-size:25px!important}

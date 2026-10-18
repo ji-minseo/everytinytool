@@ -439,3 +439,9 @@ h1{
     overflow-y:auto;
   }
 }
+
+/* Distinguish on-site tools from off-site collection navigation. */
+.collection-section{margin-top:65px}
+.collection-section-heading{max-width:770px;margin-bottom:20px}
+.collection-section-heading h2{margin:13px 0 7px;font-size:clamp(30px,4.5vw,43px);line-height:1.1;letter-spacing:-.045em}
+.collection-section-heading p{margin:0;color:var(--muted);font-size:15px}

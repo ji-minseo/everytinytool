@@ -499,3 +499,22 @@ h1{
 .page-main a.inline,.page-main p a:not(.button):not(.btn),.page-main li a:not(.button):not(.btn){color:#6642ad!important;text-decoration:underline!important;text-decoration-color:#c9b8e9!important;text-decoration-thickness:1.5px!important;text-underline-offset:3px;border-radius:3px;font-weight:650;transition:color .18s,background .18s,text-decoration-color .18s}
 .page-main a.inline:hover,.page-main p a:not(.button):not(.btn):hover,.page-main li a:not(.button):not(.btn):hover{color:#46238e!important;background:#f5efff;text-decoration-color:#8054dc!important}
 .page-main a.inline:focus-visible,.page-main p a:not(.button):not(.btn):focus-visible,.page-main li a:not(.button):not(.btn):focus-visible{outline:2px solid #9672e6;outline-offset:3px}
+
+/* Policy editorial links: neutral ink, no visited-link purple or default underlines */
+.page-main a.inline,.page-main p a:not(.button):not(.btn),.page-main li a:not(.button):not(.btn),
+.page-main a.inline:visited,.page-main p a:not(.button):not(.btn):visited,.page-main li a:not(.button):not(.btn):visited{
+ display:inline;color:#302939!important;background:linear-gradient(transparent 65%,#eee8fa 65%)!important;
+ text-decoration:none!important;border:0!important;border-radius:2px;font-weight:700;
+ box-decoration-break:clone;-webkit-box-decoration-break:clone;
+ transition:color .16s,background .16s
+}
+.page-main a.inline::after,.page-main p a:not(.button):not(.btn)::after,.page-main li a:not(.button):not(.btn)::after{
+ content:" ↗";color:#9d7ccf;font-size:.79em;font-weight:800;white-space:nowrap
+}
+.page-main a.inline:hover,.page-main p a:not(.button):not(.btn):hover,.page-main li a:not(.button):not(.btn):hover{
+ color:#553a86!important;background:linear-gradient(transparent 40%,#e4d8fa 40%)!important;text-decoration:none!important
+}
+.page-main .policy-date{display:inline-flex;align-items:center;gap:10px;width:fit-content;margin:1px 0 26px!important;padding:9px 13px;border:1px solid #e9e3ef;border-radius:11px;background:#fbf9fd;color:#70667a;font-size:12px;font-weight:550;line-height:1.4;letter-spacing:.01em}
+.page-main .policy-date::before{content:"";display:block;width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:#ac93d8}
+.page-main .policy-date strong{font-weight:760;color:#453b51}
+@media(max-width:580px){.page-main .policy-date{font-size:11px;padding:8px 11px;margin-bottom:21px!important}}

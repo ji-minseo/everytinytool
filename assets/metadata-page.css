@@ -41,3 +41,14 @@
 #meta-results .ett-clean-info small{display:block;color:#7a7083;font-size:12px;margin-top:4px}
 #meta-results .media-item:has(.ett-clean-info) .media-preview{width:55px!important;height:55px!important;object-fit:cover!important;border-radius:10px!important;background:#f8f5fc}
 #meta-results .media-item:has(.ett-clean-info) .btn{min-height:42px!important;border-radius:12px!important;padding:10px 16px!important;font-size:13px!important;font-weight:700!important;white-space:nowrap!important}
+
+/* Scannable metadata facts table; no low-level segments. */
+.ett-meta-simple{display:grid!important;border:1px solid #e9e3f2!important;border-radius:13px!important;overflow:hidden!important}
+.ett-meta-simple>div{display:grid!important;grid-template-columns:minmax(170px,44%) minmax(0,1fr)!important;align-items:center!important;gap:0!important;border-bottom:1px solid #eee8f4!important}
+.ett-meta-simple>div:last-child{border-bottom:0!important}
+.ett-meta-simple>div>div:first-child{background:#faf7ff!important;padding:13px 15px!important}
+.ett-meta-simple>div>div:last-child{padding:13px 15px!important;font-size:13px!important;font-weight:700!important;color:#352a43!important}
+.ett-meta-simple strong{display:block;font-size:13px!important}
+.ett-meta-simple small{display:block;margin-top:3px;color:#81758d;font-size:11px!important;font-weight:400;line-height:1.45}
+#meta-list:empty,#meta-results:empty{display:none!important;margin:0!important;padding:0!important}
+@media(max-width:500px){.ett-meta-simple>div{grid-template-columns:minmax(130px,48%) minmax(0,1fr)!important}.ett-meta-simple>div>div{padding:11px!important}}

@@ -142,7 +142,16 @@ function init(){
  input.addEventListener('change',()=>{if(input.files?.[0])select(input.files[0]);});
  ['dragenter','dragover'].forEach(type=>zone.addEventListener(type,e=>{e.preventDefault();if(!busy)zone.classList.add('dragover');}));
  ['dragleave','drop'].forEach(type=>zone.addEventListener(type,e=>{e.preventDefault();zone.classList.remove('dragover');if(type==='drop'&&!busy&&e.dataTransfer?.files?.[0])select(e.dataTransfer.files[0]);}));
- controls.forEach(id=>$(id).addEventListener(id==='is-quality'?'input':'change',()=>{if(busy)return;invalidate();updateControls();}));
+ controls.forEach(id=>$(id).addEventListener(id==='is-quality'?'input':'change',()=>{
+  if(busy)return;
+  if(id==='is-size-mode'&&decoded){
+   const choice=$('is-size-mode').value;
+   if(choice==='width')$('is-size-value').value=String(decoded.width);
+   if(choice==='height')$('is-size-value').value=String(decoded.height);
+   if(choice==='percent')$('is-size-value').value='100';
+  }
+  invalidate();updateControls();
+ }));
  $('is-size-value').addEventListener('input',()=>{if(!busy){invalidate();updateControls();}});
  $('is-custom-color').addEventListener('input',()=>{if(!busy){invalidate();updateControls();}});
  document.querySelectorAll('[data-is-preset]').forEach(b=>b.addEventListener('click',()=>{if(busy)return;$('is-size-mode').value='width';$('is-size-value').value=b.dataset.isPreset;invalidate();updateControls();}));
@@ -161,7 +170,7 @@ function init(){
    download.href=resultUrl;download.download=fileName(file.name,out.format);download.disabled=false;
    result.hidden=false;notify('Your image is ready. Download the processed file.');
   }catch(err){notify(err.message||'Image processing failed.',true);}
-  finally{setBusy(false);}
+  finally{setBusy(false);updateControls();}
  });
  $('is-clear').addEventListener('click',()=>select(null));
  window.addEventListener?.('pagehide',()=>{revoke(originalUrl);revoke(resultUrl);decoded?.close();});

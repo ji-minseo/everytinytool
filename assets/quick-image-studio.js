@@ -97,9 +97,13 @@ function init(){
  let file=null,originalUrl=null,resultUrl=null,blob=null,busy=false,token=0,decoded=null;
  let batchFiles=[],batchUrls=[],batchThumbUrls=[];
  const batchBox=$('is-batch'),batchList=$('is-batch-list');
+ let zipOutputs=[];const zipButton=document.createElement('button');zipButton.type='button';zipButton.id='is-download-zip';zipButton.className='button is-zip-button';zipButton.textContent='Download all as ZIP';zipButton.hidden=true;run.insertAdjacentElement('afterend',zipButton);
+ zipButton.addEventListener('click',async()=>{if(!zipOutputs.length||!root.JSZip)return;zipButton.disabled=true;try{const z=new root.JSZip();const seen=new Set();for(const x of zipOutputs){let name=x.name,i=2;while(seen.has(name))name=x.name.replace(/(\.[^.]+)$/,'-'+i+++'$1');seen.add(name);z.file(name,x.blob)}const packed=await z.generateAsync({type:'blob'}),href=URL.createObjectURL(packed),a=document.createElement('a');a.href=href;a.download='image-studio-results.zip';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(href),30000)}finally{zipButton.disabled=false}});
+
  function clearBatchUrls(){batchUrls.forEach(u=>revoke(u));batchUrls=[];}
  function clearBatchThumbs(){batchThumbUrls.forEach(u=>revoke(u));batchThumbUrls=[];}
  function showBatch(selected){
+  zipOutputs=[];zipButton.hidden=true;
   batchFiles=selected.slice();
   clearBatchUrls();clearBatchThumbs();batchList.replaceChildren();
   batchBox.hidden=batchFiles.length===0;
@@ -190,7 +194,7 @@ function init(){
    await new Promise(r=>root.requestAnimationFrame?root.requestAnimationFrame(r):r());
    const s=settings();if(s.targetKB<0||!Number.isFinite(s.targetKB))throw Error('Target size must be a positive number or blank.');
    const queue=batchFiles.length?batchFiles:[file];
-   clearBatchUrls();
+   clearBatchUrls();zipOutputs=[];zipButton.hidden=true;
    let success=0,failed=0;
    if(queue.length>1)batchBox.hidden=false;
    for(let i=0;i<queue.length;i++){
@@ -203,6 +207,7 @@ function init(){
      if(label)label.textContent='Processing…';
      const out=await convertImage(localDecoded,s);
      if(thisToken!==token)break;
+     zipOutputs.push({name:fileName(current.name,out.format),blob:out.blob});
      const url=URL.createObjectURL(out.blob);
      if(queue.length>1){
       batchUrls.push(url);
@@ -223,6 +228,7 @@ function init(){
     }catch(e){failed++;if(label){label.textContent=e.message||'Failed';label.classList.add('ett-error');}}
     finally{if(i!==0)localDecoded?.close();}
    }
+   zipButton.hidden=zipOutputs.length<2;
    notify('Finished '+success+' image'+(success===1?'':'s')+(failed?' · '+failed+' could not be processed':'')+'. Download each result below.',failed>0&&success===0);
   }catch(err){notify(err.message||'Image processing failed.',true);}
   finally{setBusy(false);updateControls();}

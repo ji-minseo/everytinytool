@@ -12,8 +12,8 @@
   <link rel="canonical" href="https://everytinytool.com/">
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="stylesheet" href="./assets/styles.css?v=20261018-hub3">
-  <link rel="stylesheet" href="./assets/hub-capsules.css?v=20261018-editorial2">
-  <script src="./assets/hub-capsules.js?v=20261018-meta1" defer></script>
+  <link rel="stylesheet" href="./assets/hub-capsules.css?v=20261018-image9">
+  <script src="./assets/hub-capsules.js?v=20261018-image9" defer></script>
   
 </head>
 <body>
@@ -45,10 +45,22 @@
             <button type="button" role="tab" aria-selected="true" data-image-tab="resize" aria-controls="hub-image-resize">↔️ Resize image</button>
             <button type="button" role="tab" aria-selected="false" tabindex="-1" data-image-tab="compress" aria-controls="hub-image-compress">🗜️ Compress image</button>
             <button type="button" role="tab" aria-selected="false" tabindex="-1" data-image-tab="remove" aria-controls="hub-image-remove">✂️ Remove background</button>
+            <button type="button" role="tab" aria-selected="false" tabindex="-1" data-image-tab="crop" aria-controls="hub-image-crop">✂️ Crop</button>
+            <button type="button" role="tab" aria-selected="false" tabindex="-1" data-image-tab="convert" aria-controls="hub-image-convert">🔁 Convert</button>
+            <button type="button" role="tab" aria-selected="false" tabindex="-1" data-image-tab="rotate" aria-controls="hub-image-rotate">↻ Rotate</button>
+            <button type="button" role="tab" aria-selected="false" tabindex="-1" data-image-tab="jpgpng" aria-controls="hub-image-jpgpng">🟡 JPG / PNG</button>
+            <button type="button" role="tab" aria-selected="false" tabindex="-1" data-image-tab="webp" aria-controls="hub-image-webp">🟣 WebP</button>
+            <button type="button" role="tab" aria-selected="false" tabindex="-1" data-image-tab="heic" aria-controls="hub-image-heic">📱 HEIC</button>
           </div>
           <div id="hub-image-resize" role="tabpanel" data-image-panel="resize"><iframe id="hub-frame-resize" title="Interactive image resize, compression and format conversion" loading="eager" data-src="/quick-image-studio/?embed=1"></iframe></div>
           <div id="hub-image-compress" role="tabpanel" data-image-panel="compress" hidden><iframe id="hub-frame-compress" title="Interactive image compressor and format converter" loading="lazy" data-src="/quick-image-studio/?embed=1&mode=compress"></iframe></div>
           <div id="hub-image-remove" role="tabpanel" data-image-panel="remove" hidden><iframe id="hub-frame-remove" title="Interactive AI image background remover" loading="lazy" data-src="/remove-background/?embed=1"></iframe></div>
+          <div id="hub-image-crop" role="tabpanel" data-image-panel="crop" hidden class="hub-external-tool"><div class="hub-external-icon">✂️</div><h4>Crop tool</h4><p>Crop a photo by pixels or aspect ratio. Open the dedicated Image Everything workspace to process your files.</p><a class="hub-open-tool" href="https://image.everytinytool.com/crop-image/" target="_blank" rel="noopener noreferrer">Open Crop tool ↗</a></div>
+          <div id="hub-image-convert" role="tabpanel" data-image-panel="convert" hidden class="hub-external-tool"><div class="hub-external-icon">🔁</div><h4>Convert tool</h4><p>Convert images between JPG, PNG and WebP. Open the dedicated Image Everything workspace to process your files.</p><a class="hub-open-tool" href="https://image.everytinytool.com/convert-image/" target="_blank" rel="noopener noreferrer">Open Convert tool ↗</a></div>
+          <div id="hub-image-rotate" role="tabpanel" data-image-panel="rotate" hidden class="hub-external-tool"><div class="hub-external-icon">↻</div><h4>Rotate tool</h4><p>Rotate or flip your image. Open the dedicated Image Everything workspace to process your files.</p><a class="hub-open-tool" href="https://image.everytinytool.com/rotate-image/" target="_blank" rel="noopener noreferrer">Open Rotate tool ↗</a></div>
+          <div id="hub-image-jpgpng" role="tabpanel" data-image-panel="jpgpng" hidden class="hub-external-tool"><div class="hub-external-icon">🟡</div><h4>JPG / PNG tool</h4><p>Convert PNG to JPG or JPG to PNG. Open the dedicated Image Everything workspace to process your files.</p><a class="hub-open-tool" href="https://image.everytinytool.com/png-to-jpg/" target="_blank" rel="noopener noreferrer">Open JPG / PNG tool ↗</a></div>
+          <div id="hub-image-webp" role="tabpanel" data-image-panel="webp" hidden class="hub-external-tool"><div class="hub-external-icon">🟣</div><h4>WebP tool</h4><p>Convert JPG or PNG to WebP, or WebP to JPG. Open the dedicated Image Everything workspace to process your files.</p><a class="hub-open-tool" href="https://image.everytinytool.com/image-to-webp/" target="_blank" rel="noopener noreferrer">Open WebP tool ↗</a></div>
+          <div id="hub-image-heic" role="tabpanel" data-image-panel="heic" hidden class="hub-external-tool"><div class="hub-external-icon">📱</div><h4>HEIC tool</h4><p>Convert iPhone HEIC and HEIF photos to JPG. Open the dedicated Image Everything workspace to process your files.</p><a class="hub-open-tool" href="https://image.everytinytool.com/heic-to-jpg/" target="_blank" rel="noopener noreferrer">Open HEIC tool ↗</a></div>
           <div class="hub-panel-foot"><span>Files are processed locally.</span><a href="/quick-image-studio/" data-image-full>Open full image tool ↗</a></div>
         </section>
         <section class="hub-panel" id="hub-panel-pdf" role="tabpanel" aria-labelledby="hub-tab-pdf" data-panel="pdf" hidden>

@@ -32,7 +32,7 @@ async function convertImage(image,settings){
  ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
  const color=makeBackgroundColor(settings.format,settings.background,settings.customColor);
  if(color){ctx.fillStyle=color;ctx.fillRect(0,0,width,height);}
- ctx.drawImage(image,0,0,width,height);
+ ctx.drawImage(image.image||image,0,0,width,height);
  const quality=Math.max(0.1,Math.min(1,Number(settings.quality)/100||0.82));
  let result=await canvasToBlob(canvas,settings.format,quality);
  if(result.type!==settings.format)throw Error('This browser cannot export '+(FORMATS[settings.format]||settings.format)+'. Choose JPG or PNG.');
@@ -112,7 +112,7 @@ function init(){
   try{
    await new Promise(r=>root.requestAnimationFrame?root.requestAnimationFrame(r):r());
    const s=settings();if(s.targetKB<0||!Number.isFinite(s.targetKB))throw Error('Target size must be a positive number or blank.');
-   const out=await convertImage(decoded.image?{...decoded.image,width:decoded.width,height:decoded.height}:decoded,s);
+   const out=await convertImage(decoded,s);
    if(thisToken!==token)return;
    blob=out.blob;revoke(resultUrl);resultUrl=URL.createObjectURL(blob);preview.src=resultUrl;
    $('is-output-summary').textContent=out.width+' × '+out.height+' px · '+formatBytes(blob.size);

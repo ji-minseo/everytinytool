@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PDF Compressor — Adjust Quality & PDF Size Online | Image Everything</title>
+  <meta name="description" content="Compress PDF files with a Quality 80% slider, or optionally check under 100 MB, 50 MB or 10 MB. Text and vector pages are not rasterized.">
+  <meta name="google-site-verification" content="CBlkb_437tiJ5H-kUBL7O8dh-hd-sO5K0XpoibZ67Dg">
+  <link rel="canonical" href="https://everytinytool.com/pdf-compressor/">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="stylesheet" href="../assets/image-tools-base.css?v=20261018-hub">
+  <link rel="stylesheet" href="../assets/pdf-compressor.css?v=20261018-home">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" defer></script>
+  <script src="../assets/pdf-compressor.js?v=20261013-click-dropzone-v1" defer></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811" crossorigin="anonymous"></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"PDF Compressor — Image Everything","url":"https://everytinytool.com/pdf-compressor/","description":"Browser-based PDF compressor with JPEG image quality control and optional size targets without page rasterization.","applicationCategory":"UtilitiesApplication","operatingSystem":"Web browser","isAccessibleForFree":true}</script>
+<link rel="stylesheet" href="../assets/tool-embed.css?v=20261018-hub">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <a class="brand" href="../">Every Tiny Tool <span>✦</span></a>
+    <span class="toplink">Private · Runs in your browser</span>
+  </header>
+  
+  <main id="pdf-compressor" class="tool-layout pdfc-page">
+    <section class="tool-head">
+      <a class="breadcrumb" href="../">← Every Tiny Tool</a>
+      <h1>PDF Compressor</h1>
+      <p>Compress a PDF in your browser with adjustable image quality. Quality starts at 80%; a file-size limit is optional.</p>
+    </section>
+    <section class="panel pdfc-panel" aria-label="PDF optimizer">
+      <div class="dropzone pdfc-dropzone" id="pdf-dropzone" role="group" tabindex="0" aria-label="PDF upload area. Click or press Enter or Space to choose a PDF, or drag and drop a file.">
+        <input class="file-input" id="pdf-file" type="file" accept=".pdf,application/pdf" aria-label="Choose a PDF file">
+        <div><div class="drop-icon">📄</div><h2>Drop your PDF here</h2><p>PDF files up to 180 MB · Browser-only processing</p><button class="btn" id="pdf-choose" type="button">Choose PDF</button></div>
+      </div>
+      <div class="file-summary pdfc-file" id="pdf-file-selected" hidden>
+        <div class="pdfc-file-main"><span class="pdfc-file-icon" aria-hidden="true">PDF</span><div class="pdfc-file-meta"><strong id="pdf-filename">document.pdf</strong><span id="pdf-original-label">—</span></div></div>
+        <button class="btn ghost pdfc-file-remove" id="pdf-remove" type="button" aria-label="Remove file">Remove</button>
+      </div>
+      <div class="controls pdfc-controls">
+        <div class="row pdfc-settings-row">
+          <div class="control">
+            <label for="pdf-quality">Quality <span id="pdf-quality-value">80%</span></label>
+            <input id="pdf-quality" type="range" min="65" max="100" step="5" value="80" aria-describedby="pdf-quality-help">
+            <p id="pdf-quality-help" class="pdfc-control-hint">Applies to supported embedded JPEG images, not selectable text or vector graphics.</p>
+          </div>
+          <div class="control pdfc-target-control">
+            <label class="checkline pdfc-target-toggle" for="pdf-target-toggle">
+              <input id="pdf-target-toggle" type="checkbox"> Target file size <span class="optional">optional</span>
+            </label>
+            <p class="pdfc-control-hint">Leave off to compress using only your chosen quality.</p>
+            <div class="pdfc-target-options" id="pdf-target-options" hidden>
+              <div class="preset-row pdfc-preset-row" role="group" aria-label="Optional PDF size limits">
+                <button class="preset-btn" data-pdf-size="100" type="button">Under 100 MB</button>
+                <button class="preset-btn" data-pdf-size="50" type="button">Under 50 MB</button>
+                <button class="preset-btn active" data-pdf-size="10" type="button">Under 10 MB</button>
+              </div>
+              <div class="pdfc-limit-field"><label for="pdf-limit">Custom limit (MB)</label><div class="pdfc-input-suffix"><input id="pdf-limit" type="number" min="0.1" max="1000" inputmode="decimal" step="0.1" value="10" disabled><span>MB</span></div></div>
+              <p class="pdfc-target-note">Best effort: your chosen quality won't be reduced further to force the limit.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="notice pdfc-note"><strong>Quality applies to compatible JPEG images only.</strong> Text and vector content won't be rasterized. Images in other formats may be unchanged. Rewriting can affect signatures, forms or advanced PDF features, so review the result.</p>
+      <div class="actions pdfc-actions"><button class="btn" id="pdf-compress" type="button" disabled>Compress PDF</button></div>
+      <p class="pdfc-status" id="pdf-status" role="status" aria-live="polite">Files are processed locally in your browser. Nothing is uploaded.</p>
+      <div class="pdfc-progress" id="pdf-progress" hidden role="status" aria-live="polite"><span class="pdfc-spinner" aria-hidden="true"></span><strong>Compressing PDF…</strong><span>Optimizing supported JPEG images and document structure without rasterizing pages.</span></div>
+      <div class="compression-summary pdfc-result" id="pdf-result" hidden>
+        <div class="compression-summary-head"><div><span class="compression-kicker">Optimization result</span><strong id="pdf-result-title">Ready</strong></div><div class="compression-size" id="pdf-result-caption">Optimized PDF</div></div>
+        <div class="compression-chart">
+          <div class="compression-row"><span>Original</span><div class="compression-track"><div class="compression-bar original" id="pdf-original-bar"></div></div><strong id="pdf-input-size">—</strong></div>
+          <div class="compression-row"><span>Result</span><div class="compression-track"><div class="compression-bar compressed" id="pdf-result-bar"></div></div><strong id="pdf-output-size">—</strong></div>
+        </div>
+        <p class="pdfc-saving"><strong id="pdf-saved">—</strong> reduction</p>
+        <p class="pdfc-result-message" id="pdf-outcome"></p>
+        <div class="actions"><a class="btn" id="pdf-download" download hidden>Download PDF</a></div>
+      </div>
+    </section>
+    <section class="info info-grid" aria-label="How it works">
+      <article class="info-card"><h2>1. Add your PDF</h2><p>Select a file from your device. It stays in your browser throughout the process.</p></article>
+      <article class="info-card"><h2>2. Choose a goal</h2><p>Start with Quality 80%. Enable the optional size goal only if you need a specific limit.</p></article>
+      <article class="info-card"><h2>3. Check the result</h2><p>See the actual space saved and whether it meets your target. If repacking makes it bigger, we keep the original.</p></article>
+    </section>
+    <section class="seo-content pdfc-guide">
+      <h2>How PDF compression works</h2>
+      <p>Choose an image quality between 65% and 100% (80% by default). The compressor selectively re-encodes supported, unmasked RGB JPEG images without changing their pixel dimensions. Text, vector artwork and the page layout aren't converted into images. The PDF structure is then optimized.</p>
+      <h2>Optional file size limits</h2>
+      <p>If you have an upload limit, enable the optional target and choose under 100 MB, 50 MB or 10 MB. The compressor tries at your selected quality but won't downsample pages or automatically drop quality further. The result shows whether your target was reached. Quality compression is still attempted when the original already meets the goal; if no smaller file results, we keep the original.</p>
+      <h2>PDF compression FAQ</h2>
+      <div class="faq-list">
+        <details><summary>What does Quality 80% do?</summary><p>It sets the JPEG re-encoding quality for compatible embedded photos. It does not mean that every PDF becomes 20% smaller. PDFs without supported JPEGs may see only small structural reductions.</p></details>
+        <details><summary>Can I compress a PDF to under 10 MB?</summary><p>Enable the optional Target file size control and choose Under 10 MB. The compressor reports the actual result and whether the goal was met. It does not lower your chosen quality further to force a result.</p></details>
+        <details><summary>Will text become blurry?</summary><p>Text and vector artwork aren't rasterized. JPEG photos can lose image detail according to the chosen quality, but are not resized. Choose Quality 100% to skip JPEG re-encoding.</p></details>
+        <details><summary>Are all PDF images affected by the quality slider?</summary><p>No. The tool only re-encodes safe, compatible RGB JPEG image streams without masks or special color decoding. Other types remain unchanged.</p></details>
+        <details><summary>Are PDFs uploaded to a server?</summary><p>No. The file is processed inside your browser. The pdf-lib JavaScript library downloads from a CDN, but the PDF itself isn't sent to our servers.</p></details>
+        <details><summary>Can I use encrypted or signed PDFs?</summary><p>Encrypted PDFs are not supported. Rewriting digitally signed PDFs can invalidate signatures; use original files for official signed documents.</p></details>
+        <details><summary>Can I compress a PDF larger than 100 MB?</summary><p>You can select PDFs up to 180 MB. Large files may exceed browser memory, especially on mobile devices.</p></details>
+      </div>
+    </section>
+    <section class="network">
+      <div class="network-label">More from <strong>Every Tiny Tool ✦</strong></div>
+      <div class="network-grid">
+        <a class="network-card random" href="https://random.everytinytool.com/"><div class="network-icon">🎲</div><div><h2>Random Everything</h2><p>Generators, decisions, random groups and quick games.</p><span>Explore random tools →</span></div></a>
+        <a class="network-card calculate" href="https://calculate.everytinytool.com/"><div class="network-icon">🧮</div><div><h2>Calculate Everything</h2><p>Everyday calculators for time, dates, numbers and shopping.</p><span>Explore calculators →</span></div></a>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>Every Tiny Tool ✦</span><nav class="footer-trust-links"><a href="../">Home</a><a href="../about/">About</a><a href="../privacy/">Privacy</a><a href="../contact/">Contact</a></nav></footer>
+</div>
+</body>
+</html>

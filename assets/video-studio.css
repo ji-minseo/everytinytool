@@ -43,3 +43,16 @@
 .vs-guide .utility-faq{margin-top:18px}
 .vs-main button:focus-visible,.vs-main input:focus-visible,.vs-main a:focus-visible,.vs-main select:focus-visible,.vs-dropzone:focus-visible{outline:3px solid #b7a3ff;outline-offset:3px}
 @media(max-width:760px){.vs-controls{grid-template-columns:1fr}.vs-panel{padding:17px}.vs-result-stats>div{flex:1}}
+
+/* Selected video lives inside the picker with real native preview controls. */
+.vs-dropzone{min-height:225px}
+.vs-dropzone.has-video{padding:16px;gap:4px}
+.vs-dropzone .vs-preview{display:block;max-width:min(100%,500px);width:100%;height:clamp(150px,25vw,245px);object-fit:contain;margin:0 auto 11px;border-radius:13px;background:#15141a;position:relative;z-index:2;cursor:default}
+.vs-dropzone .vs-preview[hidden]{display:none!important}
+.vs-dropzone.has-video .vs-upload-icon{display:none}
+.vs-dropzone.has-video h2{font-size:17px;margin-top:2px}
+.vs-dropzone.has-video p{margin:4px 0 10px}
+.vs-options>h2{margin:25px 0 13px}
+.vs-controls{padding:16px;background:#faf9fe;border:1px solid #ede8f5;border-radius:15px}
+.vs-actions{padding-top:15px;border-top:1px solid #eeeaf5}
+@media(max-width:650px){.vs-dropzone.has-video{padding:12px}.vs-controls{padding:12px}}

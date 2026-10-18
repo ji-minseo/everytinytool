@@ -78,3 +78,61 @@ test('home page, sitemap and stylesheet integrate the new flagship tool',()=>{
  assert.match(css,/@media\(max-width:760px\)/);
  assert.match(css,/\.ws-compare\{display:grid/);
 });
+
+test('full UI initialization supports example, stage ordering, comparison, and saved recipes',async()=>{
+ const vm=require('node:vm');
+ const script=fs.readFileSync(path.join(dir,'assets/tiny-workspace.js'),'utf8');
+ const ids=[...page.matchAll(/id="([^"]+)"/g)].map(m=>m[1]);
+ function element(id){
+  return {
+   id,hidden:false,disabled:false,value:'',checked:false,dataset:{},events:{},children:[],textContent:'',
+   setAttribute(key,value){this[key]=value;},addEventListener(type,cb){this.events[type]=cb;},
+   appendChild(node){this.children.push(node);},append(...nodes){this.children.push(...nodes);},replaceChildren(){this.children=[];},
+   click(){return this.events.click?.();},focus(){},select(){},remove(){}
+  };
+ }
+ const elements=Object.fromEntries(ids.map(id=>[id,element(id)]));
+ elements['ws-format'].value='txt';
+ const steps=[...page.matchAll(/data-ws-step="([^"]+)"/g)].map(m=>{
+  const e=element('step-'+m[1]);e.dataset.wsStep=m[1];return e;
+ });
+ const groupBtns=[...page.matchAll(/data-ws-copy-group="([^"]+)"/g)].map(m=>{
+  const e=element('group-'+m[1]);e.dataset.wsCopyGroup=m[1];return e;
+ });
+ const document={
+  readyState:'loading',
+  getElementById:id=>elements[id],
+  createElement:tag=>element(tag),
+  querySelectorAll:selector=>selector==='[data-ws-step]'?steps:selector==='[data-ws-copy-group]'?groupBtns:[],
+  addEventListener(type,callback){this[type]=callback;},body:{appendChild(){}}
+ };
+ const memory=new Map(),window={
+  localStorage:{getItem:key=>memory.get(key)||null,setItem:(key,value)=>memory.set(key,value)},
+  navigator:{clipboard:{writeText:async text=>{window.copied=text;}}},
+  isSecureContext:true,setTimeout(cb){cb();}
+ };
+ vm.runInNewContext(script,{document,window,module:{exports:{}}});
+ document.DOMContentLoaded();
+ assert.equal(elements['ws-stages'].children.length,3);
+ elements['ws-example'].click();
+ assert.equal(elements['ws-output'].value,'Apple\nBanana\nOrange\nCherry');
+ assert.equal(elements['ws-only-a'].value,'Orange\nCherry');
+ assert.equal(elements['ws-only-b'].value,'Mango');
+ assert.equal(elements['ws-comparison'].hidden,false);
+ elements['ws-query'].value='Banana';
+ elements['ws-query'].events.input();
+ steps.find(x=>x.dataset.wsStep==='filter').click();
+ assert.equal(elements['ws-output'].value,'Banana');
+ const down=elements['ws-stages'].children[0].children[1].children[1];
+ down.click();
+ assert.match(elements['ws-stages'].children[0].children[0].textContent,/Remove blank lines/);
+ elements['ws-recipe-name'].value='Weekly cleanup';
+ elements['ws-save-recipe'].click();
+ assert.equal(memory.size,1);
+ elements['ws-clear-steps'].click();
+ elements['ws-saved-recipe'].value='0';
+ elements['ws-load-recipe'].click();
+ assert.equal(elements['ws-stages'].children.length,4);
+ await elements['ws-copy'].click();
+ assert.equal(window.copied,'Banana');
+});

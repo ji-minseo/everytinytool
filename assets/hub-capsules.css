@@ -179,3 +179,7 @@
 .hub-inline-tool .hub-inline-controls:not([hidden]){margin-top:16px}
 .hub-inline-tool .hub-inline-results:not(:empty){margin-top:14px}
 .hub-inline-tool .hub-inline-controls[hidden] *{display:none!important}
+
+/* Equalize the breathing room before the shared panel footer.
+   Inline tools have no iframe wrapper, so provide their own bottom inset. */
+.hub-panel [data-image-panel].hub-inline-tool:not([hidden]){padding-bottom:28px!important;box-sizing:border-box}

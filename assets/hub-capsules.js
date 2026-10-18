@@ -4,10 +4,11 @@
 function init(){
  const mainTabs=[...document.querySelectorAll('[data-hub-tab]')];
  const imageTabs=[...document.querySelectorAll('[data-image-tab]')];
+ const metadataTabs=[...document.querySelectorAll('[data-metadata-tab]')];
  const parent=document.querySelector('.hub-tools');
  if(!mainTabs.length||!parent)return;
- let active='image',imageActive='resize';
- const frameFor={resize:'hub-frame-resize',compress:'hub-frame-compress',remove:'hub-frame-remove',pdf:'hub-frame-pdf',video:'hub-frame-video',workspace:'hub-frame-workspace'};
+ let active='image',imageActive='resize',metadataActive='inspect';
+ const frameFor={resize:'hub-frame-resize',compress:'hub-frame-compress',remove:'hub-frame-remove',pdf:'hub-frame-pdf',video:'hub-frame-video',workspace:'hub-frame-workspace','metadata-inspect':'hub-frame-metadata-inspect','metadata-clean':'hub-frame-metadata-clean'};
  const frames=Object.fromEntries(Object.entries(frameFor).map(([key,id])=>[key,document.getElementById(id)]));
  // Measure the real content inside each same-origin tool, not the iframe's
  // scrollHeight (which includes the iframe viewport and prevents shrinking).
@@ -66,6 +67,7 @@ function init(){
   });
   document.querySelectorAll('[data-panel]').forEach(p=>p.hidden=p.dataset.panel!==which);
   if(which==='image')loadFrame(frames[imageActive]);
+  else if(which==='metadata')loadFrame(frames['metadata-'+metadataActive]);
   else if(frames[which])loadFrame(frames[which]);
   history.replaceState(null,'',location.pathname+location.search+'#tools');
  }
@@ -77,6 +79,15 @@ function init(){
   const link=document.querySelector('[data-image-full]');
   if(link){link.href=which==='remove'?'/remove-background/':which==='compress'?'/quick-image-studio/?mode=compress':'/quick-image-studio/';link.textContent=which==='remove'?'Open full background remover ↗':which==='compress'?'Open full image compressor ↗':'Open full image resizer ↗';}
   if(active==='image')loadFrame(frames[which]);
+ }
+ function activateMetadata(which,focus=false){
+  if(!metadataTabs.some(x=>x.dataset.metadataTab===which))return;
+  metadataActive=which;
+  metadataTabs.forEach(t=>{const selected=t.dataset.metadataTab===which;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;if(selected&&focus)t.focus();});
+  document.querySelectorAll('[data-metadata-panel]').forEach(p=>p.hidden=p.dataset.metadataPanel!==which);
+  const link=document.querySelector('[data-metadata-full]');
+  if(link){link.href=which==='clean'?'/metadata-cleaner/':'/metadata-inspector/';link.textContent=which==='clean'?'Open full metadata cleaner ↗':'Open full metadata inspector ↗';}
+  if(active==='metadata')loadFrame(frames['metadata-'+which]);
  }
  function arrowHandler(tabs,select,dataKey){
   tabs.forEach((tab,index)=>{
@@ -93,9 +104,13 @@ function init(){
  }
  arrowHandler(mainTabs,activateMain,'hubTab');
  arrowHandler(imageTabs,activateImage,'imageTab');
+ arrowHandler(metadataTabs,activateMetadata,'metadataTab');
  // Direct links from marketing or SEO can select the requested tool.
  const fragment=location.hash.replace('#','');
- if(fragment==='video')activateMain('video');
+ if(fragment==='metadata-inspector'){activateMain('metadata');activateMetadata('inspect');}
+ else if(fragment==='metadata-cleaner'){activateMain('metadata');activateMetadata('clean');}
+ else if(fragment==='metadata')activateMain('metadata');
+ else if(fragment==='video')activateMain('video');
  else if(fragment==='pdf')activateMain('pdf');
  else if(fragment==='workspace')activateMain('workspace');
  else if(fragment==='remove-background'){activateMain('image');activateImage('remove');}

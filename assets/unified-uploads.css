@@ -9,3 +9,6 @@
 .vs-panel .ett-batch-row{display:flex;gap:12px;align-items:center}
 .vs-panel .ett-batch-row img{height:55px;width:55px;object-fit:cover;border-radius:10px}
 .bg-file-icon{display:grid;place-items:center;width:54px;height:54px;border-radius:10px;background:#f1ebff}
+
+/* Specific background-remover icon: always keep its lavender container. */
+#bg-remover .bg-dropzone .drop-icon{background:#f1ebff!important;border-radius:15px!important;display:grid!important;width:52px!important;height:52px!important;place-items:center!important}

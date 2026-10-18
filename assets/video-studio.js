@@ -34,14 +34,14 @@ function init(){
  function clearBatchThumbs(){for(const url of batchThumbs)URL.revokeObjectURL(url);batchThumbs=[];}
  function setQueue(items){
   queue=items.slice(0,3);
-  clearBatchOutputs();clearBatchThumbs();batchList.replaceChildren();batchBox.hidden=queue.length<2;
-  if(queue.length<2)return;
+  clearBatchOutputs();clearBatchThumbs();batchList.replaceChildren();batchBox.hidden=queue.length===0;
+  if(!queue.length)return;
   for(const item of queue){
    const row=document.createElement('div');row.className='ett-batch-row';
    const thumbnail=document.createElement('video');thumbnail.muted=true;thumbnail.preload='metadata';thumbnail.playsInline=true;const thumbUrl=URL.createObjectURL(item);batchThumbs.push(thumbUrl);thumbnail.src=thumbUrl;
    const name=document.createElement('span');name.textContent=item.name+' · '+bytesText(item.size);
-   const state=document.createElement('strong');state.textContent='Ready';
-   row.append(thumbnail,name,state);batchList.appendChild(row);
+   const remove=document.createElement('button');remove.type='button';remove.className='ett-batch-remove';remove.textContent='Remove';remove.onclick=()=>{if(busy)return;const next=queue.filter((_,j)=>j!==queue.indexOf(item));if(next.length){resetInput(next[0]);setQueue(next)}else resetInput(null)};
+   row.append(thumbnail,name,remove);batchList.appendChild(row);
   }
  }
  function report(msg,error=false){status.textContent=msg;status.dataset.error=String(error);}
@@ -53,7 +53,7 @@ function init(){
   resetOutput();if(source)URL.revokeObjectURL(source);source=null;file=null;
   if(!next){setQueue([]);options.hidden=true;preview.hidden=true;preview.removeAttribute('src');$('vs-dropzone').classList.remove('has-video');input.value='';report('Choose a video to start.');setBusy(false);return;}
   const err=limits(next);if(err){report(err,true);return;}
-  file=next;source=URL.createObjectURL(file);preview.src=source;preview.hidden=false;$('vs-dropzone').classList.add('has-video');options.hidden=false;
+  file=next;source=URL.createObjectURL(file);preview.removeAttribute('src');preview.hidden=true;$('vs-dropzone').classList.remove('has-video');options.hidden=false;
   $('vs-file-name').textContent=file.name||'Video';
   $('vs-original-size').textContent=bytesText(file.size);
   report('Video selected. Preview it, then choose your output. Processing takes approximately the video duration.');

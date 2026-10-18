@@ -157,3 +157,6 @@
 .pdfc-result-row .btn,.pdfc-zip{min-height:42px!important;border-radius:12px!important;padding:10px 16px!important;font-size:13px!important}
 .pdfc-batch-error{font-size:12px;color:#b34252;padding:10px}
 .pdfc-page .pdfc-status:empty{display:none}
+
+/* PDF dropzone icon: same permanent lavender square as the other tools. */
+#pdf-compressor #pdf-dropzone .drop-icon{display:grid!important;place-items:center!important;width:52px!important;height:52px!important;margin:0 auto 12px!important;padding:0!important;border-radius:15px!important;background:#f1ebff!important;color:#7656d3!important;font-size:25px!important;line-height:1!important}

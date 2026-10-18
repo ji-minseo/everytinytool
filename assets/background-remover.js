@@ -169,7 +169,7 @@
     const executeRemoval = dependencies && dependencies.removeBackground || removeBackground;
     const $ = id => document.getElementById(id);
     if (!$('bg-remover')) return;
-    const zone = $('bg-dropzone'), input = $('bg-file'), uploadThumb = $('bg-upload-preview');
+    const zone = $('bg-dropzone'), input = $('bg-file'), uploadThumb = $('bg-file-thumbnail');
     const choose = $('bg-choose'), selected = $('bg-selected');
     const filename = $('bg-filename'), fileMeta = $('bg-filemeta');
     const clear = $('bg-remove-file'), run = $('bg-run');
@@ -214,9 +214,8 @@
       originalUrl = null;
       file = null;
       input.value = '';
-      uploadThumb.hidden = true;
       uploadThumb.removeAttribute('src');
-      zone.classList.remove('has-image');
+
       const error = validImage(next);
       if (next && error) {
         selected.hidden = true;
@@ -228,8 +227,7 @@
         originalUrl = root.URL.createObjectURL(next);
         originalPreview.src = originalUrl;
         uploadThumb.src = originalUrl;
-        uploadThumb.hidden = false;
-        zone.classList.add('has-image');
+
         selected.hidden = false;
         filename.textContent = lastFileName;
         fileMeta.textContent = formatBytes(next.size) + ' · JPG / PNG / WebP';

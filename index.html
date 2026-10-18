@@ -12,8 +12,8 @@
   <link rel="canonical" href="https://everytinytool.com/">
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="stylesheet" href="./assets/styles.css?v=20261018-hub3">
-  <link rel="stylesheet" href="./assets/hub-capsules.css?v=20261018-hub4">
-  <script src="./assets/hub-capsules.js?v=20261018-hub4" defer></script>
+  <link rel="stylesheet" href="./assets/hub-capsules.css?v=20261018-hub5">
+  <script src="./assets/hub-capsules.js?v=20261018-hub5" defer></script>
   
 </head>
 <body>
@@ -47,12 +47,14 @@
       </div>
       <div class="hub-panels">
         <section class="hub-panel" id="hub-panel-image" role="tabpanel" aria-labelledby="hub-tab-image" data-panel="image">
-          <div class="hub-panel-head"><div><span class="hub-label">IMAGE / 01</span><h3>Everything your photo needs.</h3><p>Resize or compress a photo, convert its format, or remove its background with AI.</p></div><span class="hub-kind">JPG · PNG · WebP</span></div>
+          <div class="hub-panel-head"><div><span class="hub-label">IMAGE / 01</span><h3>Everything your photo needs.</h3><p>Resize photos, compress their file size, or remove backgrounds with AI — each in its own clear tool.</p></div><span class="hub-kind">JPG · PNG · WebP</span></div>
           <div class="hub-subcaps" role="tablist" aria-label="Image tasks">
-            <button type="button" role="tab" aria-selected="true" data-image-tab="resize" aria-controls="hub-image-resize">↔ Resize & compress</button>
+            <button type="button" role="tab" aria-selected="true" data-image-tab="resize" aria-controls="hub-image-resize">↔ Resize image</button>
+            <button type="button" role="tab" aria-selected="false" tabindex="-1" data-image-tab="compress" aria-controls="hub-image-compress">◫ Compress image</button>
             <button type="button" role="tab" aria-selected="false" tabindex="-1" data-image-tab="remove" aria-controls="hub-image-remove">✂ Remove background</button>
           </div>
           <div id="hub-image-resize" role="tabpanel" data-image-panel="resize"><iframe id="hub-frame-resize" title="Interactive image resize, compression and format conversion" loading="eager" data-src="/quick-image-studio/?embed=1"></iframe></div>
+          <div id="hub-image-compress" role="tabpanel" data-image-panel="compress" hidden><iframe id="hub-frame-compress" title="Interactive image compressor and format converter" loading="lazy" data-src="/quick-image-studio/?embed=1&mode=compress"></iframe></div>
           <div id="hub-image-remove" role="tabpanel" data-image-panel="remove" hidden><iframe id="hub-frame-remove" title="Interactive AI image background remover" loading="lazy" data-src="/remove-background/?embed=1"></iframe></div>
           <div class="hub-panel-foot"><span>Files are processed locally.</span><a href="/quick-image-studio/" data-image-full>Open full image tool ↗</a></div>
         </section>

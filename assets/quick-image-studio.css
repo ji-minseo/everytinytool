@@ -143,3 +143,27 @@ html[data-embedded=true] .is-dropzone{margin-top:0}
 /* Normal status chatter is redundant with the upload list and result panel. Keep real errors visible. */
 #is-status:not([data-error="true"]){display:none!important}
 #is-status[data-error="true"]{display:block!important;font-size:13px!important;margin:10px 0!important}
+
+/* Home Image Studio: use the same single thumbnail queue as sibling tools. */
+#is-upload-preview{display:none!important}
+#is-dropzone.has-image{min-height:226px!important;padding:26px 16px!important}
+#is-dropzone.has-image .is-upload-icon{display:grid!important}
+#is-dropzone.has-image h2{font-size:21px!important}
+#is-details .is-file-line{display:none!important}
+#is-batch{margin:15px 0 22px}
+#is-batch>h3{font-size:13px;font-weight:800;margin:0 0 10px}
+#is-batch>p{display:none}
+#is-batch-list{display:grid;gap:10px}
+#is-batch-list .ett-batch-row{display:flex;align-items:center;gap:12px;min-width:0;padding:10px 12px;border:1px solid #ebe5f3;border-radius:14px;background:#fff}
+#is-batch-list .ett-batch-row img{width:55px;height:55px;flex:0 0 55px;object-fit:cover;border:1px solid #eee8f5;border-radius:10px;background:#faf9fc}
+#is-batch-list .ett-batch-row>span{flex:1;min-width:0;font-size:13px;font-weight:700;line-height:1.5;color:#332a43;overflow-wrap:anywhere}
+#is-batch-list .ett-batch-row>strong{display:none!important}
+#is-batch-list .ett-batch-remove{height:42px!important;min-height:42px!important;min-width:89px!important;border:1px solid #ded6ea!important;border-radius:12px!important;background:#fff!important;color:#655872!important;padding:10px 16px!important;font-size:13px!important;font-weight:700!important;box-shadow:none!important}
+#image-studio .is-process-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+#image-studio .is-process-row #is-run,
+#image-studio .is-process-row #is-download-zip{display:inline-flex;align-items:center;justify-content:center;min-height:46px!important;box-sizing:border-box;padding:12px 17px!important;border:1px solid #d9ccef!important;border-radius:12px!important;background:#f0e9ff!important;color:#55349c!important;font-family:inherit!important;font-size:14px!important;font-weight:800!important;line-height:20px!important;box-shadow:none!important;cursor:pointer}
+#image-studio .is-process-row #is-run:hover:not(:disabled),
+#image-studio .is-process-row #is-download-zip:hover:not(:disabled){background:#e8dcff!important}
+#image-studio .is-process-row #is-run:disabled{opacity:.48;cursor:not-allowed}
+#image-studio .is-process-row #is-download-zip[hidden]{display:none!important}
+@media(max-width:600px){#is-batch-list .ett-batch-row{flex-wrap:nowrap}#is-batch-list .ett-batch-row>span{flex-basis:auto}#is-batch-list .ett-batch-remove{min-width:76px!important;padding:9px 11px!important}}

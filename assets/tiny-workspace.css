@@ -1,0 +1,110 @@
+/* Tiny Workspace · native Every Tiny Tool visual system */
+.workspace-page{padding-bottom:48px}
+.workspace-hero{padding:54px 0 34px;max-width:920px}
+.workspace-hero h1{font-size:clamp(44px,7vw,78px);margin:15px 0 18px;line-height:1}
+.workspace-hero p{color:var(--muted);font-size:17px;max-width:800px;line-height:1.7}
+.workspace-period{color:var(--purple)}
+.workspace-meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+.workspace-meta span{background:#f7f5ff;color:#624d9a;border:1px solid #eae4fa;border-radius:999px;padding:6px 12px;font-size:11px;font-weight:800}
+.ws-workbench{padding:28px 30px;border:1px solid #e9e7f2;border-radius:28px;background:#fff;box-shadow:0 12px 40px rgba(30,30,50,.045)}
+.ws-workbench [hidden]{display:none!important}
+.ws-toolbar,.ws-section-heading{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:17px}
+.ws-toolbar h2,.ws-section-heading h2{font-size:clamp(23px,3.3vw,31px);letter-spacing:-.045em;margin:7px 0 4px}
+.ws-toolbar p,.ws-section-heading p{font-size:13px;color:var(--muted);line-height:1.65;margin:0}
+.ws-kicker{font-size:10px;color:#6e52ce;letter-spacing:.105em;font-weight:900}
+.ws-toolbar-actions{display:flex;gap:8px;flex:none;flex-wrap:wrap}
+.ws-minor,.ws-text-button{font-family:inherit;cursor:pointer;border:1px solid #ded9e9;border-radius:11px;background:#fff;font-size:12px;font-weight:800;padding:10px 13px;color:#413c50}
+.ws-minor:hover,.ws-text-button:hover{background:#f6f3fe;border-color:#c9bbf7}
+.ws-text-button{color:#7a5bc6;border:0;padding:7px 9px}
+.ws-workbench button:focus-visible,.ws-workbench select:focus-visible,.ws-workbench textarea:focus-visible,.ws-workbench input:focus-visible{outline:3px solid #c1b0ff;outline-offset:2px}
+.ws-workbench button:disabled{opacity:.48;cursor:not-allowed}
+.ws-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.ws-field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.ws-field label,.ws-reference label,.ws-option-grid label,.ws-recipes label,.ws-export-actions label{font-size:12px;font-weight:850;color:#34313b}
+.ws-field label small{font-size:11px;color:var(--muted);font-weight:500;margin-left:5px}
+.ws-field textarea,.ws-reference textarea,.ws-compare textarea{
+ resize:vertical;min-width:0;width:100%;padding:15px;border:1px solid #dedde5;border-radius:15px;
+ background:#fff;color:#1c1c22;font:13px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace}
+.ws-field textarea:focus,.ws-reference textarea:focus{border-color:#9378e8}
+#ws-output{background:#fbfaff}
+.ws-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:14px 0 40px}
+.ws-metrics div{border-radius:13px;border:1px solid #eeeaf5;padding:12px 14px;background:#fcfbff;display:grid;gap:2px}
+.ws-metrics span{font-size:11px;color:var(--muted)}
+.ws-metrics strong{font-size:24px;letter-spacing:-.04em}
+.ws-section-heading{margin-top:30px}
+.ws-editor{display:grid;grid-template-columns:1.12fr 1fr;gap:21px}
+.ws-editor>div{min-width:0}
+.ws-editor h3{margin:0 0 12px;font-size:14px;letter-spacing:-.02em}
+.ws-palette{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ws-palette button{display:flex;justify-content:space-between;align-items:center;gap:6px;min-width:0;text-align:left;background:#f9f8ff;border:1px solid #e8e2f5;border-radius:11px;padding:11px 12px;color:#50466e;font:750 12px/1.45 inherit;cursor:pointer}
+.ws-palette button:hover{border-color:#a997ee;background:#f3efff}
+.ws-palette button span{color:#8266df;font-weight:900;font-size:16px}
+.ws-step-title{display:flex;align-items:center;justify-content:space-between;gap:9px}
+.ws-step-title h3 small{font-weight:500;font-size:11px;color:var(--muted)}
+.ws-steps{margin:0;padding:0;display:grid;gap:7px;list-style:none}
+.ws-step{display:flex;align-items:center;justify-content:space-between;gap:7px;background:#fff;border:1px solid #e4e1ed;border-radius:11px;padding:9px 10px 9px 13px;min-width:0}
+.ws-step>span{font-size:12px;font-weight:770;overflow-wrap:anywhere}
+.ws-step-actions{display:flex;gap:3px;flex:none}
+.ws-step-actions button{background:#f7f5fc;color:#635979;border:0;border-radius:8px;cursor:pointer;font-size:15px;width:29px;height:29px}
+.ws-step-actions button:hover:not(:disabled){background:#e8e1ff}
+.ws-empty{padding:20px 14px;color:var(--muted);background:#f9f8fc;font-size:12px;border-radius:11px}
+.ws-advanced{border:1px solid #e9e6ef;border-radius:16px;margin-top:20px;padding:13px 17px}
+.ws-advanced summary{cursor:pointer;font-size:13px;font-weight:800}
+.ws-option-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:17px 0}
+.ws-option-grid label{display:grid;align-content:start;gap:7px;min-width:0}
+.ws-option-grid input:not([type=checkbox]),.ws-recipes input,.ws-recipes select,.ws-export-actions select{min-width:0;width:100%;border:1px solid #dedbe7;border-radius:10px;padding:10px;font:13px inherit;background:#fff;color:#24212d}
+.ws-option-grid .ws-check{display:flex;flex-wrap:wrap;align-items:center;gap:9px}
+.ws-check input,.ws-toggle input{accent-color:#7c5cfc;width:17px;height:17px}
+.ws-advanced>p{color:var(--muted);font-size:11px;margin:0;line-height:1.6}
+.ws-history{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0}
+.ws-history-button{padding:10px 12px;border:1px solid #e2ddeb;border-radius:999px;background:#fff;color:#635b73;font-size:11px;font-weight:800;cursor:pointer}
+.ws-history-button[aria-pressed=true]{background:#eee8ff;border-color:#ac98ed;color:#583dc3}
+.ws-status{font-size:12px;padding:12px 14px;background:#f9f8fd;border-radius:12px;color:#615c6a;margin:15px 0 8px}
+.ws-status[data-error=true]{color:#b23d55;background:#fff3f6}
+.ws-toggle{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:800;white-space:nowrap;cursor:pointer}
+.ws-reference{margin:12px 0}
+.ws-reference label{display:block;margin-bottom:7px}
+.ws-reference textarea{min-height:95px}
+.ws-compare{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:13px}
+.ws-compare>div{min-width:0}
+.ws-compare-head{display:flex;justify-content:space-between;align-items:center;gap:5px;margin-bottom:7px}
+.ws-compare-head label{font-size:12px;font-weight:800}
+.ws-compare-head strong{color:#7151ce}
+.ws-compare-head button{border:1px solid #e2ddea;background:#faf9fd;color:#584f73;font-size:11px;border-radius:8px;padding:6px 9px;cursor:pointer}
+.ws-compare textarea{font-size:12px;min-height:120px;background:#fcfbff;padding:10px}
+.ws-export{padding:20px;border-radius:17px;background:#faf9fd;border:1px solid #ede8f4}
+.ws-export-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:17px}
+.ws-export-actions .button{border-radius:11px;border:0;font-size:13px;padding:11px 16px;cursor:pointer}
+.ws-export-actions select{width:auto}
+.ws-recipes{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding-top:15px;border-top:1px solid #e9e3f3}
+.ws-recipes input{width:190px}
+.ws-recipes select{width:210px}
+.ws-privacy{font-size:11px;color:#706a79;margin:13px 0 0}
+.ws-guide{padding:75px 0 20px}
+.ws-guide>h2{font-size:clamp(27px,4.6vw,43px);line-height:1.1;letter-spacing:-.045em;margin:15px 0 22px}
+.ws-guide>p{color:var(--muted);line-height:1.8;max-width:830px;font-size:14px}
+.ws-info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:38px}
+.ws-info-grid article{padding:22px;border:1px solid #e9e7ef;border-radius:17px}
+.ws-info-grid h3{font-size:17px;margin:0 0 8px}
+.ws-info-grid p{font-size:13px;color:var(--muted);margin:0;line-height:1.65}
+.ws-guide .utility-faq{margin-top:20px}
+@media(max-width:760px){
+ .ws-workbench{padding:19px}
+ .ws-editor,.ws-columns{grid-template-columns:1fr}
+ .ws-option-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .ws-compare{grid-template-columns:1fr}
+ .ws-compare textarea{min-height:70px}
+ .ws-toolbar,.ws-section-heading{align-items:start;flex-direction:column}
+ .ws-info-grid{grid-template-columns:1fr}
+}
+@media(max-width:440px){
+ .workspace-hero{padding:36px 0 22px}
+ .ws-workbench{padding:15px;border-radius:19px}
+ .ws-palette{grid-template-columns:1fr 1fr}
+ .ws-palette button{padding:10px 8px;font-size:11px}
+ .ws-option-grid{grid-template-columns:1fr}
+ .ws-metrics strong{font-size:18px}
+ .ws-metrics div{padding:9px}
+ .ws-recipes input,.ws-recipes select{width:100%}
+ .ws-export-actions .button{flex:1 1 100%}
+}

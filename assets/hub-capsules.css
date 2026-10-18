@@ -93,3 +93,11 @@
 /* Match About editorial typography exactly: same headline metrics and eyebrow weight. */
 .hub-tools-head .hub-label{font-size:12px;font-weight:800;letter-spacing:.01em;color:#6245d6;background:#f5f2ff;padding:7px 11px;border-radius:999px;display:inline-flex;align-items:center;line-height:1.55}
 .hub-tools-head h1{font-size:clamp(54px,8.4vw,105px)!important;line-height:.95!important;letter-spacing:-.075em!important;font-weight:700!important;max-width:920px;margin:20px 0 24px!important}
+
+/* Additional Image Studio tasks: dedicated workspace launch panels. */
+.hub-external-tool{min-height:270px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px 18px;background:#fbfaff;border:2px dashed #d9cef0;border-radius:19px}
+.hub-external-icon{display:grid;place-items:center;width:52px;height:52px;border-radius:15px;background:#f0eaff;font-size:25px;margin-bottom:10px}
+.hub-external-tool h4{font-size:22px;letter-spacing:-.035em;margin:4px 0 7px}
+.hub-external-tool p{font-size:13px;line-height:1.65;max-width:420px;color:#77717e;margin:0 0 16px}
+.hub-open-tool{display:inline-flex;align-items:center;justify-content:center;padding:11px 18px;border-radius:14px;background:#7c5cfc;color:#fff!important;font-weight:800;font-size:13px;text-decoration:none;transition:filter .18s}
+.hub-open-tool:hover{filter:brightness(1.07)}

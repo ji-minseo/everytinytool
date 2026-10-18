@@ -1,6 +1,5 @@
 /* Applied to direct tool routes only when opened via ?embed=1 from the homepage.
  Standalone visits retain their full content and SEO semantics. */
-body:has(html) {} 
 html[data-embedded="true"]{scrollbar-width:none}
 html[data-embedded="true"] .topbar,html[data-embedded="true"] .tool-head,html[data-embedded="true"] .info-grid,html[data-embedded="true"] .seo-content,html[data-embedded="true"] .network,html[data-embedded="true"] .footer,html[data-embedded="true"] .utility-related,html[data-embedded="true"] .bg-guide{display:none!important}
 html[data-embedded="true"] body{margin:0;background:transparent}
@@ -11,3 +10,13 @@ html[data-embedded="true"] .pdfc-page,html[data-embedded="true"] #bg-remover{min
 html[data-embedded="true"] .dropzone{margin-top:0}
 html[data-embedded="true"] .bg-panel,html[data-embedded="true"] .pdfc-panel{max-width:none}
 html[data-embedded="true"] .pdfc-page>.panel,html[data-embedded="true"] #bg-remover>.panel{margin:0}
+
+/* App-like tool views when embedded in the grouped homepage. */
+html[data-embedded="true"] .is-main,html[data-embedded="true"] .vs-main,html[data-embedded="true"] .workspace-page{padding:0;margin:0}
+html[data-embedded="true"] .is-hero,html[data-embedded="true"] .vs-hero,html[data-embedded="true"] .workspace-hero{display:none!important}
+html[data-embedded="true"] .is-guide,html[data-embedded="true"] .vs-guide,html[data-embedded="true"] .ws-guide{display:none!important}
+html[data-embedded="true"] .is-panel,html[data-embedded="true"] .vs-panel,html[data-embedded="true"] .ws-workbench{box-shadow:none;border:0;padding:8px 0;background:transparent}
+html[data-embedded="true"] .is-main .utility-related,html[data-embedded="true"] .vs-main .utility-related,html[data-embedded="true"] .workspace-page .utility-related{display:none!important}
+html[data-embedded="true"] .is-file-input{position:absolute;opacity:0}
+html[data-embedded="true"] .vs-file{position:absolute;opacity:0}
+html[data-embedded="true"] .pdfc-controls,html[data-embedded="true"] .bg-panel{margin-top:0}

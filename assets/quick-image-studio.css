@@ -139,3 +139,7 @@ html[data-embedded=true] .is-dropzone{margin-top:0}
 @media(max-width:550px){.ett-batch-row{flex-wrap:wrap}.ett-batch-row span{flex-basis:calc(100% - 70px)}}
 
 .ett-batch-row .ett-batch-remove{height:42px!important;min-height:42px!important;min-width:89px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:10px 16px!important;border:1px solid #ded6ea!important;border-radius:12px!important;background:#fff!important;color:#655872!important;font-size:13px!important;font-weight:700!important;line-height:20px!important;box-shadow:none!important;white-space:nowrap!important;flex:none!important}
+
+/* Normal status chatter is redundant with the upload list and result panel. Keep real errors visible. */
+#is-status:not([data-error="true"]){display:none!important}
+#is-status[data-error="true"]{display:block!important;font-size:13px!important;margin:10px 0!important}

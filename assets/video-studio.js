@@ -26,11 +26,11 @@ function init(){
  const input=$('vs-file'),choose=$('vs-choose'),run=$('vs-run'),cancel=$('vs-cancel'),status=$('vs-status'),preview=$('vs-preview');
  const options=$('vs-options'),result=$('vs-result'),progress=$('vs-progress');
  const format=$('vs-format'),size=$('vs-size'),rate=$('vs-bitrate'),download=$('vs-download');
- const supported=outputFormats(root.MediaRecorder),names={webm:'WebM',mp4:'MP4'};
+ const supported=outputFormats(root.MediaRecorder),canEncode=supported.length>0&&typeof root.HTMLCanvasElement?.prototype?.captureStream==='function',names={webm:'WebM',mp4:'MP4'};
  let file=null,source=null,output=null,busy=false,abort=false,recorder=null,video=null,stream=null,audioContext=null,decodedDuration=0,frames=0;
  function report(msg,error=false){status.textContent=msg;status.dataset.error=String(error);}
  function cleanup(){stream?.getTracks().forEach(t=>t.stop());stream=null;if(video){video.pause();video.removeAttribute('src');video.load();video=null;}if(audioContext){audioContext.close().catch(()=>{});audioContext=null;}recorder=null;}
- function setBusy(v){busy=v;input.disabled=v;choose.disabled=v;run.disabled=v||!file||!supported.length;cancel.hidden=!v;format.disabled=v;size.disabled=v;rate.disabled=v;}
+ function setBusy(v){busy=v;input.disabled=v||!canEncode;choose.disabled=v||!canEncode;run.disabled=v||!file||!canEncode;cancel.hidden=!v;format.disabled=v||!canEncode;size.disabled=v||!canEncode;rate.disabled=v||!canEncode;}
  function resetOutput(){result.hidden=true;download.removeAttribute('href');if(output)URL.revokeObjectURL(output);output=null;}
  function resetInput(next){
   if(busy)return;
@@ -43,7 +43,7 @@ function init(){
   report('Video selected. Preview it, then choose your output. Processing takes approximately the video duration.');
   setBusy(false);
  }
- if(!supported.length||!HTMLCanvasElement.prototype.captureStream){report('This browser does not support local video re-encoding. Try current Chrome, Edge, Firefox or Safari.',true);input.disabled=true;choose.disabled=true;}
+ if(!canEncode){report('This browser does not support local video re-encoding. Try current Chrome, Edge, Firefox or Safari.',true);}
  for(const item of supported){const option=document.createElement('option');option.value=item.type;option.textContent=item.label;format.appendChild(option);}
  if(supported.length)format.value=supported[0].type;
  function openPicker(){if(!busy)input.click();}

@@ -13,7 +13,7 @@
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="stylesheet" href="./assets/styles.css?v=20261018-hub3">
   <link rel="stylesheet" href="./assets/hub-capsules.css?v=20261018-hub8">
-  <script src="./assets/hub-capsules.js?v=20261018-hub5" defer></script>
+  <script src="./assets/hub-capsules.js?v=20261018-meta1" defer></script>
   
 </head>
 <body>
@@ -35,6 +35,7 @@
         <button type="button" role="tab" id="hub-tab-image" aria-selected="true" aria-controls="hub-panel-image" data-hub-tab="image">Image Studio</button>
         <button type="button" role="tab" id="hub-tab-pdf" aria-selected="false" aria-controls="hub-panel-pdf" tabindex="-1" data-hub-tab="pdf">PDF Compressor</button>
         <button type="button" role="tab" id="hub-tab-video" aria-selected="false" aria-controls="hub-panel-video" tabindex="-1" data-hub-tab="video">Video Studio</button>
+        <button type="button" role="tab" id="hub-tab-metadata" aria-selected="false" aria-controls="hub-panel-metadata" tabindex="-1" data-hub-tab="metadata">Metadata Studio</button>
         <button type="button" role="tab" id="hub-tab-workspace" aria-selected="false" aria-controls="hub-panel-workspace" tabindex="-1" data-hub-tab="workspace">Tiny Workspace</button>
         <button type="button" role="tab" id="hub-tab-more" aria-selected="false" aria-controls="hub-panel-more" tabindex="-1" data-hub-tab="more">More tools</button>
       </div>
@@ -61,6 +62,16 @@
           <iframe id="hub-frame-video" title="Interactive video compressor and converter" loading="lazy" data-src="/video-studio/?embed=1"></iframe>
           <div class="hub-panel-foot"><span>Video processing runs at playback speed. Some codecs or audio may not be supported.</span><a href="/video-studio/">Open full video tool ↗</a></div>
         </section>
+        <section class="hub-panel" id="hub-panel-metadata" role="tabpanel" aria-labelledby="hub-tab-metadata" data-panel="metadata" hidden>
+          <div class="hub-panel-head"><div><span class="hub-label">METADATA / 04</span><h3>See what's inside. Choose what stays.</h3><p>Inspect embedded image metadata without changes, or remove common metadata before sharing. Includes EXIF, XMP, PNG chunks and possible C2PA indicators.</p></div><span class="hub-kind">JPG · PNG · WebP</span></div>
+          <div class="hub-subcaps" role="tablist" aria-label="Metadata tools">
+            <button type="button" role="tab" aria-selected="true" data-metadata-tab="inspect" aria-controls="hub-metadata-inspect">🔎 Metadata Inspector</button>
+            <button type="button" role="tab" aria-selected="false" tabindex="-1" data-metadata-tab="clean" aria-controls="hub-metadata-clean">🧹 Metadata Cleaner</button>
+          </div>
+          <div id="hub-metadata-inspect" role="tabpanel" data-metadata-panel="inspect"><iframe id="hub-frame-metadata-inspect" title="Inspect image metadata locally" loading="lazy" data-src="/metadata-inspector/?embed=1"></iframe></div>
+          <div id="hub-metadata-clean" role="tabpanel" data-metadata-panel="clean" hidden><iframe id="hub-frame-metadata-clean" title="Remove image metadata locally" loading="lazy" data-src="/metadata-cleaner/?embed=1"></iframe></div>
+          <div class="hub-panel-foot"><span>Read-only inspection does not modify files; cleaning re-encodes images and may affect quality or provenance.</span><a href="/metadata-inspector/" data-metadata-full>Open full metadata inspector ↗</a></div>
+        </section>
         <section class="hub-panel" id="hub-panel-workspace" role="tabpanel" aria-labelledby="hub-tab-workspace" data-panel="workspace" hidden>
           <div class="hub-panel-head"><div><span class="hub-label">TEXT / 04</span><h3>Turn messy lists into finished files.</h3><p>Chain cleanup, sorting, filtering and comparison, then export TXT, CSV or JSON.</p></div><span class="hub-kind">Text · CSV · JSON</span></div>
           <iframe id="hub-frame-workspace" title="Interactive text and list-processing workspace" loading="lazy" data-src="/workspace/?embed=1"></iframe>
@@ -72,8 +83,8 @@
             <a href="/actual-size-ruler/"><span class="hub-more-icon">↔</span><strong>Actual Size Ruler</strong><span>Measure centimeters and inches on your screen with calibration.</span><em>Use tool ↗</em></a>
             <a href="/list-comparer/"><span class="hub-more-icon">≠</span><strong>Compare Two Lists</strong><span>Find shared names, additions and missing entries.</span><em>Use tool ↗</em></a>
             <a href="/word-counter/"><span class="hub-more-icon">Aa</span><strong>Word & Character Counter</strong><span>Live word, character, paragraph and reading-time counts.</span><em>Use tool ↗</em></a>
-            <a href="https://image.everytinytool.com/metadata-inspector/"><span class="hub-more-icon">⌕</span><strong>Metadata Inspector</strong><span>Read-only inspection of EXIF, XMP, PNG chunks and possible C2PA indicators. Does not alter your images or verify signatures.</span><em>Inspect metadata ↗</em></a>
-            <a href="https://image.everytinytool.com/metadata-cleaner/"><span class="hub-more-icon">✧</span><strong>Metadata Cleaner</strong><span>Re-encode images to remove common metadata, with an optional camera-only EXIF mode for JPEG. May affect image quality.</span><em>Clean metadata ↗</em></a>
+            <a href="/metadata-inspector/"><span class="hub-more-icon">⌕</span><strong>Metadata Inspector</strong><span>Read-only inspection of EXIF, XMP, PNG chunks and possible C2PA indicators. Does not alter your images or verify signatures.</span><em>Inspect metadata ↗</em></a>
+            <a href="/metadata-cleaner/"><span class="hub-more-icon">✧</span><strong>Metadata Cleaner</strong><span>Re-encode images to remove common metadata, with an optional camera-only EXIF mode for JPEG. May affect image quality.</span><em>Clean metadata ↗</em></a>
           </div>
         </section>
       </div>

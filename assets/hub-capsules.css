@@ -101,3 +101,7 @@
 .hub-external-tool p{font-size:13px;line-height:1.65;max-width:420px;color:#77717e;margin:0 0 16px}
 .hub-open-tool{display:inline-flex;align-items:center;justify-content:center;padding:11px 18px;border-radius:14px;background:#7c5cfc;color:#fff!important;font-weight:800;font-size:13px;text-decoration:none;transition:filter .18s}
 .hub-open-tool:hover{filter:brightness(1.07)}
+
+.hub-related-tools{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:13px}
+.hub-related-tools a{font-size:12px;text-decoration:none;color:#7053ce;border:1px solid #dfd5f4;background:white;border-radius:99px;padding:7px 11px;font-weight:720}
+.hub-related-tools a:hover{background:#f5f0ff;border-color:#a68be9}

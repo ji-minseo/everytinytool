@@ -95,19 +95,21 @@ function init(){
  const compressMode=new URLSearchParams(root.location?.search||'').get('mode')==='compress';
  const uploadThumb=$('is-upload-preview');
  let file=null,originalUrl=null,resultUrl=null,blob=null,busy=false,token=0,decoded=null;
- let batchFiles=[],batchUrls=[];
+ let batchFiles=[],batchUrls=[],batchThumbUrls=[];
  const batchBox=$('is-batch'),batchList=$('is-batch-list');
  function clearBatchUrls(){batchUrls.forEach(u=>revoke(u));batchUrls=[];}
+ function clearBatchThumbs(){batchThumbUrls.forEach(u=>revoke(u));batchThumbUrls=[];}
  function showBatch(selected){
   batchFiles=selected.slice();
-  clearBatchUrls();batchList.replaceChildren();
+  clearBatchUrls();clearBatchThumbs();batchList.replaceChildren();
   batchBox.hidden=batchFiles.length<2;
   if(batchFiles.length<2)return;
   for(const candidate of batchFiles){
    const row=document.createElement('div');row.className='ett-batch-row';
+   const thumb=document.createElement('img');thumb.alt='';const src=URL.createObjectURL(candidate);batchThumbUrls.push(src);thumb.src=src;
    const label=document.createElement('span');label.textContent=candidate.name+' · '+formatBytes(candidate.size);
    const state=document.createElement('strong');state.textContent='Ready';
-   row.append(label,state);batchList.appendChild(row);
+   row.append(thumb,label,state);batchList.appendChild(row);
   }
  }
  if(compressMode){$('is-size-mode').value='original';$('is-sizing-options').hidden=true;$('is-size-presets').hidden=true;$('is-upscale-row').hidden=true;$('is-advanced').open=true;$('is-run').textContent='Compress image ↗';$('is-choose').textContent='Choose image to compress';}
@@ -226,7 +228,7 @@ function init(){
   finally{setBusy(false);updateControls();}
  });
  $('is-clear').addEventListener('click',()=>{showBatch([]);select(null);});
- window.addEventListener?.('pagehide',()=>{revoke(originalUrl);revoke(resultUrl);clearBatchUrls();decoded?.close();});
+ window.addEventListener?.('pagehide',()=>{revoke(originalUrl);revoke(resultUrl);clearBatchUrls();clearBatchThumbs();decoded?.close();});
  $('is-quality-box').hidden=false;$('is-background-box').hidden=false;details.hidden=true;result.hidden=true;
  setBusy(false);updateControls();
 }

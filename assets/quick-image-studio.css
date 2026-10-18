@@ -103,3 +103,13 @@ html[data-embedded=true] .is-dropzone{margin-top:0}
 .is-dropzone #is-choose:hover:not(:disabled),
 .vs-dropzone #vs-choose:hover:not(:disabled){filter:brightness(1.05)}
 .is-dropzone #is-choose:disabled,.vs-dropzone #vs-choose:disabled{opacity:.48;cursor:not-allowed}
+
+/* Animated compression comparison, original vs output. */
+.is-compression-chart{display:grid;gap:13px;margin:19px 0 6px;padding:17px 18px;border:1px solid #ebe5f4;border-radius:15px;background:#fcfbff}
+.is-comparison-row{display:grid;grid-template-columns:86px minmax(0,1fr) 78px;gap:12px;align-items:center}
+.is-comparison-row>span{font-size:12px;font-weight:750;color:#645872}
+.is-comparison-row strong{font-size:12px;font-weight:800;text-align:right;white-space:nowrap}
+.is-comparison-track{height:12px;background:#eee9f6;border-radius:99px;overflow:hidden}
+.is-comparison-fill{display:block;width:0;height:100%;background:#b5a9cb;border-radius:inherit;transition:width .85s cubic-bezier(.2,.75,.2,1)}
+.is-comparison-fill.compressed{background:linear-gradient(90deg,#a68fff,#7858ed)}
+@media(max-width:540px){.is-comparison-row{grid-template-columns:72px minmax(0,1fr) 65px;gap:7px}.is-compression-chart{padding:12px}}

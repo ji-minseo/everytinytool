@@ -7,7 +7,7 @@
 <link rel="canonical" href="https://everytinytool.com/video-studio/"><link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="stylesheet" href="../assets/styles.css?v=20261018-hub2">
 <link rel="stylesheet" href="../assets/video-studio.css?v=20261018-upload-ui-3">
-<script defer src="../assets/video-studio.js?v=20261018-2"></script>
+<script defer src="../assets/video-studio.js?v=20261018-batch-1"></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="../assets/tool-embed.css?v=20261018-hub6">
 </head><body><div class="shell"><header class="topbar"><a class="brand" href="../">Every Tiny Tool <span>✦</span></a><nav class="nav" aria-label="Primary navigation"><a href="../">Home</a><a href="../#tools">Tools</a><a href="../about/">About</a><a href="../privacy/">Privacy</a><a href="../contact/">Contact</a></nav></header>
@@ -15,8 +15,9 @@
 <section class="vs-hero"><a class="utility-back" href="../">← All tools</a><span class="eyebrow">VIDEO TOOLS</span><h1>Video Studio<span class="vs-dot">.</span></h1><p>Compress a short clip or convert it to a video format supported by your browser. Everything runs on your device, with no file uploads.</p></section>
 <section class="vs-panel">
 <div class="vs-dropzone" id="vs-dropzone" tabindex="0" role="group" aria-label="Video upload. Click or press Enter or Space to browse files, or drag and drop.">
-<input class="vs-file" id="vs-file" type="file" accept="video/*,.mp4,.mov,.m4v,.webm,.ogv" aria-label="Choose a video">
+<input class="vs-file" id="vs-file" type="file" multiple accept="video/*,.mp4,.mov,.m4v,.webm,.ogv" aria-label="Choose a video">
 <video id="vs-preview" class="vs-preview" controls playsinline preload="metadata" hidden aria-label="Original video preview"></video><div class="vs-upload-icon" aria-hidden="true">▶</div><h2>Choose a video</h2><p>MP4 · MOV · WebM (depending on browser support) · Up to 250 MB / 5 min</p><button type="button" id="vs-choose" class="button">Select video</button></div>
+<div class="ett-batch" id="vs-batch" hidden><h3>Selected videos</h3><p>Choose up to 3 short clips. They will encode one at a time; download each result below.</p><div class="ett-batch-list" id="vs-batch-list"></div></div>
 <div class="vs-options" id="vs-options" hidden>
 <div class="vs-selected"><div><strong id="vs-file-name"></strong><p>Original · <span id="vs-original-size"></span></p></div><button type="button" class="vs-secondary" id="vs-clear">Remove</button></div>
 
@@ -25,7 +26,7 @@
 <label for="vs-size">Maximum width<select id="vs-size"><option value="640">640 px</option><option value="960">960 px</option><option value="1280" selected>1280 px (HD)</option><option value="1920">1920 px</option></select></label>
 <label for="vs-bitrate">Video quality / bitrate<select id="vs-bitrate"><option value="0.5">Smaller · 0.5 Mbps</option><option value="1">Compact · 1 Mbps</option><option value="2" selected>Balanced · 2 Mbps</option><option value="4">High · 4 Mbps</option><option value="8">Very high · 8 Mbps</option></select></label>
 </div><p class="vs-support-note">Only formats this browser can encode appear above. MP4 output may not be available in Chrome or Firefox; WebM usually is. Conversion plays the entire video internally in real time. It may take several minutes. Audio is preserved when the browser supports local audio capture; please check the download.</p>
-<div class="vs-actions"><button class="button" type="button" id="vs-run">Compress / convert video →</button><button type="button" class="vs-secondary" id="vs-cancel" hidden>Stop processing</button></div>
+<div class="vs-actions"><button class="button" type="button" id="vs-run">Process videos ↗</button><button type="button" class="vs-secondary" id="vs-cancel" hidden>Stop processing</button></div>
 <div class="vs-progress-wrap"><progress max="100" value="0" id="vs-progress" hidden></progress><span id="vs-percent"></span></div>
 </div>
 <p class="vs-status" id="vs-status" role="status" aria-live="polite">Choose a video to start.</p>

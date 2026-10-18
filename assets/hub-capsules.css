@@ -183,3 +183,19 @@
 /* Equalize the breathing room before the shared panel footer.
    Inline tools have no iframe wrapper, so provide their own bottom inset. */
 .hub-panel [data-image-panel].hub-inline-tool:not([hidden]){padding-bottom:28px!important;box-sizing:border-box}
+
+/* Interactive Crop editor, matching Image Everything's draggable crop preview. */
+.hub-crop-editor{display:grid;gap:13px;width:100%}
+.hub-crop-presets{display:flex;flex-wrap:wrap;gap:8px}
+.hub-crop-presets button{min-height:36px;padding:8px 14px;border:1px solid #e0d7ed;border-radius:10px;background:#fff;color:#655872;font:700 12px/1.4 inherit;cursor:pointer}
+.hub-crop-presets button.active{background:#f0e9ff;border-color:#bda7e6;color:#55349c}
+.hub-crop-stage{position:relative;display:flex;align-items:center;justify-content:center;width:100%;max-height:470px;min-height:160px;padding:0;overflow:hidden;background:#f7f5fb;border-radius:13px;touch-action:none}
+.hub-crop-stage[hidden]{display:none!important}
+.hub-crop-image{display:block;max-width:100%;max-height:470px;width:auto;height:auto;object-fit:contain;user-select:none;pointer-events:none}
+.hub-crop-box{position:absolute;box-sizing:border-box;border:2px solid #8054dc;background:rgba(124,92,252,.09);box-shadow:0 0 0 9999px rgba(24,14,40,.34);cursor:move;touch-action:none}
+.hub-crop-handle{position:absolute;right:-7px;bottom:-7px;width:16px;height:16px;border:2px solid #fff;border-radius:4px;background:#8054dc;cursor:nwse-resize}
+.hub-crop-fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.hub-crop-fields label{display:grid;gap:5px;font-size:12px;font-weight:750;color:#62576e}
+.hub-crop-fields input{box-sizing:border-box;width:100%;min-width:0;min-height:40px;border:1px solid #e1d9eb;border-radius:10px;padding:8px 10px;background:#fff;color:#2a2138;font-size:13px}
+.hub-crop-help{margin:0;font-size:12px;color:#756c82}
+@media(max-width:580px){.hub-crop-fields{grid-template-columns:repeat(2,minmax(0,1fr))}}

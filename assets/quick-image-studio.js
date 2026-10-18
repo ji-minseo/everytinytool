@@ -112,8 +112,8 @@ function init(){
    const row=document.createElement('div');row.className='ett-batch-row';
    const thumb=document.createElement('img');thumb.alt='';const src=URL.createObjectURL(candidate);batchThumbUrls.push(src);thumb.src=src;
    const label=document.createElement('span');label.textContent=candidate.name+' · '+formatBytes(candidate.size);
-   const state=document.createElement('strong');state.textContent='Ready';
-   const remove=document.createElement('button');remove.type='button';remove.className='ett-batch-remove';remove.textContent='Remove';remove.onclick=async()=>{if(busy)return;const next=batchFiles.filter((_,i)=>i!==index);showBatch(next);if(next.length)await select(next[0]);else await select(null);};row.append(thumb,label,state,remove);batchList.appendChild(row);
+   
+   const remove=document.createElement('button');remove.type='button';remove.className='ett-batch-remove';remove.textContent='Remove';remove.onclick=async()=>{if(busy)return;const next=batchFiles.filter((_,i)=>i!==index);showBatch(next);if(next.length)await select(next[0]);else await select(null);};row.append(thumb,label,remove);batchList.appendChild(row);
   }
  }
  if(compressMode){$('is-size-mode').value='original';$('is-sizing-options').hidden=true;$('is-size-presets').hidden=true;$('is-upscale-row').hidden=true;$('is-advanced').open=true;$('is-run').textContent='Compress images ↗';$('is-choose').textContent='Choose images';}
@@ -151,7 +151,7 @@ function init(){
   try{
    decoded=await decodeFile(fileNext);
    if(!isSafeSize(decoded.width,decoded.height))throw Error('Image exceeds 24 megapixels or 12,000 px per side.');
-   file=fileNext;originalUrl=URL.createObjectURL(fileNext);original.src=originalUrl;uploadThumb.src=originalUrl;uploadThumb.hidden=false;zone.classList.add('has-image');details.hidden=false;
+   file=fileNext;originalUrl=URL.createObjectURL(fileNext);original.src=originalUrl;uploadThumb.hidden=true;uploadThumb.removeAttribute('src');zone.classList.remove('has-image');details.hidden=false;
    $('is-file-name').textContent=file.name||'image';
    $('is-input-size').textContent=decoded.width+' × '+decoded.height+' px · '+formatBytes(file.size);
    const sizeMode=$('is-size-mode').value;

@@ -143,3 +143,17 @@
   .pdfc-page .pdfc-target-options{padding:11px}
   .pdfc-page .pdfc-preset-row .preset-btn{font-size:11px;min-width:0}
 }
+
+/* PDF batch upload / matching file cards */
+.pdfc-page .pdfc-controls{margin-top:34px!important}
+.pdfc-page .pdfc-settings-row{margin-top:7px!important}
+.pdfc-queue,.pdfc-batch-results{display:grid;gap:10px;margin:14px 0}
+.pdfc-queue-row,.pdfc-result-row{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #ebe5f3;border-radius:14px;background:#fff;min-width:0}
+.pdfc-queue-icon{display:grid;place-items:center;flex:none;width:55px;height:55px;border-radius:10px;background:#f1ebff;color:#6848b7;font-size:12px;font-weight:850}
+.pdfc-queue-info{flex:1;min-width:0;display:grid;gap:3px}
+.pdfc-queue-info strong{font-size:13px;overflow-wrap:anywhere}
+.pdfc-queue-info small{font-size:12px;color:#777}
+.pdfc-queue-remove{height:42px!important;min-height:42px!important;min-width:89px!important;display:inline-flex;align-items:center;justify-content:center;padding:10px 16px!important;border:1px solid #ded6ea!important;border-radius:12px!important;background:#fff!important;color:#655872!important;font-size:13px!important;font-weight:700!important;cursor:pointer;flex:none}
+.pdfc-result-row .btn,.pdfc-zip{min-height:42px!important;border-radius:12px!important;padding:10px 16px!important;font-size:13px!important}
+.pdfc-batch-error{font-size:12px;color:#b34252;padding:10px}
+.pdfc-page .pdfc-status:empty{display:none}

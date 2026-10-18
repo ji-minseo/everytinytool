@@ -95,6 +95,21 @@ function init(){
  const compressMode=new URLSearchParams(root.location?.search||'').get('mode')==='compress';
  const uploadThumb=$('is-upload-preview');
  let file=null,originalUrl=null,resultUrl=null,blob=null,busy=false,token=0,decoded=null;
+ let batchFiles=[],batchUrls=[];
+ const batchBox=$('is-batch'),batchList=$('is-batch-list');
+ function clearBatchUrls(){batchUrls.forEach(u=>revoke(u));batchUrls=[];}
+ function showBatch(selected){
+  batchFiles=selected.slice();
+  clearBatchUrls();batchList.replaceChildren();
+  batchBox.hidden=batchFiles.length<2;
+  if(batchFiles.length<2)return;
+  for(const candidate of batchFiles){
+   const row=document.createElement('div');row.className='ett-batch-row';
+   const label=document.createElement('span');label.textContent=candidate.name+' · '+formatBytes(candidate.size);
+   const state=document.createElement('strong');state.textContent='Ready';
+   row.append(label,state);batchList.appendChild(row);
+  }
+ }
  if(compressMode){$('is-size-mode').value='original';$('is-sizing-options').hidden=true;$('is-size-presets').hidden=true;$('is-upscale-row').hidden=true;$('is-advanced').open=true;$('is-run').textContent='Compress image ↗';$('is-choose').textContent='Choose image to compress';}
  else {$('is-advanced').open=false;$('is-run').textContent='Resize image ↗';}
  const controls=['is-size-mode','is-size-value','is-upscale','is-format','is-quality','is-target','is-background','is-custom-color'];
@@ -143,9 +158,16 @@ function init(){
  zone.addEventListener('click',e=>{if(busy||e.target===input||e.target.closest?.('button,input,label,a'))return;input.click();});
  zone.addEventListener('keydown',e=>{if(busy||e.target!==zone||!['Enter',' '].includes(e.key))return;e.preventDefault();input.click();});
  choose.addEventListener('click',()=>{if(!busy)input.click();});
- input.addEventListener('change',()=>{if(input.files?.[0])select(input.files[0]);});
+ input.addEventListener('change',()=>{
+  const list=Array.from(input.files||[]);
+  if(!list.length)return;
+  const selected=list.slice(0,10);
+  if(list.length>10)notify('Only the first 10 images will be processed.');
+  showBatch(selected);
+  select(selected[0]);
+ });
  ['dragenter','dragover'].forEach(type=>zone.addEventListener(type,e=>{e.preventDefault();if(!busy)zone.classList.add('dragover');}));
- ['dragleave','drop'].forEach(type=>zone.addEventListener(type,e=>{e.preventDefault();zone.classList.remove('dragover');if(type==='drop'&&!busy&&e.dataTransfer?.files?.[0])select(e.dataTransfer.files[0]);}));
+ ['dragleave','drop'].forEach(type=>zone.addEventListener(type,e=>{e.preventDefault();zone.classList.remove('dragover');if(type==='drop'&&!busy&&e.dataTransfer?.files?.[0]){const files=Array.from(e.dataTransfer.files).slice(0,10);showBatch(files);select(files[0]);}}));
  controls.forEach(id=>$(id).addEventListener(id==='is-quality'?'input':'change',()=>{
   if(busy)return;
   if(id==='is-size-mode'&&decoded&&!compressMode){
@@ -165,19 +187,46 @@ function init(){
   try{
    await new Promise(r=>root.requestAnimationFrame?root.requestAnimationFrame(r):r());
    const s=settings();if(s.targetKB<0||!Number.isFinite(s.targetKB))throw Error('Target size must be a positive number or blank.');
-   const out=await convertImage(decoded,s);
-   if(thisToken!==token)return;
-   blob=out.blob;revoke(resultUrl);resultUrl=URL.createObjectURL(blob);preview.src=resultUrl;
-   $('is-output-summary').textContent=out.width+' × '+out.height+' px · '+formatBytes(blob.size);
-   $('is-saving').textContent=savedPercent(file.size,blob.size)+'% file size change';
-   $('is-saving').textContent=blob.size<=file.size?'Saved '+savedPercent(file.size,blob.size)+'% of original size':'File is '+Math.round((blob.size/file.size-1)*100)+'% larger (higher quality or format change)';
-   download.href=resultUrl;download.download=fileName(file.name,out.format);download.disabled=false;
-   result.hidden=false;notify('Your image is ready. Download the processed file.');
+   const queue=batchFiles.length?batchFiles:[file];
+   clearBatchUrls();
+   let success=0,failed=0;
+   if(queue.length>1)batchBox.hidden=false;
+   for(let i=0;i<queue.length;i++){
+    const current=queue[i],row=batchList.children[i],label=row?.querySelector('strong');
+    let localDecoded=null;
+    try{
+     if(validateFile(current))throw Error(validateFile(current));
+     localDecoded=i===0?decoded:await decodeFile(current);
+     if(!isSafeSize(localDecoded.width,localDecoded.height))throw Error('Image dimensions too large.');
+     if(label)label.textContent='Processing…';
+     const out=await convertImage(localDecoded,s);
+     if(thisToken!==token)break;
+     const url=URL.createObjectURL(out.blob);
+     if(queue.length>1){
+      batchUrls.push(url);
+      if(label){label.textContent=formatBytes(out.blob.size);}
+      const link=document.createElement('a');link.href=url;link.download=fileName(current.name,out.format);link.textContent='Download ↓';
+      row?.appendChild(link);
+     }
+     if(i===0){
+      blob=out.blob;revoke(resultUrl);
+      resultUrl=queue.length>1?null:url;
+      preview.src=url;
+      $('is-output-summary').textContent=out.width+' × '+out.height+' px · '+formatBytes(blob.size);
+      $('is-saving').textContent=blob.size<=current.size?'Saved '+savedPercent(current.size,blob.size)+'% of original size':'File is '+Math.round((blob.size/current.size-1)*100)+'% larger';
+      download.href=url;download.download=fileName(current.name,out.format);download.disabled=false;
+      result.hidden=false;
+     }else if(queue.length===1){revoke(url);}
+     success++;
+    }catch(e){failed++;if(label){label.textContent=e.message||'Failed';label.classList.add('ett-error');}}
+    finally{if(i!==0)localDecoded?.close();}
+   }
+   notify('Finished '+success+' image'+(success===1?'':'s')+(failed?' · '+failed+' could not be processed':'')+'. Download each result below.',failed>0&&success===0);
   }catch(err){notify(err.message||'Image processing failed.',true);}
   finally{setBusy(false);updateControls();}
  });
- $('is-clear').addEventListener('click',()=>select(null));
- window.addEventListener?.('pagehide',()=>{revoke(originalUrl);revoke(resultUrl);decoded?.close();});
+ $('is-clear').addEventListener('click',()=>{showBatch([]);select(null);});
+ window.addEventListener?.('pagehide',()=>{revoke(originalUrl);revoke(resultUrl);clearBatchUrls();decoded?.close();});
  $('is-quality-box').hidden=false;$('is-background-box').hidden=false;details.hidden=true;result.hidden=true;
  setBusy(false);updateControls();
 }

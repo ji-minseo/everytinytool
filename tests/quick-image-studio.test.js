@@ -99,7 +99,7 @@ test('multi-image upload has per-file batch list and download controls',()=>{
  assert.match(page,/id="is-file"[^>]*multiple/);
  assert.match(page,/id="is-batch-list"/);
  const src=fs.readFileSync(path.join(root,'assets/quick-image-studio.js'),'utf8');
- assert.match(src,/files\.slice\(0,10\)/);
+ assert.match(src,/list\.slice\(0,10\)/);
  assert.match(src,/for\(let i=0;i<queue\.length;i\+\+\)/);
  assert.match(src,/batchThumbUrls/);
  assert.match(src,/row\?\.appendChild\(link\)/);

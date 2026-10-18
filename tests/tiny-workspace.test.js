@@ -70,8 +70,9 @@ test('workspace page has all required UI IDs and no duplicates',()=>{
  assert.match(page,/id="ws-save-recipe"/);
 });
 test('home page, sitemap and stylesheet integrate the new flagship tool',()=>{
- assert.match(home,/href="\.\/workspace\/"/);
- assert.ok(home.indexOf('class="workspace-feature"')<home.indexOf('class="collection-section"'));
+ assert.match(home,/href="\/workspace\/"/);
+ assert.match(home,/id="hub-frame-workspace"/);
+ assert.match(home,/data-src="\/workspace\/\?embed=1"/);
  const map=fs.readFileSync(path.join(dir,'sitemap.xml'),'utf8');
  assert.match(map,/https:\/\/everytinytool.com\/workspace\//);
  const css=fs.readFileSync(path.join(dir,'assets/tiny-workspace.css'),'utf8');

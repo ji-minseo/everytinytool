@@ -6,8 +6,8 @@
 <meta name="google-site-verification" content="CBlkb_437tiJ5H-kUBL7O8dh-hd-sO5K0XpoibZ67Dg">
 <link rel="canonical" href="https://everytinytool.com/video-studio/"><link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="stylesheet" href="../assets/styles.css?v=20261018-hub2">
-<link rel="stylesheet" href="../assets/video-studio.css?v=20261018-1">
-<script defer src="../assets/video-studio.js?v=20261018-1"></script>
+<link rel="stylesheet" href="../assets/video-studio.css?v=20261018-2">
+<script defer src="../assets/video-studio.js?v=20261018-2"></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="../assets/tool-embed.css?v=20261018-hub2">
 </head><body><div class="shell"><header class="topbar"><a class="brand" href="../">Every Tiny Tool <span>✦</span></a><nav class="nav" aria-label="Primary navigation"><a href="../">Home</a><a href="../#tools">Tools</a><a href="../about/">About</a><a href="../privacy/">Privacy</a><a href="../contact/">Contact</a></nav></header>
@@ -16,10 +16,10 @@
 <section class="vs-panel">
 <div class="vs-dropzone" id="vs-dropzone" tabindex="0" role="group" aria-label="Video upload. Click or press Enter or Space to browse files, or drag and drop.">
 <input class="vs-file" id="vs-file" type="file" accept="video/*,.mp4,.mov,.m4v,.webm,.ogv" aria-label="Choose a video">
-<div class="vs-upload-icon" aria-hidden="true">▶</div><h2>Choose a video</h2><p>MP4 · MOV · WebM (depending on browser support) · Up to 250 MB / 5 min</p><button type="button" id="vs-choose" class="button">Select video</button></div>
+<video id="vs-preview" class="vs-preview" controls playsinline preload="metadata" hidden aria-label="Original video preview"></video><div class="vs-upload-icon" aria-hidden="true">▶</div><h2>Choose a video</h2><p>MP4 · MOV · WebM (depending on browser support) · Up to 250 MB / 5 min</p><button type="button" id="vs-choose" class="button">Select video</button></div>
 <div class="vs-options" id="vs-options" hidden>
 <div class="vs-selected"><div><strong id="vs-file-name"></strong><p>Original · <span id="vs-original-size"></span></p></div><button type="button" class="vs-secondary" id="vs-clear">Remove</button></div>
-<video id="vs-preview" class="vs-preview" controls playsinline preload="metadata" hidden aria-label="Original video preview"></video>
+
 <h2>Compress or convert</h2><div class="vs-controls">
 <label for="vs-format">Output video format<select id="vs-format"></select></label>
 <label for="vs-size">Maximum width<select id="vs-size"><option value="640">640 px</option><option value="960">960 px</option><option value="1280" selected>1280 px (HD)</option><option value="1920">1920 px</option></select></label>

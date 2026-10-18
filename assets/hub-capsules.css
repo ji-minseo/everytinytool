@@ -79,3 +79,13 @@
 
 /* Compact toolbox headline; keep tool navigation immediately in view. */
 .hub-tools-head h1{font-size:clamp(28px,3.3vw,39px)!important;line-height:1.12!important;letter-spacing:-.045em!important;margin:10px 0 0!important;font-weight:850!important}
+
+/* Editorial homepage headline: match the scale and spacing of the About hero. */
+.hub-tools{margin-top:0}
+.hub-tools-head{padding:62px 0 38px;align-items:flex-end;gap:32px}
+.hub-tools-head>div{min-width:0;flex:1}
+.hub-tools-head h1{font-size:clamp(54px,8.4vw,105px)!important;line-height:.95!important;letter-spacing:-.075em!important;font-weight:850!important;margin:20px 0 0!important;max-width:940px}
+.hub-question{color:#7c5cfc}
+.hub-tools-head>p{max-width:265px;font-size:13px;line-height:1.7;margin:0 0 8px}
+@media(max-width:850px){.hub-tools-head{display:block;padding:43px 0 28px}.hub-tools-head>p{max-width:620px;text-align:left;margin-top:22px}}
+@media(max-width:650px){.hub-tools-head h1{font-size:clamp(48px,11.2vw,72px)!important;line-height:.97!important;overflow-wrap:normal}}

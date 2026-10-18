@@ -92,14 +92,18 @@ function init(){
  const $=id=>document.getElementById(id);if(!$('image-studio'))return;
  const zone=$('is-dropzone'),input=$('is-file'),choose=$('is-choose'),run=$('is-run'),details=$('is-details'),result=$('is-result');
  const status=$('is-status'),original=$('is-before'),preview=$('is-after'),download=$('is-download');
+ const compressMode=new URLSearchParams(root.location?.search||'').get('mode')==='compress';
+ const uploadThumb=$('is-upload-preview');
  let file=null,originalUrl=null,resultUrl=null,blob=null,busy=false,token=0,decoded=null;
+ if(compressMode){$('is-size-mode').value='original';$('is-sizing-options').hidden=true;$('is-size-presets').hidden=true;$('is-upscale-row').hidden=true;$('is-advanced').open=true;$('is-run').textContent='Compress image ↗';$('is-choose').textContent='Choose image to compress';}
+ else {$('is-advanced').open=false;$('is-run').textContent='Resize image ↗';}
  const controls=['is-size-mode','is-size-value','is-upscale','is-format','is-quality','is-target','is-background','is-custom-color'];
  function revoke(url){if(url)URL.revokeObjectURL(url);}
  function notify(t,error=false){status.textContent=t;status.dataset.error=String(error);}
  function setBusy(flag){busy=flag;input.disabled=flag;choose.disabled=flag;run.disabled=flag||!file;for(const id of controls)$(id).disabled=flag;}
  function invalidate(){token++;blob=null;result.hidden=true;revoke(resultUrl);resultUrl=null;preview.removeAttribute('src');download.removeAttribute('href');download.disabled=true;if(file)notify('Settings changed. Choose Process image to update your result.');}
  function settings(){
-  const fmt=$('is-format').value;const mode=$('is-size-mode').value;
+  const fmt=$('is-format').value;const mode=compressMode?'original':$('is-size-mode').value;
   return {mode,value:Number($('is-size-value').value),allowUpscale:$('is-upscale').checked,
   format:fmt,quality:Number($('is-quality').value),targetKB:Number($('is-target').value),
   background:$('is-background').value,customColor:$('is-custom-color').value};
@@ -120,13 +124,13 @@ function init(){
  }
  async function select(fileNext){
   if(busy)return;
-  invalidate();revoke(originalUrl);originalUrl=null;file=null;decoded?.close();decoded=null;input.value='';details.hidden=true;
+  invalidate();revoke(originalUrl);originalUrl=null;file=null;decoded?.close();decoded=null;input.value='';details.hidden=true;uploadThumb.hidden=true;uploadThumb.removeAttribute('src');zone.classList.remove('has-image');
   const error=validateFile(fileNext);
   if(error){notify(error,!!fileNext);setBusy(false);return;}
   try{
    decoded=await decodeFile(fileNext);
    if(!isSafeSize(decoded.width,decoded.height))throw Error('Image exceeds 24 megapixels or 12,000 px per side.');
-   file=fileNext;originalUrl=URL.createObjectURL(fileNext);original.src=originalUrl;details.hidden=false;
+   file=fileNext;originalUrl=URL.createObjectURL(fileNext);original.src=originalUrl;uploadThumb.src=originalUrl;uploadThumb.hidden=false;zone.classList.add('has-image');details.hidden=false;
    $('is-file-name').textContent=file.name||'image';
    $('is-input-size').textContent=decoded.width+' × '+decoded.height+' px · '+formatBytes(file.size);
    const sizeMode=$('is-size-mode').value;
@@ -144,7 +148,7 @@ function init(){
  ['dragleave','drop'].forEach(type=>zone.addEventListener(type,e=>{e.preventDefault();zone.classList.remove('dragover');if(type==='drop'&&!busy&&e.dataTransfer?.files?.[0])select(e.dataTransfer.files[0]);}));
  controls.forEach(id=>$(id).addEventListener(id==='is-quality'?'input':'change',()=>{
   if(busy)return;
-  if(id==='is-size-mode'&&decoded){
+  if(id==='is-size-mode'&&decoded&&!compressMode){
    const choice=$('is-size-mode').value;
    if(choice==='width')$('is-size-value').value=String(decoded.width);
    if(choice==='height')$('is-size-value').value=String(decoded.height);

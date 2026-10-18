@@ -137,3 +137,5 @@ html[data-embedded=true] .is-dropzone{margin-top:0}
 .is-comparison-track{overflow:hidden}
 .is-comparison-fill{transition:width .85s cubic-bezier(.2,.8,.25,1)!important}
 @media(max-width:550px){.ett-batch-row{flex-wrap:wrap}.ett-batch-row span{flex-basis:calc(100% - 70px)}}
+
+.ett-batch-row .ett-batch-remove{height:42px!important;min-height:42px!important;min-width:89px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:10px 16px!important;border:1px solid #ded6ea!important;border-radius:12px!important;background:#fff!important;color:#655872!important;font-size:13px!important;font-weight:700!important;line-height:20px!important;box-shadow:none!important;white-space:nowrap!important;flex:none!important}

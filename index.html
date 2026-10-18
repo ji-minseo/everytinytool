@@ -12,7 +12,7 @@
   <link rel="canonical" href="https://everytinytool.com/">
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="stylesheet" href="./assets/styles.css?v=20261018-hub3">
-  <link rel="stylesheet" href="./assets/hub-capsules.css?v=20261018-hub8">
+  <link rel="stylesheet" href="./assets/hub-capsules.css?v=20261018-large-heading1">
   <script src="./assets/hub-capsules.js?v=20261018-meta1" defer></script>
   
 </head>
@@ -21,7 +21,6 @@
   <header class="topbar">
     <a class="brand" href="./">Every Tiny Tool <span>✦</span></a>
     <nav class="nav" aria-label="Primary navigation">
-      <a href="#tools">Tools</a>
       <a href="./about/">About</a>
       <a href="./privacy/">Privacy</a>
       <a href="./contact/">Contact</a>
@@ -30,22 +29,22 @@
 
   <main>
     <section id="tools" class="hub-tools" aria-labelledby="hub-tools-heading">
-      <div class="hub-tools-head"><div><span class="hub-label">THE TOOLBOX / 01</span><h1 id="hub-tools-heading">What are we making today?</h1></div><p>Free image, PDF, video, metadata and text tools, right in your browser. Choose a task and get it done.</p></div>
+      <div class="hub-tools-head"><div><span class="hub-label">THE TOOLBOX / 01</span><h1 id="hub-tools-heading">What are we making today<span class="hub-question">?</span></h1></div><p>Free image, PDF, video, metadata and text tools, right in your browser. Choose a task and get it done.</p></div>
       <div class="hub-capsules" role="tablist" aria-label="Choose tool category">
-        <button type="button" role="tab" id="hub-tab-image" aria-selected="true" aria-controls="hub-panel-image" data-hub-tab="image">Image Studio</button>
-        <button type="button" role="tab" id="hub-tab-pdf" aria-selected="false" aria-controls="hub-panel-pdf" tabindex="-1" data-hub-tab="pdf">PDF Compressor</button>
-        <button type="button" role="tab" id="hub-tab-video" aria-selected="false" aria-controls="hub-panel-video" tabindex="-1" data-hub-tab="video">Video Studio</button>
-        <button type="button" role="tab" id="hub-tab-metadata" aria-selected="false" aria-controls="hub-panel-metadata" tabindex="-1" data-hub-tab="metadata">Metadata Studio</button>
-        <button type="button" role="tab" id="hub-tab-workspace" aria-selected="false" aria-controls="hub-panel-workspace" tabindex="-1" data-hub-tab="workspace">Tiny Workspace</button>
-        <button type="button" role="tab" id="hub-tab-more" aria-selected="false" aria-controls="hub-panel-more" tabindex="-1" data-hub-tab="more">More tools</button>
+        <button type="button" role="tab" id="hub-tab-image" aria-selected="true" aria-controls="hub-panel-image" data-hub-tab="image">🖼️ Image Studio</button>
+        <button type="button" role="tab" id="hub-tab-pdf" aria-selected="false" aria-controls="hub-panel-pdf" tabindex="-1" data-hub-tab="pdf">📄 PDF Compressor</button>
+        <button type="button" role="tab" id="hub-tab-video" aria-selected="false" aria-controls="hub-panel-video" tabindex="-1" data-hub-tab="video">🎬 Video Studio</button>
+        <button type="button" role="tab" id="hub-tab-metadata" aria-selected="false" aria-controls="hub-panel-metadata" tabindex="-1" data-hub-tab="metadata">🔎 Metadata Studio</button>
+        <button type="button" role="tab" id="hub-tab-workspace" aria-selected="false" aria-controls="hub-panel-workspace" tabindex="-1" data-hub-tab="workspace">✍️ Tiny Workspace</button>
+        <button type="button" role="tab" id="hub-tab-more" aria-selected="false" aria-controls="hub-panel-more" tabindex="-1" data-hub-tab="more">✨ More tools</button>
       </div>
       <div class="hub-panels">
         <section class="hub-panel" id="hub-panel-image" role="tabpanel" aria-labelledby="hub-tab-image" data-panel="image">
           <div class="hub-panel-head"><div><span class="hub-label">IMAGE / 01</span><h3>Everything your photo needs.</h3><p>Resize photos, compress their file size, or remove backgrounds with AI — each in its own clear tool.</p></div><span class="hub-kind">JPG · PNG · WebP</span></div>
           <div class="hub-subcaps" role="tablist" aria-label="Image tasks">
-            <button type="button" role="tab" aria-selected="true" data-image-tab="resize" aria-controls="hub-image-resize">Resize image</button>
-            <button type="button" role="tab" aria-selected="false" tabindex="-1" data-image-tab="compress" aria-controls="hub-image-compress">Compress image</button>
-            <button type="button" role="tab" aria-selected="false" tabindex="-1" data-image-tab="remove" aria-controls="hub-image-remove">Remove background</button>
+            <button type="button" role="tab" aria-selected="true" data-image-tab="resize" aria-controls="hub-image-resize">↔️ Resize image</button>
+            <button type="button" role="tab" aria-selected="false" tabindex="-1" data-image-tab="compress" aria-controls="hub-image-compress">🗜️ Compress image</button>
+            <button type="button" role="tab" aria-selected="false" tabindex="-1" data-image-tab="remove" aria-controls="hub-image-remove">✂️ Remove background</button>
           </div>
           <div id="hub-image-resize" role="tabpanel" data-image-panel="resize"><iframe id="hub-frame-resize" title="Interactive image resize, compression and format conversion" loading="eager" data-src="/quick-image-studio/?embed=1"></iframe></div>
           <div id="hub-image-compress" role="tabpanel" data-image-panel="compress" hidden><iframe id="hub-frame-compress" title="Interactive image compressor and format converter" loading="lazy" data-src="/quick-image-studio/?embed=1&mode=compress"></iframe></div>

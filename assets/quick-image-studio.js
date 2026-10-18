@@ -102,14 +102,14 @@ function init(){
  function showBatch(selected){
   batchFiles=selected.slice();
   clearBatchUrls();clearBatchThumbs();batchList.replaceChildren();
-  batchBox.hidden=batchFiles.length<2;
-  if(batchFiles.length<2)return;
-  for(const candidate of batchFiles){
+  batchBox.hidden=batchFiles.length===0;
+  if(!batchFiles.length)return;
+  for(const [index,candidate] of batchFiles.entries()){
    const row=document.createElement('div');row.className='ett-batch-row';
    const thumb=document.createElement('img');thumb.alt='';const src=URL.createObjectURL(candidate);batchThumbUrls.push(src);thumb.src=src;
    const label=document.createElement('span');label.textContent=candidate.name+' · '+formatBytes(candidate.size);
    const state=document.createElement('strong');state.textContent='Ready';
-   row.append(thumb,label,state);batchList.appendChild(row);
+   const remove=document.createElement('button');remove.type='button';remove.className='ett-batch-remove';remove.textContent='Remove';remove.onclick=async()=>{if(busy)return;const next=batchFiles.filter((_,i)=>i!==index);showBatch(next);if(next.length)await select(next[0]);else await select(null);};row.append(thumb,label,state,remove);batchList.appendChild(row);
   }
  }
  if(compressMode){$('is-size-mode').value='original';$('is-sizing-options').hidden=true;$('is-size-presets').hidden=true;$('is-upscale-row').hidden=true;$('is-advanced').open=true;$('is-run').textContent='Compress images ↗';$('is-choose').textContent='Choose images to compress';}

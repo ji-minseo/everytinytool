@@ -167,3 +167,11 @@ html[data-embedded=true] .is-dropzone{margin-top:0}
 #image-studio .is-process-row #is-run:disabled{opacity:.48;cursor:not-allowed}
 #image-studio .is-process-row #is-download-zip[hidden]{display:none!important}
 @media(max-width:600px){#is-batch-list .ett-batch-row{flex-wrap:nowrap}#is-batch-list .ett-batch-row>span{flex-basis:auto}#is-batch-list .ett-batch-remove{min-width:76px!important;padding:9px 11px!important}}
+
+/* Flat inline Resize / Compress panels: no nested batch or numbered settings card. */
+#image-studio #is-batch{display:block;margin:14px 0 18px;padding:0;border:0;background:none;box-shadow:none;border-radius:0}
+#image-studio #is-batch[hidden]{display:none!important}
+#image-studio #is-batch-list{margin:0;padding:0;border:0;background:none}
+#image-studio #is-details{margin:0;padding:0;border:0;background:none;box-shadow:none}
+#image-studio #is-details[hidden]{display:none!important}
+#image-studio .is-result-title{font-size:16px;font-weight:800;line-height:1.4;letter-spacing:-.02em;margin:0 0 15px}

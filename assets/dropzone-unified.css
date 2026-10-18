@@ -40,3 +40,7 @@
  :is(.hub-inline-dropzone,.is-dropzone,.bg-dropzone,.pdfc-dropzone,.vs-dropzone,#meta-drop),
  :is(.is-dropzone,.bg-dropzone,.pdfc-dropzone,.vs-dropzone):is(.has-image,.has-video){min-height:226px!important;padding:26px 16px!important}
 }
+
+/* Consistent empty states for all embeds / homepage. */
+:is(.hub-upload-list,.hub-inline-results,.media-queue,.pdfc-queue,.pdfc-batch-results,.ett-batch-list):empty{display:none!important;margin:0!important;padding:0!important;min-height:0!important}
+:is(.hub-inline-controls,.ett-batch,.pdfc-file,.file-summary)[hidden]{display:none!important;margin:0!important;padding:0!important}

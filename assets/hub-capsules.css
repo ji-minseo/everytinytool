@@ -89,3 +89,7 @@
 .hub-tools-head>p{max-width:265px;font-size:13px;line-height:1.7;margin:0 0 8px}
 @media(max-width:850px){.hub-tools-head{display:block;padding:43px 0 28px}.hub-tools-head>p{max-width:620px;text-align:left;margin-top:22px}}
 @media(max-width:650px){.hub-tools-head h1{font-size:clamp(48px,11.2vw,72px)!important;line-height:.97!important;overflow-wrap:normal}}
+
+/* Match About editorial typography exactly: same headline metrics and eyebrow weight. */
+.hub-tools-head .hub-label{font-size:12px;font-weight:800;letter-spacing:.01em;color:#6245d6;background:#f5f2ff;padding:7px 11px;border-radius:999px;display:inline-flex;align-items:center;line-height:1.55}
+.hub-tools-head h1{font-size:clamp(54px,8.4vw,105px)!important;line-height:.95!important;letter-spacing:-.075em!important;font-weight:700!important;max-width:920px;margin:20px 0 24px!important}

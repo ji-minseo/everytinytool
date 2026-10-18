@@ -7,7 +7,7 @@ function init(){
  const parent=document.querySelector('.hub-tools');
  if(!mainTabs.length||!parent)return;
  let active='image',imageActive='resize';
- const frameFor={resize:'hub-frame-resize',remove:'hub-frame-remove',pdf:'hub-frame-pdf',video:'hub-frame-video',workspace:'hub-frame-workspace'};
+ const frameFor={resize:'hub-frame-resize',compress:'hub-frame-compress',remove:'hub-frame-remove',pdf:'hub-frame-pdf',video:'hub-frame-video',workspace:'hub-frame-workspace'};
  const frames=Object.fromEntries(Object.entries(frameFor).map(([key,id])=>[key,document.getElementById(id)]));
  // Measure the real content inside each same-origin tool, not the iframe's
  // scrollHeight (which includes the iframe viewport and prevents shrinking).
@@ -75,7 +75,7 @@ function init(){
   imageTabs.forEach(t=>{const selected=t.dataset.imageTab===which;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;if(selected&&focus)t.focus();});
   document.querySelectorAll('[data-image-panel]').forEach(p=>p.hidden=p.dataset.imagePanel!==which);
   const link=document.querySelector('[data-image-full]');
-  if(link){link.href=which==='remove'?'/remove-background/':'/quick-image-studio/';link.textContent=which==='remove'?'Open full background remover ↗':'Open full image studio ↗';}
+  if(link){link.href=which==='remove'?'/remove-background/':which==='compress'?'/quick-image-studio/?mode=compress':'/quick-image-studio/';link.textContent=which==='remove'?'Open full background remover ↗':which==='compress'?'Open full image compressor ↗':'Open full image resizer ↗';}
   if(active==='image')loadFrame(frames[which]);
  }
  function arrowHandler(tabs,select,dataKey){
@@ -99,6 +99,7 @@ function init(){
  else if(fragment==='pdf')activateMain('pdf');
  else if(fragment==='workspace')activateMain('workspace');
  else if(fragment==='remove-background'){activateMain('image');activateImage('remove');}
+ else if(fragment==='compress-image'){activateMain('image');activateImage('compress');}
  else activateMain('image');
  window.addEventListener('resize',()=>{for(const frame of Object.values(frames))if(frame?.getAttribute('src'))resizeFrame(frame);});
 }

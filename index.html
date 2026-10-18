@@ -6,21 +6,22 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Every Tiny Tool — Tiny Workspace & Free Browser Tools</title>
-  <meta name="description" content="Free Tiny Workspace for chained list cleanup, comparison and CSV export, plus word counting, rulers, image tools and calculators. No sign-up needed.">
+  <title>Every Tiny Tool — Free Image, PDF, Video & Text Tools</title>
+  <meta name="description" content="Free online image resizing, background removal, PDF compression, video conversion and text workflows — all in your browser. No signup.">
   <meta name="google-site-verification" content="CBlkb_437tiJ5H-kUBL7O8dh-hd-sO5K0XpoibZ67Dg">
   <link rel="canonical" href="https://everytinytool.com/">
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
-  <link rel="stylesheet" href="./assets/styles.css?v=20261018-image-studio-1">
-  <script src="./assets/text-tidy.js?v=20261010" defer></script>
-  <script src="./assets/quick-image-studio.js?v=20261018-image-studio-1" defer></script>
+  <link rel="stylesheet" href="./assets/styles.css?v=20261018-hub3">
+  <link rel="stylesheet" href="./assets/hub-capsules.css?v=20261018-hub3">
+  <script src="./assets/hub-capsules.js?v=20261018-hub3" defer></script>
+  
 </head>
 <body>
 <div class="shell">
   <header class="topbar">
     <a class="brand" href="./">Every Tiny Tool <span>✦</span></a>
     <nav class="nav" aria-label="Primary navigation">
-      <a href="#more-tools">Tools</a>
+      <a href="#tools">Tools</a>
       <a href="./about/">About</a>
       <a href="./privacy/">Privacy</a>
       <a href="./contact/">Contact</a>
@@ -28,180 +29,68 @@
   </header>
 
   <main>
-    <section class="hero">
-      <span class="eyebrow">Tiny tools, useful every day</span>
-      <h1>One home for small tools that just work.</h1>
-      <p>Resize and compress photos, build a list workflow, compare data, count words or measure on screen — right here. More specialized image, PDF and calculator tools are one click away.</p>
+    <section class="hub-intro" aria-labelledby="hub-title">
+      <span class="eyebrow">Everyday tools, all in one place</span>
+      <h1 id="hub-title">One tiny task.<br>Done beautifully<span class="hub-star"> ✦</span></h1>
+      <p>Resize an image, remove its background, compress a PDF, convert a video or tidy a list. Choose what you need and finish it here — no account, no upload maze.</p>
+      <div class="hub-benefits"><span>✳ Free to use</span><span>✳ Runs in your browser</span><span>✳ No sign-up</span></div>
     </section>
 
-    <section class="workspace-feature" aria-labelledby="workspace-feature-title">
-      <div class="workspace-feature-copy"><span class="eyebrow">New · Main tool</span><h2 id="workspace-feature-title">One list. A whole workflow.</h2><p>Clean, sort and filter messy lists in any order, compare them against another list, and download TXT, CSV or JSON. See each step and save the workflow for next time.</p><div class="workspace-feature-links"><a class="button" href="./workspace/">Open Tiny Workspace →</a><a href="./workspace/#ws-example" class="workspace-feature-secondary">Try a real example ↗</a></div><p class="workspace-feature-meta">Free · Local processing · No signup</p></div>
-      <div class="workspace-feature-demo" aria-label="Workflow example">
-        <span class="workspace-demo-caption">YOUR WORKFLOW</span>
-        <div class="workspace-demo-line"><span>01</span> Trim whitespace <strong>✓</strong></div>
-        <div class="workspace-demo-line"><span>02</span> Remove duplicates <strong>✓</strong></div>
-        <div class="workspace-demo-line"><span>03</span> Compare with another list <strong>✓</strong></div>
-        <div class="workspace-demo-total"><span>One clean result</span><strong>TXT · CSV · JSON</strong></div>
+    <section id="tools" class="hub-tools" aria-labelledby="hub-tools-heading">
+      <div class="hub-tools-head"><div><span class="hub-label">THE TOOLBOX / 01</span><h2 id="hub-tools-heading">What are we making today?</h2></div><p>Pick a tool. Everything stays in one tidy workspace.</p></div>
+      <div class="hub-capsules" role="tablist" aria-label="Choose tool category">
+        <button type="button" role="tab" id="hub-tab-image" aria-selected="true" aria-controls="hub-panel-image" data-hub-tab="image"><span aria-hidden="true">◩</span> Image Studio</button>
+        <button type="button" role="tab" id="hub-tab-pdf" aria-selected="false" aria-controls="hub-panel-pdf" tabindex="-1" data-hub-tab="pdf"><span aria-hidden="true">▤</span> PDF Compressor</button>
+        <button type="button" role="tab" id="hub-tab-video" aria-selected="false" aria-controls="hub-panel-video" tabindex="-1" data-hub-tab="video"><span aria-hidden="true">▷</span> Video Studio</button>
+        <button type="button" role="tab" id="hub-tab-workspace" aria-selected="false" aria-controls="hub-panel-workspace" tabindex="-1" data-hub-tab="workspace"><span aria-hidden="true">✦</span> Tiny Workspace</button>
+        <button type="button" role="tab" id="hub-tab-more" aria-selected="false" aria-controls="hub-panel-more" tabindex="-1" data-hub-tab="more"><span aria-hidden="true">＋</span> More tools</button>
       </div>
-    </section>
-
-    <section class="home-image-quick" id="home-image-quick" aria-labelledby="home-image-title">
-      <div class="home-image-quick-copy"><span class="eyebrow">Try it right here · No signup</span><h2 id="home-image-title">Make that photo the right size.</h2><p>Upload a photo, choose a popular width and get a smaller JPG in seconds. Nothing is uploaded. Need PNG, WebP or detailed quality controls? Open the full studio.</p><a href="./quick-image-studio/" class="home-image-full-link">Open full Image Studio →</a></div>
-      <div class="home-image-quick-form">
-        <label class="home-image-file-label" for="home-image-file">Choose JPG, PNG or WebP</label>
-        <input id="home-image-file" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
-        <div class="home-image-inline-preview"><img id="home-image-preview" alt="Selected photo" hidden><span id="home-image-name">No photo selected</span></div>
-        <label for="home-image-width">Resize to width</label><select id="home-image-width"><option value="640">640 px · small</option><option value="1080" selected>1080 px · social</option><option value="1200">1200 px · general</option><option value="1920">1920 px · HD</option></select>
-        <button type="button" class="button" id="home-image-run" disabled>Resize &amp; compress photo →</button>
-        <a class="button home-image-download" id="home-image-download" download hidden>Download JPG ↓</a>
-        <p id="home-image-result" class="home-image-result"></p>
-        <p id="home-image-status" role="status" aria-live="polite" class="home-image-status">Images are processed locally in your browser.</p>
-      </div>
-    </section>
-
-    <section class="local-tools" id="more-tools" aria-labelledby="local-tools-title">
-      <div class="local-tools-heading"><div><span class="eyebrow">Tools you can use right here</span><h2 id="local-tools-title">Start with a tool.</h2><p>Resize an image, build a workflow, compare data, count words or measure on screen. Use each tool directly on this site.</p></div></div>
-      <div class="local-tools-grid">
-        <a class="local-tool-card image-local-card" href="./quick-image-studio/"><span class="local-tool-icon" aria-hidden="true">🖼️</span><h3>Quick Image Studio</h3><p>Resize, compress and convert images with an original/processed preview and direct download.</p><span class="cta">Optimize an image →</span></a>
-        <a class="local-tool-card workspace-local-card" href="./workspace/">
-          <span class="local-tool-icon" aria-hidden="true">✦</span>
-          <h3>Tiny Workspace</h3>
-          <p>Chain cleanup steps, compare lists, preview changes and export reusable results.</p>
-          <span class="cta">Build a workflow →</span>
-        </a>
-        <a class="local-tool-card" href="./actual-size-ruler/">
-          <span class="local-tool-icon" aria-hidden="true">📏</span>
-          <h3>Actual Size Ruler</h3>
-          <p>Use your screen as a centimeter, millimeter or inch ruler. Calibrate with a real bank card, then measure horizontally or vertically.</p>
-          <span class="cta">Open screen ruler →</span>
-        </a>
-        <a class="local-tool-card" href="./list-comparer/">
-          <span class="local-tool-icon" aria-hidden="true">≠</span>
-          <h3>Compare two lists</h3>
-          <p>See what changed between two lists of names, products or keywords. Find shared entries, missing items and additions, and copy each group.</p>
-          <span class="cta">Compare lists →</span>
-        </a>
-        <a class="local-tool-card" href="./word-counter/">
-          <span class="local-tool-icon" aria-hidden="true">Aa</span>
-          <h3>Word &amp; Character Counter</h3>
-          <p>Count words, characters, lines and paragraphs while you write. Check an approximate reading time for your text.</p>
-          <span class="cta">Count words →</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="collection-section" aria-labelledby="collection-heading"><div class="collection-section-heading"><span class="eyebrow">More specialized tools</span><h2 id="collection-heading">Explore the tool collections.</h2><p>Need a calculator, a random picker or an image utility? Choose a collection to open its tools.</p></div>
-    <section class="network-grid" aria-label="Tool collections">
-      <a class="collection-card random" href="https://random.everytinytool.com/">
-        <div class="collection-icon">🎲</div>
-        <div>
-          <span class="collection-kicker">Random tools</span>
-          <h2>Random Everything</h2>
-          <p>Decision wheels, random choices, names, numbers, teams, groups, words, Pictionary prompts and more.</p>
-          <span class="cta">Explore random tools →</span>
-        </div>
-      </a>
-
-      <a class="collection-card calculate" href="https://calculate.everytinytool.com/">
-        <div class="collection-icon">🧮</div>
-        <div>
-          <span class="collection-kicker">Everyday calculators</span>
-          <h2>Calculate Everything</h2>
-          <p>Percentage, age, discount, date, average, tip, time and ratio calculators for quick everyday math.</p>
-          <span class="cta">Explore calculators →</span>
-        </div>
-      </a>
-
-      <a class="collection-card image" href="https://image.everytinytool.com/">
-        <div class="collection-icon">🖼️</div>
-        <div>
-          <span class="collection-kicker">Image &amp; PDF utilities</span>
-          <h2>Image Everything</h2>
-          <p>Remove photo backgrounds with AI, compress PDFs, resize and convert images, and inspect files with browser-based tools.</p>
-          <span class="cta">Explore image tools →</span>
-        </div>
-      </a>
-    </section>
-    </section>
-
-    <section class="quick-tool" id="quick-text-cleaner" aria-labelledby="quick-text-title">
-      <div class="quick-tool-heading">
-        <div>
-          <span class="eyebrow">Try a tool right here</span>
-          <h2 id="quick-text-title">Clean up a messy list.</h2>
-          <p>Paste names, keywords or notes. Trim extra spaces, remove repeated or blank lines, and sort if you want. Keep the result ready to copy without signing up.</p>
-        </div>
-        <span class="quick-tool-note">Runs in your browser · No text upload needed</span>
-      </div>
-      <div class="text-tool-card">
-        <div class="text-tool-options" aria-label="Text cleanup options">
-          <label><input id="tidy-trim" type="checkbox" checked> Trim line edges</label>
-          <label><input id="tidy-empty" type="checkbox" checked> Remove blank lines</label>
-          <label><input id="tidy-duplicates" type="checkbox" checked> Remove duplicates</label>
-          <label><input id="tidy-sort" type="checkbox"> Sort A–Z</label>
-        </div>
-        <div class="text-tool-columns">
-          <div class="text-tool-field">
-            <label for="tidy-input">Your list</label>
-            <textarea id="tidy-input" rows="7" maxlength="100001" spellcheck="false" placeholder="Paste one item per line…"></textarea>
-            <p class="text-tool-helper">Duplicates are compared without case or outer spaces. The first spelling is kept.</p>
+      <div class="hub-panels">
+        <section class="hub-panel" id="hub-panel-image" role="tabpanel" aria-labelledby="hub-tab-image" data-panel="image">
+          <div class="hub-panel-head"><div><span class="hub-label">IMAGE / 01</span><h3>Everything your photo needs.</h3><p>Resize or compress a photo, convert its format, or remove its background with AI.</p></div><span class="hub-kind">JPG · PNG · WebP</span></div>
+          <div class="hub-subcaps" role="tablist" aria-label="Image tasks">
+            <button type="button" role="tab" aria-selected="true" data-image-tab="resize" aria-controls="hub-image-resize">↔ Resize & compress</button>
+            <button type="button" role="tab" aria-selected="false" tabindex="-1" data-image-tab="remove" aria-controls="hub-image-remove">✂ Remove background</button>
           </div>
-          <div class="text-tool-field">
-            <label for="tidy-output">Cleaned result</label>
-            <textarea id="tidy-output" rows="7" readonly spellcheck="false" placeholder="Your cleaned list will appear here."></textarea>
-            <p class="text-tool-helper" id="tidy-stats">No lines yet</p>
+          <div id="hub-image-resize" role="tabpanel" data-image-panel="resize"><iframe id="hub-frame-resize" title="Interactive image resize, compression and format conversion" loading="eager" data-src="/quick-image-studio/?embed=1"></iframe></div>
+          <div id="hub-image-remove" role="tabpanel" data-image-panel="remove" hidden><iframe id="hub-frame-remove" title="Interactive AI image background remover" loading="lazy" data-src="/remove-background/?embed=1"></iframe></div>
+          <div class="hub-panel-foot"><span>Files are processed locally.</span><a href="/quick-image-studio/" data-image-full>Open full image tool ↗</a></div>
+        </section>
+        <section class="hub-panel" id="hub-panel-pdf" role="tabpanel" aria-labelledby="hub-tab-pdf" data-panel="pdf" hidden>
+          <div class="hub-panel-head"><div><span class="hub-label">PDF / 02</span><h3>Make your PDF lighter.</h3><p>Reduce compatible embedded JPEG images while preserving selectable text and vector layouts.</p></div><span class="hub-kind">PDF · Up to 180 MB</span></div>
+          <iframe id="hub-frame-pdf" title="Interactive PDF file compressor" loading="lazy" data-src="/pdf-compressor/?embed=1"></iframe>
+          <div class="hub-panel-foot"><span>Compression is best effort; not every PDF gets smaller.</span><a href="/pdf-compressor/">Open full PDF tool ↗</a></div>
+        </section>
+        <section class="hub-panel" id="hub-panel-video" role="tabpanel" aria-labelledby="hub-tab-video" data-panel="video" hidden>
+          <div class="hub-panel-head"><div><span class="hub-label">VIDEO / 03</span><h3>Smaller clips. More options.</h3><p>Re-encode short clips at a lower resolution or bitrate; convert to a format your browser supports.</p></div><span class="hub-kind">MP4 / WebM · Browser dependent</span></div>
+          <iframe id="hub-frame-video" title="Interactive video compressor and converter" loading="lazy" data-src="/video-studio/?embed=1"></iframe>
+          <div class="hub-panel-foot"><span>Video processing runs at playback speed. Some codecs or audio may not be supported.</span><a href="/video-studio/">Open full video tool ↗</a></div>
+        </section>
+        <section class="hub-panel" id="hub-panel-workspace" role="tabpanel" aria-labelledby="hub-tab-workspace" data-panel="workspace" hidden>
+          <div class="hub-panel-head"><div><span class="hub-label">TEXT / 04</span><h3>Turn messy lists into finished files.</h3><p>Chain cleanup, sorting, filtering and comparison, then export TXT, CSV or JSON.</p></div><span class="hub-kind">Text · CSV · JSON</span></div>
+          <iframe id="hub-frame-workspace" title="Interactive text and list-processing workspace" loading="lazy" data-src="/workspace/?embed=1"></iframe>
+          <div class="hub-panel-foot"><span>Workflows can be saved in your browser.</span><a href="/workspace/">Open full workspace ↗</a></div>
+        </section>
+        <section class="hub-panel" id="hub-panel-more" role="tabpanel" aria-labelledby="hub-tab-more" data-panel="more" hidden>
+          <div class="hub-panel-head"><div><span class="hub-label">SMALL TOOLS / 05</span><h3>A few more useful little things.</h3><p>Focused, practical utilities when you just want to finish a task quickly.</p></div></div>
+          <div class="hub-more-grid">
+            <a href="/actual-size-ruler/"><span class="hub-more-icon">↔</span><strong>Actual Size Ruler</strong><span>Measure centimeters and inches on your screen with calibration.</span><em>Use tool ↗</em></a>
+            <a href="/list-comparer/"><span class="hub-more-icon">≠</span><strong>Compare Two Lists</strong><span>Find shared names, additions and missing entries.</span><em>Use tool ↗</em></a>
+            <a href="/word-counter/"><span class="hub-more-icon">Aa</span><strong>Word & Character Counter</strong><span>Live word, character, paragraph and reading-time counts.</span><em>Use tool ↗</em></a>
           </div>
-        </div>
-        <div class="text-tool-actions">
-          <button type="button" class="button text-tool-primary" id="tidy-clean">Clean text</button>
-          <button type="button" class="button text-tool-secondary" id="tidy-copy" disabled>Copy result</button>
-          <button type="button" class="text-tool-link" id="tidy-example">Try an example</button>
-          <button type="button" class="text-tool-link" id="tidy-clear">Clear</button>
-        </div>
-        <p class="text-tool-status" id="tidy-status" role="status" aria-live="polite">Paste your text or try an example to begin.</p>
-      </div>
-      <div class="text-tool-explain">
-        <div><h3>Useful for</h3><p>Preparing a guest list, collecting survey answers, tidying product names or removing duplicate keywords before putting a list into another app.</p></div>
-        <div><h3>What stays unchanged?</h3><p>Each remaining line keeps its original wording unless you choose trimming. Sorting is optional, so you can preserve the original order. Nothing is saved to an account.</p></div>
-      </div>
-      <div class="tool-shortcuts"><strong>More quick tasks</strong>
-        <a href="https://calculate.everytinytool.com/ratio-calculator/">Simplify a ratio →</a>
-        <a href="https://calculate.everytinytool.com/time-calculator/">Calculate time →</a>
-        <a href="https://random.everytinytool.com/pictionary-word-generator/">Generate Pictionary words →</a>
-        <a href="https://image.everytinytool.com/pdf-compressor/">Compress a PDF →</a>
-        <a href="https://image.everytinytool.com/remove-background/">Remove image background →</a>
+        </section>
       </div>
     </section>
 
-    <section class="info-section">
-      <div class="section-head">
-        <span class="eyebrow">Why Every Tiny Tool?</span>
-        <h2>Less friction. More useful little things.</h2>
-      </div>
-      <div class="info-grid">
-        <article class="info-card">
-          <h3>No signup maze</h3>
-          <p>Most tools are designed to work immediately without an account, profile or onboarding flow.</p>
-        </article>
-        <article class="info-card">
-          <h3>Fast by default</h3>
-          <p>Many utilities run directly in your browser, which keeps common tasks lightweight and responsive.</p>
-        </article>
-        <article class="info-card">
-          <h3>Built around real tasks</h3>
-          <p>Each tool is focused on one clear job, from choosing between options to resizing an image or checking a ratio.</p>
-        </article>
+    <section class="hub-explore" aria-labelledby="hub-explore-heading">
+      <div class="hub-explore-head"><div><span class="hub-label">THE COLLECTIONS / 02</span><h2 id="hub-explore-heading">Need a little more?</h2><p>Explore our specialized collections when you need a different task, a batch tool or more options.</p></div><span class="hub-arrow" aria-hidden="true">↗</span></div>
+      <div class="hub-banners">
+        <a class="hub-banner image" href="https://image.everytinytool.com/"><div><span class="hub-banner-kicker">FOR VISUALS & DOCUMENTS</span><h3>Image Everything<span> ✦</span></h3><p>Image optimization, background removal, PDF compression and more.</p><strong>Explore all image tools ↗</strong></div><span class="hub-banner-symbol" aria-hidden="true">▧</span></a>
+        <a class="hub-banner calculate" href="https://calculate.everytinytool.com/"><div><span class="hub-banner-kicker">FOR EVERYDAY MATH</span><h3>Calculate Everything<span> ✦</span></h3><p>Time, dates, ratio, tips, discounts and percentage calculators.</p><strong>Explore calculators ↗</strong></div><span class="hub-banner-symbol" aria-hidden="true">％</span></a>
+        <a class="hub-banner random" href="https://random.everytinytool.com/"><div><span class="hub-banner-kicker">FOR QUICK DECISIONS</span><h3>Random Everything<span> ✦</span></h3><p>Wheel spins, random groups, number pickers, word generators and more.</p><strong>Explore random tools ↗</strong></div><span class="hub-banner-symbol" aria-hidden="true">✳</span></a>
       </div>
     </section>
-
-    <section class="about-strip">
-      <div>
-        <span class="eyebrow">A growing toolbox</span>
-        <h2>Small tools can still save real time.</h2>
-        <p>Every Tiny Tool is an independent utility network. New tools are added when there is a simple task worth making faster.</p>
-      </div>
-      <a class="button" href="./about/">About the project</a>
-    </section>
+    <section class="hub-bottom-note"><strong>One tiny tool at a time.</strong><p>Every Tiny Tool is an independent collection of free browser utilities. New features are built to solve practical tasks without unnecessary steps.</p><a href="./about/">Get to know the project ↗</a></section>
   </main>
 
   <footer class="footer">

@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - scripts/live_seo_probe.py
+      - scripts/deployed_seo_probe.py
       - .github/workflows/live-seo-probe.yml
   workflow_dispatch:
 permissions:
@@ -18,10 +19,14 @@ jobs:
           python-version: '3.12'
       - name: Probe public URLs without changing production
         run: python scripts/live_seo_probe.py
+      - name: Verify deployed site updates (read only)
+        run: python scripts/deployed_seo_probe.py
       - uses: actions/upload-artifact@v4
         with:
           name: public-http-seo-probe
           path: |
             live-seo-probe.json
             live-seo-probe.md
+            post-merge-smoke.json
+            post-merge-smoke.md
           retention-days: 7

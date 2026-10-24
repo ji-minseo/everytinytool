@@ -17,6 +17,7 @@ CHECKS = [
   ("calculate Korean formula script updated", "https://calculate.everytinytool.com/ko/age-calculator/", "20261024-formula-target"),
   ("Pick a Card page-cache declaration published", "https://pickacard.everytinytool.com/moonlit-room.js", "\nconst pageCache=new Map();"),
   ("Pick a Card navigation head sync published", "https://pickacard.everytinytool.com/moonlit-room.js", "robots_meta" if False else "const pageHead="),
+  ("Pick a Card ambient toggle CSS preserved", "https://pickacard.everytinytool.com/moonlit-room.js", "persistentStyles=new Set(['/moonlit-room.css','/moonlit-cursor.css'])"),
 ]
 def retrieve(url):
     try:

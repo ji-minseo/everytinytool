@@ -5,6 +5,9 @@ set -euo pipefail
 # Reuse the pinned three-repository staging generator also used by Vercel preview.
 bash scripts/vercel-preview-build.sh
 
+# Add stable social tags, site identity and reciprocal language alternates.
+python3 scripts/enrich_unified_seo.py dist
+
 # Protect Cloudflare Pages staging hostnames from indexing without blocking
 # the eventual canonical everytinytool.com custom domain.
 cat > dist/_headers <<'HEADERS'

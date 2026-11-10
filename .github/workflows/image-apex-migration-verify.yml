@@ -52,6 +52,21 @@ jobs:
       - name: Verify integrated stylesheet and script asset paths
         run: |
           python3 apex/scripts/verify_unified_resources.py "${{ runner.temp }}/everytinytool-preview"
+      - name: Audit sitemap, canonicals and home-to-page reachability
+        env:
+          STAGED_SITE: ${{ runner.temp }}/everytinytool-preview
+        run: |
+          python3 - <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path('apex/scripts').resolve()))
+          from seo_audit import local_audit
+          report = local_audit(Path(__import__('os').environ['STAGED_SITE']))
+          print(json.dumps({k: report[k] for k in ('page_count', 'sitemap_count', 'reachable_count', 'errors')}, ensure_ascii=False, indent=2))
+          if report['errors']:
+              raise SystemExit('Unified site SEO audit failed')
+          PY
       - name: Verify expected paths and links
         run: |
           test -f "${{ runner.temp }}/everytinytool-preview/index.html"

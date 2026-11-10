@@ -88,6 +88,14 @@ jobs:
           if report['errors']:
               raise SystemExit('Unified site SEO audit failed')
           PY
+      - name: Dry-run Cloudflare Pages build and staging headers
+        working-directory: apex
+        run: |
+          bash scripts/cloudflare-pages-build.sh
+          test -f dist/_headers
+          grep -q 'https://:project.pages.dev/\*' dist/_headers
+          grep -q 'X-Robots-Tag: noindex' dist/_headers
+          ! grep -q 'everytinytool.com' dist/_headers
       - name: Verify expected paths and links
         run: |
           test -f "${{ runner.temp }}/everytinytool-preview/index.html"

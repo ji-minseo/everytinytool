@@ -42,7 +42,7 @@ PROTECT_TARGET = {
     "functions", "api", "_worker.js", "_routes.json", "_headers",
     "wrangler.toml", "wrangler.json", "wrangler.jsonc",
     "package.json", "package-lock.json", "pnpm-lock.yaml", "yarn.lock",
-    "README.md", "LICENSE", "scripts", "docs", "tests",
+    "README.md", "LICENSE", "scripts", "docs", "tests", "vercel.json",
 }
 # Prefer editing image URLs in place; preserves the original indexed paths and
 # avoids unnecessary redirects when the apex switches away from the old hub.

@@ -28,6 +28,7 @@ test -f dist/robots.txt
 test -f dist/sitemap.xml
 
 python3 scripts/verify_unified_resources.py dist
+python3 scripts/verify_seo_metadata.py dist
 python3 - <<'PY'
 from pathlib import Path
 import sys

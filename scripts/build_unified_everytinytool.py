@@ -29,6 +29,7 @@ EXCLUDE_SOURCE = {
     "README.md", "LICENSE", "package.json", "package-lock.json",
     "pnpm-lock.yaml", "yarn.lock", "wrangler.toml", "wrangler.json",
     "wrangler.jsonc", "_redirects", "_headers", "_routes.json",
+    "functions", "api", "_worker.js", ".well-known",
 }
 PROTECT_TARGET = {
     ".git", ".github", ".gitignore", ".well-known", ".devcontainer",
@@ -180,6 +181,13 @@ def home_sections(root: Path) -> None:
     for relative, ko in (("index.html", False), ("ko/index.html", True)):
         path = root / relative
         html = path.read_text("utf-8").replace("</head>", css + "</head>", 1)
+        page_title = ("무료 이미지·PDF·영상·랜덤·계산기 도구 | Every Tiny Tool" if ko
+                      else "Every Tiny Tool | Free Image, Random & Calculator Tools")
+        page_desc = ("이미지 편집·압축·변환, PDF·동영상, 랜덤 뽑기와 계산기를 한곳에서 무료로 사용하세요." if ko
+                     else "Free browser tools for images, PDF, video, random choices and everyday calculations, all in one place.")
+        html = re.sub(r"<title>[^<]*</title>", "<title>" + page_title + "</title>", html, count=1)
+        html = re.sub(r'<meta name="description" content="[^"]*">',
+                      '<meta name="description" content="' + page_desc + '">', html, count=1)
         if ko:
             new_heading = "작은 도구를 한곳에서.<br><em>이미지부터 계산까지.</em>"
             new_description = "이미지·PDF·동영상 작업부터 랜덤 선택, 일상 계산까지. 필요한 도구를 빠르게 찾아 바로 사용하세요."

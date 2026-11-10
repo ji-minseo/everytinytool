@@ -69,3 +69,13 @@ git -C apex status --short
 7. Search Console에서 새 사이트맵 제출하고 기존 색인 URL 및 클릭/노출 추이 관찰. 단일 도메인 통합 자체가 색인·랭킹 상승을 보장하지는 않는다.
 
 **현재 상태:** 통합 생성 코드와 CI 검증 준비. 운영 사이트, Cloudflare 설정, 세 서브도메인, 결제 서비스는 변경하지 않았다.
+
+## 2026-11-10 후속 점검 결과 (운영 미전환)
+
+- Vercel 통합 미리보기 프로젝트 `everytinytool-unified-preview`의 빌드 로그에서 `Validated 95 pages, 95 URLs, 3 integrated sections.`와 `Deployment completed` 확인. 빌드 통과는 실제 브라우저 기능/결제 QA 통과를 의미하지 않는다.
+- 미리보기 프로젝트의 Vercel Authentication (SSO)이 `all_except_custom_domains`로 활성화되어 있다. 익명 HTTP/브라우저 검사가 막힐 수 있으므로, 접근 실패를 사이트 기능 오류로 단정하지 않는다. 인증된 미리보기로 QA하거나 별도 안전한 접근 경로를 구성할 것. **인증 보호를 임의로 해제하지 않는다.**
+- 원본 통합 리포지토리의 `vercel.json`은 미리보기 전체에 `X-Robots-Tag: noindex, nofollow`를 부여한다. 이 파일을 그대로 운영 Vercel 프로젝트에 사용한다면 검색 색인이 차단된다. 운영 도메인에서는 해당 헤더가 없어야 한다는 점을 릴리스 전에 HTTP 응답으로 검사할 것.
+- 자동 검증 워크플로는 마이그레이션 PR의 모든 변경에서 실행되도록 수정했다(커밋 `6d24d2a`). 최신 GitHub Actions 실행의 성공은 별도로 확인 필요.
+- 운영 이전에 필수로 확인할 것: (1) Cloudflare에서 실제 `everytinytool.com`을 서빙하는 프로젝트/브랜치/빌드 디렉터리 (2) `functions/`, `api/`, `_worker.js`, `_routes.json`의 실사용 경로 (3) 다른 유료 서비스 결제 시작/리턴 URL 및 webhook 목적지 (4) Google Ads/AdSense 및 동의 배너 (5) 모바일 브라우저의 이미지·메타데이터·영상 파일 처리.
+- 운영 메인 변경 전부터 `image`, `random`, `calculate` 호스트의 DNS/프로젝트를 해제하지 않는다. 메인 200과 기능 검증을 마친 **후에만** 호스트별 301을 활성화하고 기존 자산을 롤백용으로 보존한다.
+

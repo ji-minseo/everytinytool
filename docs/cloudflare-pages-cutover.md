@@ -16,6 +16,8 @@
 
 The builder takes the reviewed pinned Image Everything guides branch plus Random and Calculate sources, validates all 95 pages, JS/CSS resources, sitemap, canonical tags, and static internal reachability. It does not change the existing GitHub Pages custom domain or DNS.
 
+The generated `dist/_headers` sends `X-Robots-Tag: noindex` **only on Cloudflare `*.pages.dev` staging hostnames**; the apex domain remains indexable. Verify response headers on both environments. Cloudflare's automatic preview noindex does not automatically protect the project's main `*.pages.dev` hostname.
+
 ## Before custom domain
 - Confirm the Cloudflare `*.pages.dev` site returns HTTP 200 for `/`, `/ko/`, `/compress-image/`, `/metadata-cleaner/`, `/random/`, `/calculate/`, and `/calculate/ko/`.
 - Inspect actual CSS/JS loading, test mobile file processing, ZIP download, video compression and metadata cleaner.

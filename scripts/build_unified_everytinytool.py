@@ -260,7 +260,10 @@ def home_sections(root: Path) -> None:
         # Make all three sections discoverable immediately after the opening hero.
         insertion = (
             '<section class="home-section" aria-label="Tool categories" id="ett-categories">'
-            f'<div class="ett-category-grid">{cards}</div></section>'
+            f'<div class="ett-category-grid">{cards}</div>'
+            '<p class="ett-calculator-locale" style="margin:0 0 12px;font-size:14px">'
+            '<a href="/calculate/ko/" lang="ko">한국어 계산기 보기 ↗</a>'
+            '</p></section>'
         )
         anchor = '<section class="home-section popular-section"'
         if anchor not in html:

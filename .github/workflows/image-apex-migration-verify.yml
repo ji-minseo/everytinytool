@@ -49,6 +49,27 @@ jobs:
             --calculate-source calculate \
             --target apex \
             --stage "${{ runner.temp }}/everytinytool-preview"
+      - name: Parse every integrated JavaScript file with Node
+        env:
+          STAGED_SITE: ${{ runner.temp }}/everytinytool-preview
+        run: |
+          python3 - <<'PY'
+          import os
+          import pathlib
+          import subprocess
+          site = pathlib.Path(os.environ['STAGED_SITE'])
+          files = sorted(site.rglob('*.js'))
+          if len(files) < 5:
+              raise SystemExit(f'Expected several JS files, got {len(files)}')
+          errors = []
+          for file in files:
+              result = subprocess.run(['node', '--check', str(file)], text=True, capture_output=True)
+              if result.returncode:
+                  errors.append(f'{file.relative_to(site)}: {result.stderr.strip()}')
+          print(f'JavaScript syntax check: {len(files)} files, {len(errors)} failures')
+          if errors:
+              raise SystemExit('\n'.join(errors))
+          PY
       - name: Verify integrated stylesheet and script asset paths
         run: |
           python3 apex/scripts/verify_unified_resources.py "${{ runner.temp }}/everytinytool-preview"

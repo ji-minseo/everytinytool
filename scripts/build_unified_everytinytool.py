@@ -248,14 +248,31 @@ def home_sections(root: Path) -> None:
         )
         if count != 1:
             raise RuntimeError(f"Homepage hero not found: {path}")
-        # Add category grid to the end of the image hero before the tool list.
+        # Make all three sections discoverable immediately after the opening hero.
         insertion = (
             '<section class="home-section" aria-label="Tool categories" id="ett-categories">'
             f'<div class="ett-category-grid">{cards}</div></section>'
         )
-        if '<section class="home-explainer"' not in html:
-            raise RuntimeError(f"Main homepage structure differs: {path}")
-        html = html.replace('<section class="home-explainer"', insertion + '\n<section class="home-explainer"', 1)
+        anchor = '<section class="home-section popular-section"'
+        if anchor not in html:
+            raise RuntimeError(f"Main homepage tool grid structure differs: {path}")
+        html = html.replace(anchor, insertion + '\n' + anchor, 1)
+        primary = "도구 종류 살펴보기" if ko else "Explore all categories"
+        secondary = "이미지 도구 보기" if ko else "Explore image tools"
+        actions = (
+            '<div class="relaunch-hero-actions">'
+            f'<a class="relaunch-primary" href="#ett-categories">{primary} <span aria-hidden="true">↗</span></a>'
+            f'<a class="relaunch-secondary" href="#all-tools-title">{secondary} <span aria-hidden="true">↓</span></a>'
+            '</div>'
+        )
+        html, changed = re.subn(
+            r'<div class="relaunch-hero-actions">[\s\S]*?</div>',
+            lambda m: actions,
+            html,
+            count=1,
+        )
+        if changed != 1:
+            raise RuntimeError(f"Main homepage actions could not be updated: {path}")
         path.write_text(html, "utf-8")
 
 def create_sitemap(root: Path, urls: list[str]) -> None:

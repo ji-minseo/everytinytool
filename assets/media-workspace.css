@@ -1,0 +1,68 @@
+.media-queue{display:grid;gap:12px;margin:18px 0}.media-item{display:flex;align-items:center;gap:16px;padding:12px;border:1px solid #EAF0FF;border-radius:14px;min-width:0}.media-item video{width:110px;max-width:24%;aspect-ratio:16/10;object-fit:cover;background:#F2F6FF;border-radius:8px}.media-item>div{flex:1;min-width:0}.media-item strong,.media-item small{display:block;overflow-wrap:anywhere}.media-item small{color:#777;margin-top:4px}#results{display:grid;gap:10px;margin-top:20px}#results .media-item{justify-content:space-between}#status{margin-top:12px}@media(max-width:600px){.media-item{gap:8px}.media-item video{width:80px}}
+.media-preview{width:110px;height:76px;max-width:24%;object-fit:contain;background:#f7f7fa;border-radius:8px}.media-item .btn{flex-shrink:0}.media-queue .media-item>div{overflow-wrap:anywhere}.checkline{display:flex;align-items:flex-start;gap:10px;margin:16px 0;line-height:1.6}.checkline input{margin-top:5px}#meta-results{display:grid;gap:10px;margin-top:16px}#meta-results .media-item{justify-content:space-between;overflow-wrap:anywhere}@media(max-width:600px){.media-preview{width:76px;height:65px}.media-item .btn{font-size:12px;padding:8px}}
+.pdf-thumb{width:82px;height:94px;flex:0 0 82px;display:grid;place-items:center;border-radius:10px;background:#F2F6FF;color:#244AE5;font-size:19px;font-weight:800;letter-spacing:.05em}.media-batch-panel .media-item{background:#fff}.media-batch-panel .media-item>div:nth-child(2){flex:1;min-width:0}.media-batch-panel .media-item strong,.media-batch-panel .media-item small{display:block;overflow-wrap:anywhere}.media-batch-panel .media-item small{margin-top:5px;color:#777}.media-batch-panel .media-item .btn{margin-left:auto}.media-batch-panel #batch-pdf-results{margin-top:18px}.media-batch-panel #batch-pdf-status{padding-top:10px}.media-batch-panel .checkline{margin:0 0 6px}.media-batch-panel .dropzone{cursor:pointer}.media-batch-panel .file-input{display:none}
+
+/* Keep PDF file icon compact even though generic file details flex to fill. */
+.media-batch-panel .media-item .pdf-thumb{box-sizing:border-box;width:68px;min-width:68px;max-width:68px;flex:0 0 68px;height:82px;min-height:82px;max-height:82px;aspect-ratio:unset}
+#dropzone,#meta-drop{cursor:pointer}
+#dropzone:focus-visible,#meta-drop:focus-visible{outline:3px solid #C7D8FF;outline-offset:3px}
+
+/* Structured metadata report, readable on desktop and mobile. */
+#meta-results .media-item{display:block;padding:17px 19px;background:#fff}
+#meta-results .metadata-report{width:100%;min-width:0}
+.metadata-report-title{display:block;font-size:14px;font-weight:800;overflow-wrap:anywhere;margin-bottom:13px}
+.metadata-report-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin:0;border:1px solid #F2F6FF;border-radius:12px;overflow:hidden}
+.metadata-report-cell{padding:12px 14px;min-width:0;border-bottom:1px solid #F2F6FF;background:#F7F9FF}
+.metadata-report-cell:nth-child(odd){border-right:1px solid #F2F6FF}
+.metadata-report-cell:last-child{grid-column:1/-1;border-bottom:0;border-right:0}
+.metadata-report-cell dt{font-size:11px;font-weight:750;color:#757679;margin:0 0 7px}
+.metadata-report-cell dd{font-size:13px;font-weight:700;color:#2A2B2E;line-height:1.5;margin:0;overflow-wrap:anywhere}
+.metadata-report-note{font-size:11px;line-height:1.65;color:#7D7E81;margin:12px 1px 0}
+@media(max-width:530px){.metadata-report-grid{grid-template-columns:1fr}.metadata-report-cell,.metadata-report-cell:nth-child(odd){border-right:0;border-bottom:1px solid #F2F6FF}.metadata-report-cell:last-child{grid-column:auto;border-bottom:0}}
+
+/* Metadata Cleaner only: match converted-file output cards. */
+body[data-mode="clean"] #meta-results{display:grid;gap:10px;margin-top:16px}
+body[data-mode="clean"] #meta-results:empty{display:none;margin:0}
+body[data-mode="clean"] #meta-results>.media-item{display:flex!important;align-items:center;gap:13px;padding:11px 13px!important;border:1px solid #EAF0FF;border-radius:14px;background:#fff}
+body[data-mode="clean"] #meta-results>.media-item>.media-preview{display:block;flex:0 0 58px;width:58px!important;height:58px!important;min-width:58px;max-width:58px;object-fit:cover;border-radius:11px;background:#F7F9FF;border:1px solid #F2F6FF}
+body[data-mode="clean"] #meta-results .ett-clean-result-info{min-width:0;flex:1;display:flex;flex-direction:column;gap:4px}
+body[data-mode="clean"] #meta-results .ett-clean-result-info strong{font-size:13px;font-weight:750;line-height:1.4;color:#292A2D;overflow-wrap:anywhere}
+body[data-mode="clean"] #meta-results .ett-clean-result-info small{font-size:12px;color:#797A7D;line-height:1.5}
+body[data-mode="clean"] #meta-results>.media-item>.btn{flex:none;margin-left:auto;display:inline-flex;align-items:center;justify-content:center;min-width:96px;min-height:42px;padding:10px 16px;border:1px solid #DCE7FF;border-radius:12px;background:#F2F6FF;color:#244AE5;font-size:13px;font-weight:700;box-shadow:none}
+body[data-mode="clean"] #meta-results>.media-item>.btn:hover{background:#F2F6FF}
+@media(max-width:520px){body[data-mode="clean"] #meta-results>.media-item{flex-wrap:wrap;gap:10px}body[data-mode="clean"] #meta-results>.media-item>.media-preview{flex-basis:52px;width:52px!important;height:52px!important;min-width:52px}body[data-mode="clean"] #meta-results .ett-clean-result-info{flex-basis:calc(100% - 66px)}body[data-mode="clean"] #meta-results>.media-item>.btn{width:100%}}
+
+/* Force horizontal result rows: standalone page uses .media-item legacy block styles. */
+body[data-mode="clean"] #meta-results > div.media-item:has(.ett-clean-result-info){display:grid!important;grid-template-columns:58px minmax(0,1fr) auto!important;align-items:center!important;gap:13px!important;flex-wrap:nowrap!important}
+body[data-mode="clean"] #meta-results > div.media-item .ett-clean-result-info{width:auto!important;min-width:0!important}
+@media(max-width:520px){body[data-mode="clean"] #meta-results > div.media-item:has(.ett-clean-result-info){grid-template-columns:52px minmax(0,1fr)!important}body[data-mode="clean"] #meta-results > div.media-item:has(.ett-clean-result-info) > button{grid-column:1/-1!important;width:100%!important}}
+
+/* Readable, compact video compression results and errors. */
+body #results .video-result-error{display:flex!important;align-items:center;gap:12px;border:1px solid #eedbe1;border-radius:14px;padding:13px;background:#fff9fb;color:#3C3D40}
+.video-error-icon{display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;border-radius:10px;background:#fbe6ec;color:#ac435e;font-weight:800}
+.video-result-error>div{flex:1;min-width:0}
+.video-result-error strong{display:block;font-size:13px;overflow-wrap:anywhere}
+.video-result-error small{display:block;color:#9a5267;font-size:12px;margin-top:5px;line-height:1.6;overflow-wrap:anywhere}
+body:has(#resolution) #results .media-item:not(.video-result-error){display:flex;align-items:center;gap:12px;border-radius:14px;padding:12px}
+body:has(#resolution) #results .media-item .btn{min-height:42px;border-radius:12px;background:#F2F6FF;color:#244AE5;border:1px solid #DCE7FF}
+body:has(#resolution) #status{font-size:12px;color:#757679;margin:14px 0}
+
+/* Match Remove Background spinner during local video encoding. */
+#video-processing[hidden]{display:none!important}
+.video-processing{display:flex;align-items:center;gap:12px;padding:15px 17px;margin-top:19px;border:1px solid #EAF0FF;border-radius:16px;background:#F7F9FF}
+.video-processing-spinner{width:25px;height:25px;flex:none;border:3px solid #EAF0FF;border-top-color:#7496FF;border-radius:50%;animation:video-processing-spin .85s linear infinite}
+@keyframes video-processing-spin{to{transform:rotate(360deg)}}
+.video-processing-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.video-processing-copy strong{font-size:13px;font-weight:800;color:#244AE5}
+.video-processing-copy>span{font-size:12px;color:#737477;overflow-wrap:anywhere}
+.video-processing-count{font-size:13px;font-weight:800;color:#244AE5;font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(prefers-reduced-motion:reduce){.video-processing-spinner{animation:none}}
+
+/* Video Compressor: same horizontal output card as image/PDF tools. */
+body:has(#resolution) #results>.video-output-item{display:grid!important;grid-template-columns:58px minmax(0,1fr) auto!important;align-items:center!important;gap:13px!important;padding:11px 13px!important;border:1px solid #EAF0FF!important;border-radius:14px!important;background:#fff!important;min-width:0}
+body:has(#resolution) #results>.video-output-item>.video-output-thumb{width:58px!important;height:58px!important;max-width:none!important;min-width:58px!important;aspect-ratio:1!important;object-fit:cover!important;border:1px solid #F2F6FF!important;border-radius:11px!important;background:#F7F9FF!important}
+body:has(#resolution) #results .video-output-info{min-width:0;display:grid;gap:4px}
+body:has(#resolution) #results .video-output-info strong{font-size:13px;font-weight:750;color:#292A2D;line-height:1.4;overflow-wrap:anywhere}
+body:has(#resolution) #results .video-output-info small{font-size:12px;line-height:1.5;color:#797A7D;overflow-wrap:anywhere}
+body:has(#resolution) #results>.video-output-item>.btn{display:inline-flex;align-items:center;justify-content:center;min-width:96px;min-height:42px;padding:10px 16px;border:1px solid #DCE7FF;border-radius:12px;background:#F2F6FF;color:#244AE5;font-size:13px;font-weight:700}
+@media(max-width:520px){body:has(#resolution) #results>.video-output-item{grid-template-columns:52px minmax(0,1fr)!important;gap:10px!important}body:has(#resolution) #results>.video-output-item>.video-output-thumb{width:52px!important;height:52px!important;min-width:52px!important}body:has(#resolution) #results>.video-output-item>.btn{grid-column:1/-1;width:100%}}

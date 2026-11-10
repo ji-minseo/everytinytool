@@ -1,42 +1,56 @@
 <!doctype html>
 <html lang="en">
 <head>
-<script>if(new URLSearchParams(location.search).get('embed')==='1')document.documentElement.dataset.embedded='true';</script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>PDF Compressor — Adjust Quality & PDF Size Online | Image Everything</title>
+  <title>PDF Compressor — Adjust Quality & PDF Size Online | Every Tiny Tool</title>
   <meta name="description" content="Compress PDF files with a Quality 80% slider, or optionally check under 100 MB, 50 MB or 10 MB. Text and vector pages are not rasterized.">
   <meta name="google-site-verification" content="CBlkb_437tiJ5H-kUBL7O8dh-hd-sO5K0XpoibZ67Dg">
-  <link rel="canonical" href="https://image.everytinytool.com/pdf-compressor/">
-  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-  <link rel="stylesheet" href="../assets/image-tools-base.css?v=20261018-hub">
-  <link rel="stylesheet" href="../assets/pdf-compressor.css?v=20261018-settings14">
+  <link rel="canonical" href="https://everytinytool.com/pdf-compressor/">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg?v=20261031-cobalt2">
+  <link rel="stylesheet" href="../assets/styles.css?v=20261031-cobalt2">
+  <link rel="stylesheet" href="../assets/pdf-compressor.css?v=20261018-targetsize33">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
-  <script src="../assets/pdf-compressor.js?v=20261019-uniform54" defer></script>
+  <script src="../assets/pdf-compressor.js?v=20261018-pdf-row31" defer></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811" crossorigin="anonymous"></script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"PDF Compressor — Image Everything","url":"https://image.everytinytool.com/pdf-compressor/","description":"Browser-based PDF compressor with JPEG image quality control and optional size targets without page rasterization.","applicationCategory":"UtilitiesApplication","operatingSystem":"Web browser","isAccessibleForFree":true}</script>
-<link rel="stylesheet" href="../assets/tool-embed.css?v=20261018-hover-unified">
-<link rel="stylesheet" href="../assets/unified-uploads.css?v=20261018-1">
-<link rel="stylesheet" href="../assets/dropzone-unified.css?v=20261018-buttons28">
-<link rel="stylesheet" href="../assets/attachment-queue.css?v=20261019-uniform54"></head>
-<body>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"PDF Compressor — Every Tiny Tool","url":"https://everytinytool.com/pdf-compressor/","description":"Browser-based PDF compressor with JPEG image quality control and optional size targets without page rasterization.","applicationCategory":"UtilitiesApplication","operatingSystem":"Web browser","isAccessibleForFree":true}</script>
+<link rel="stylesheet" href="../assets/media-workspace.css?v=20261018-thumb-fix2"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script><script defer src="../assets/pdf-batch.js?v=20261018-targetsize33"></script><script defer src="../assets/bottom-navigation.js?v=20261031-navfix2"></script><link rel="stylesheet" href="../assets/shared-file-list.css?v=20261018-active-result32"><link rel="alternate" hreflang="en" href="https://everytinytool.com/pdf-compressor/">
+<link rel="alternate" hreflang="ko" href="https://everytinytool.com/ko/pdf-compressor/">
+<link rel="stylesheet" href="../assets/relaunch-tool-shell.css?v=20261031-cobalt2">
+<link rel="stylesheet" href="../assets/site-chrome.css?v=20261031-nav1">
+<style id="ett-image-nav-responsive">body .topbar.site-header .site-nav{gap:clamp(10px,1.8vw,24px)}@media(max-width:760px){body .topbar.site-header .site-nav{flex-wrap:wrap;gap:4px 19px}}@media(max-width:380px){body .topbar.site-header .site-nav{gap:3px 12px}}</style></head>
+<body class="relaunch-tool-page">
 <div class="shell">
-  <header class="topbar">
-    <a class="brand" href="../">Every Tiny Tool <span>✦</span></a>
-    <span class="toplink">Private · Runs in your browser</span>
-  <nav class="nav" aria-label="Primary navigation"><a href="../">Home</a><a href="../#tools" aria-current="page">Tools</a><a href="../guides/">Guides</a><a href="../about/">About</a><a href="../privacy/">Privacy</a><a href="../terms/">Terms</a><a href="../contact/">Contact</a></nav></header>
-  
+  <header class="topbar site-header"><a class="brand" href="../" aria-label="Every Tiny Tool home">every<span>tinytool.</span></a><nav class="site-nav" aria-label="Primary navigation"><a href="../" aria-current="page">Tools</a><a href="../guides/">Guides</a><a href="../about/">About</a><a href="/random/">Random</a><a href="/calculate/">Calculate</a></nav><a class="site-lang-switch" href="../ko/pdf-compressor/" lang="ko" hreflang="ko" title="Go to the Korean site">KO</a></header>
+  <nav class="tool-tabs" aria-label="Quick image tool switcher">
+<a class="tool-tab" href="../compress-image/">🗜️ Compress</a>
+<a class="tool-tab" href="../remove-background/">✂️ Remove Background</a>
+<a class="tool-tab active" href="../pdf-compressor/" aria-current="page">📄 PDF Compressor</a>
+<a class="tool-tab" href="../video-compressor/">🎬 Video Compressor</a>
+<a class="tool-tab" href="../jpg-compressor/">🟠 JPG Compressor</a>
+<a class="tool-tab" href="../png-compressor/">🔵 PNG Compressor</a>
+<a class="tool-tab" href="../resize-image/">↔️ Resize</a>
+<a class="tool-tab" href="../crop-image/">✂️ Crop</a>
+<a class="tool-tab" href="../convert-image/">🔁 Convert</a>
+<a class="tool-tab" href="../png-to-jpg/">🟡 PNG to JPG</a>
+<a class="tool-tab" href="../jpg-to-png/">🔷 JPG to PNG</a>
+<a class="tool-tab" href="../image-to-webp/">🟣 To WebP</a>
+<a class="tool-tab" href="../webp-to-jpg/">🟡 WebP to JPG</a>
+<a class="tool-tab" href="../heic-to-jpg/">📱 HEIC to JPG</a>
+<a class="tool-tab" href="../rotate-image/">↻ Rotate</a>
+<a class="tool-tab" href="../metadata-inspector/">🔎 Metadata Inspector · AI Metadata Checker</a>
+<a class="tool-tab" href="../metadata-cleaner/">🧹 Metadata Cleaner ・ Remove AI Label</a>
+</nav>
   <main id="pdf-compressor" class="tool-layout pdfc-page">
     <section class="tool-head">
-      <a class="breadcrumb" href="../">← Every Tiny Tool</a>
+      <span class="site-eyebrow">EVERY TINY TOOL / FILE COMPRESSION</span>
       <h1>PDF Compressor</h1>
       <p>Compress a PDF in your browser with adjustable image quality. Quality starts at 80%; a file-size limit is optional.</p>
     </section>
     <section class="panel pdfc-panel" aria-label="PDF optimizer">
       <div class="dropzone pdfc-dropzone" id="pdf-dropzone" role="group" tabindex="0" aria-label="PDF upload area. Click or press Enter or Space to choose a PDF, or drag and drop a file.">
-        <input class="file-input" id="pdf-file" type="file" multiple accept=".pdf,application/pdf" aria-label="Choose a PDF file">
-        <div><div class="drop-icon">📄</div><h2>Drop PDFs here</h2><p>PDF files up to 180 MB · Browser-only processing</p><button class="btn" id="pdf-choose" type="button">Choose PDFs</button></div>
+        <input class="file-input" id="pdf-file" type="file" accept=".pdf,application/pdf" aria-label="Choose a PDF file">
+        <div><div class="drop-icon">📄</div><h2>Drop your PDF here</h2><p>PDF files up to 180 MB · Browser-only processing</p><button class="btn" id="pdf-choose" type="button">Choose PDF</button></div>
       </div>
       <div class="file-summary pdfc-file" id="pdf-file-selected" hidden>
         <div class="pdfc-file-main"><span class="pdfc-file-icon" aria-hidden="true">PDF</span><div class="pdfc-file-meta"><strong id="pdf-filename">document.pdf</strong><span id="pdf-original-label">—</span></div></div>
@@ -78,8 +92,9 @@
         </div>
         <p class="pdfc-saving"><strong id="pdf-saved">—</strong> reduction</p>
         <p class="pdfc-result-message" id="pdf-outcome"></p>
-        <div class="actions"><a class="btn" id="pdf-download" download hidden>Download PDF</a></div>
+        
       </div>
+      <div class="pdfc-output-list" id="pdf-output-list" hidden><div class="pdfc-output-item"><span class="pdfc-output-icon" aria-hidden="true">PDF</span><div class="pdfc-output-info"><strong id="pdf-output-filename">Compressed PDF</strong><small id="pdf-output-meta">—</small></div><a class="btn pdfc-output-download" id="pdf-download" download hidden>Download</a></div></div>
     </section>
     <section class="info info-grid" aria-label="How it works">
       <article class="info-card"><h2>1. Add your PDF</h2><p>Select a file from your device. It stays in your browser throughout the process.</p></article>
@@ -102,15 +117,19 @@
         <details><summary>Can I compress a PDF larger than 100 MB?</summary><p>You can select PDFs up to 180 MB. Large files may exceed browser memory, especially on mobile devices.</p></details>
       </div>
     </section>
-    <section class="network">
+    <!-- TEMPORARILY DISABLED: cross-site More from Every Tiny Tool section.
+<section class="network">
       <div class="network-label">More from <strong>Every Tiny Tool ✦</strong></div>
       <div class="network-grid">
-        <a class="network-card random" href="https://random.everytinytool.com/"><div class="network-icon">🎲</div><div><h2>Random Everything</h2><p>Generators, decisions, random groups and quick games.</p><span>Explore random tools →</span></div></a>
-        <a class="network-card calculate" href="https://calculate.everytinytool.com/"><div class="network-icon">🧮</div><div><h2>Calculate Everything</h2><p>Everyday calculators for time, dates, numbers and shopping.</p><span>Explore calculators →</span></div></a>
+        <a class="network-card random" href="https://everytinytool.com/random/"><div class="network-icon">🎲</div><div><h2>Random Everything</h2><p>Generators, decisions, random groups and quick games.</p><span>Explore random tools →</span></div></a>
+        <a class="network-card calculate" href="https://everytinytool.com/calculate/"><div class="network-icon">🧮</div><div><h2>Calculate Everything</h2><p>Everyday calculators for time, dates, numbers and shopping.</p><span>Explore calculators →</span></div></a>
       </div>
     </section>
-  </main>
-  <footer class="footer"><span>Every Tiny Tool ✦</span><nav class="footer-trust-links"><a href="../">Home</a><a href="../about/">About</a><a href="../privacy/">Privacy</a><a href="../contact/">Contact</a></nav></footer>
+-->
+  
+<section class="related-guide-links" aria-labelledby="related-guides-heading"><h2 id="related-guides-heading">Helpful guides</h2><p>Practical explanations and examples for this tool.</p><div class="related-guide-grid"><a href="../guides/why-pdf-wont-compress/">Why some PDFs cannot shrink<span aria-hidden="true">↗</span></a><a href="../guides/compress-pdf-for-email/">Compress PDFs for email attachments<span aria-hidden="true">↗</span></a></div></section>
+</main>
+  <footer class="footer relaunch-tool-footer"><div><strong>everytinytool.</strong><p>Focused file tools, one task at a time.</p></div><nav aria-label="Site information"><a href="../guides/">Guides</a><a href="../about/">About</a><a href="../privacy/">Privacy</a><a href="../terms/">Terms</a><a href="../contact/">Contact</a></nav></footer>
 </div>
 </body>
 </html>

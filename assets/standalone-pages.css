@@ -1,0 +1,46 @@
+/* Standalone informational pages for Image Everything. */
+.standalone-page{--section-line:#EAF0FF;color:#202124;background:#fff}
+.standalone-page .shell{width:min(1050px,calc(100% - 38px))}
+.standalone-page .standalone-skip{position:absolute;left:16px;top:-90px;z-index:100;background:#fff;color:#244AE5;padding:12px}
+.standalone-page .standalone-skip:focus{top:12px}
+.standalone-page .standalone-topbar{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 0;border-bottom:1px solid var(--section-line)}
+.standalone-page .brand{font-size:22px;font-weight:900;letter-spacing:-.065em}
+.standalone-page .brand span{color:#315BFF}
+.standalone-page .standalone-topbar nav{display:flex;gap:28px;flex-wrap:wrap}
+.standalone-page .standalone-topbar nav a{font-size:13px;font-weight:740;color:#56505b}
+.standalone-page .standalone-topbar nav a:hover,.standalone-page .standalone-footer a:hover{color:#315BFF}
+.standalone-page .standalone-main{width:min(100%,900px);margin:auto;padding:70px 0 110px}
+.standalone-page .standalone-overline{font-size:11px;color:#244AE5;font-weight:850;letter-spacing:.14em}
+.standalone-page .standalone-main h1{font-size:clamp(44px,6vw,73px);letter-spacing:-.07em;line-height:1.06;margin:20px 0 32px}
+.standalone-page .standalone-lead{font-size:clamp(17px,2.1vw,21px);line-height:1.72;color:#5A5B5E;max-width:770px;margin:0 0 55px}
+.standalone-page .standalone-main h2{font-size:clamp(22px,2.9vw,30px);letter-spacing:-.045em;line-height:1.24;margin:38px 0 13px}
+.standalone-page .standalone-main p{font-size:15px;line-height:1.86;color:#636467;margin:10px 0 21px}
+.standalone-page .standalone-main a:not(.standalone-link-grid a){color:#244AE5;text-decoration:underline;text-underline-offset:3px}
+.standalone-page .policy-date{font-size:12px!important;letter-spacing:.09em;color:#949598!important;margin:-14px 0 28px!important}
+.standalone-page .standalone-main>section{display:grid;grid-template-columns:190px minmax(0,1fr);gap:25px;align-items:start;border-top:1px solid var(--section-line);padding:35px 0}
+.standalone-page .standalone-main>section h2{margin:0 0 13px}
+.standalone-page .standalone-section-num{color:#315BFF;font-size:11px;letter-spacing:.12em;font-weight:850;padding-top:6px}
+.standalone-page .standalone-link-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:23px 0}
+.standalone-page .standalone-link-grid a{display:flex;flex-direction:column;gap:9px;background:#FAFBFF;border:1px solid #EAF0FF;border-radius:15px;padding:22px;text-decoration:none;color:#2E2F32;transition:background .2s,border-color .2s}
+.standalone-page .standalone-link-grid a:hover{background:#EEF3FF;border-color:#C7D8FF}
+.standalone-page .standalone-link-grid strong{font-size:18px;letter-spacing:-.025em}
+.standalone-page .standalone-link-grid span{font-size:12px;color:#244AE5;font-weight:750}
+.standalone-page .contact-cards{margin-bottom:60px}
+.standalone-page .contact-cards p{font-size:14px;margin:0;line-height:1.65}
+.standalone-page .standalone-footer{padding:30px 0 55px;display:flex;align-items:center;justify-content:space-between;gap:18px;border-top:1px solid var(--section-line)}
+.standalone-page .standalone-footer strong{font-size:18px;color:#28292C;letter-spacing:-.06em}
+.standalone-page .standalone-footer nav{display:flex;gap:12px 22px;flex-wrap:wrap}
+.standalone-page .standalone-footer a{font-size:12px;font-weight:700;color:#756e7d}
+.standalone-page .standalone-topbar a:focus-visible,.standalone-page a:focus-visible{outline:3px solid #7293FF;outline-offset:4px}
+@media(max-width:680px){
+ .standalone-page .standalone-topbar{gap:12px;align-items:start}
+ .standalone-page .standalone-topbar .brand{font-size:19px}
+ .standalone-page .standalone-topbar nav{gap:12px}
+ .standalone-page .standalone-topbar nav a{font-size:12px}
+ .standalone-page .standalone-main{padding:43px 0 65px}
+ .standalone-page .standalone-main h1{font-size:clamp(43px,10vw,58px)}
+ .standalone-page .standalone-main>section{grid-template-columns:1fr;gap:5px}
+ .standalone-page .standalone-link-grid{grid-template-columns:1fr}
+ .standalone-page .standalone-footer{display:block}
+ .standalone-page .standalone-footer nav{margin-top:20px}
+}

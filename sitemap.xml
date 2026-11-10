@@ -1,17 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://everytinytool.com/</loc></url>
-  <url><loc>https://everytinytool.com/about/</loc></url>
-  <url><loc>https://everytinytool.com/privacy/</loc></url>
-  <url><loc>https://everytinytool.com/contact/</loc></url>
-  <url><loc>https://everytinytool.com/workspace/</loc></url>
-  <url><loc>https://everytinytool.com/quick-image-studio/</loc></url>
-  <url><loc>https://everytinytool.com/video-studio/</loc></url>
-  <url><loc>https://everytinytool.com/list-comparer/</loc></url>
-  <url><loc>https://everytinytool.com/word-counter/</loc></url>
+  <url><loc>https://everytinytool.com/compress-image/</loc></url>
+  <url><loc>https://everytinytool.com/remove-background/</loc></url>
+  <url><loc>https://everytinytool.com/pdf-compressor/</loc></url>
+  <url><loc>https://everytinytool.com/resize-image/</loc></url>
+  <url><loc>https://everytinytool.com/crop-image/</loc></url>
+  <url><loc>https://everytinytool.com/convert-image/</loc></url>
+  <url><loc>https://everytinytool.com/image-to-webp/</loc></url>
+  <url><loc>https://everytinytool.com/webp-to-jpg/</loc></url>
+  <url><loc>https://everytinytool.com/rotate-image/</loc></url>
+  <url><loc>https://everytinytool.com/jpg-compressor/</loc></url>
+  <url><loc>https://everytinytool.com/png-compressor/</loc></url>
+  <url><loc>https://everytinytool.com/png-to-jpg/</loc></url>
+  <url><loc>https://everytinytool.com/jpg-to-png/</loc></url>
+  <url><loc>https://everytinytool.com/heic-to-jpg/</loc></url>
+  <url><loc>https://everytinytool.com/video-compressor/</loc></url>
   <url><loc>https://everytinytool.com/metadata-inspector/</loc></url>
   <url><loc>https://everytinytool.com/metadata-cleaner/</loc></url>
-  <url><loc>https://everytinytool.com/actual-size-ruler/</loc></url>
+  <url><loc>https://everytinytool.com/ko/</loc></url>
+  <url><loc>https://everytinytool.com/ko/compress-image/</loc></url>
+  <url><loc>https://everytinytool.com/ko/remove-background/</loc></url>
+  <url><loc>https://everytinytool.com/ko/pdf-compressor/</loc></url>
+  <url><loc>https://everytinytool.com/ko/video-compressor/</loc></url>
+  <url><loc>https://everytinytool.com/ko/jpg-compressor/</loc></url>
+  <url><loc>https://everytinytool.com/ko/png-compressor/</loc></url>
+  <url><loc>https://everytinytool.com/ko/resize-image/</loc></url>
+  <url><loc>https://everytinytool.com/ko/crop-image/</loc></url>
+  <url><loc>https://everytinytool.com/ko/convert-image/</loc></url>
+  <url><loc>https://everytinytool.com/ko/png-to-jpg/</loc></url>
+  <url><loc>https://everytinytool.com/ko/jpg-to-png/</loc></url>
+  <url><loc>https://everytinytool.com/ko/image-to-webp/</loc></url>
+  <url><loc>https://everytinytool.com/ko/webp-to-jpg/</loc></url>
+  <url><loc>https://everytinytool.com/ko/heic-to-jpg/</loc></url>
+  <url><loc>https://everytinytool.com/ko/rotate-image/</loc></url>
+  <url><loc>https://everytinytool.com/ko/metadata-inspector/</loc></url>
+  <url><loc>https://everytinytool.com/ko/metadata-cleaner/</loc></url>
   <url><loc>https://everytinytool.com/guides/</loc></url>
   <url><loc>https://everytinytool.com/guides/resize-image-without-losing-quality/</loc></url>
   <url><loc>https://everytinytool.com/guides/jpg-png-webp-which-format/</loc></url>
@@ -21,12 +45,9 @@
   <url><loc>https://everytinytool.com/guides/browser-tools-file-privacy/</loc></url>
   <url><loc>https://everytinytool.com/guides/remove-background-transparent-png/</loc></url>
   <url><loc>https://everytinytool.com/guides/mp4-vs-webm-browser-video/</loc></url>
-  <url><loc>https://everytinytool.com/guides/compare-two-lists-differences/</loc></url>
   <url><loc>https://everytinytool.com/guides/compress-pdf-for-email/</loc></url>
-  <url><loc>https://everytinytool.com/terms/</loc></url>
   <url><loc>https://everytinytool.com/guides/remove-location-exif-before-sharing/</loc></url>
   <url><loc>https://everytinytool.com/guides/check-hidden-metadata-photos-pdfs/</loc></url>
-  <url><loc>https://everytinytool.com/guides/screen-ruler-accuracy-calibration/</loc></url>
   <url><loc>https://everytinytool.com/guides/batch-resize-images-without-stretching/</loc></url>
   <url><loc>https://everytinytool.com/guides/shrink-video-for-email-messaging/</loc></url>
   <url><loc>https://everytinytool.com/guides/lossy-vs-lossless-compression-explained/</loc></url>
@@ -34,4 +55,44 @@
   <url><loc>https://everytinytool.com/guides/what-300-dpi-means-print-size/</loc></url>
   <url><loc>https://everytinytool.com/guides/convert-webp-to-jpg-png/</loc></url>
   <url><loc>https://everytinytool.com/guides/safe-upload-id-passport-photos-online/</loc></url>
+  <url><loc>https://everytinytool.com/about/</loc></url>
+  <url><loc>https://everytinytool.com/privacy/</loc></url>
+  <url><loc>https://everytinytool.com/terms/</loc></url>
+  <url><loc>https://everytinytool.com/contact/</loc></url>
+  <url><loc>https://everytinytool.com/ko/guides/</loc></url>
+  <url><loc>https://everytinytool.com/ko/about/</loc></url>
+  <url><loc>https://everytinytool.com/ko/privacy/</loc></url>
+  <url><loc>https://everytinytool.com/ko/terms/</loc></url>
+  <url><loc>https://everytinytool.com/ko/contact/</loc></url>
+  <url><loc>https://everytinytool.com/random/</loc></url>
+  <url><loc>https://everytinytool.com/random/random-color-generator/</loc></url>
+  <url><loc>https://everytinytool.com/random/random-choice-generator/</loc></url>
+  <url><loc>https://everytinytool.com/random/wheel-decider/</loc></url>
+  <url><loc>https://everytinytool.com/random/random-team-generator/</loc></url>
+  <url><loc>https://everytinytool.com/random/pictionary-word-generator/</loc></url>
+  <url><loc>https://everytinytool.com/random/random-number-generator/</loc></url>
+  <url><loc>https://everytinytool.com/random/random-name-generator/</loc></url>
+  <url><loc>https://everytinytool.com/random/random-word-generator/</loc></url>
+  <url><loc>https://everytinytool.com/random/random-group-generator/</loc></url>
+  <url><loc>https://everytinytool.com/random/yes-or-no/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/percentage-calculator/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/age-calculator/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/discount-calculator/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/date-calculator/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/average-calculator/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/tip-calculator/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/time-calculator/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/ratio-calculator/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/vat-calculator/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/ko/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/ko/discount-calculator/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/ko/tip-calculator/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/ko/time-calculator/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/ko/ratio-calculator/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/ko/vat-calculator/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/ko/date-calculator/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/ko/percentage-calculator/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/ko/average-calculator/</loc></url>
+  <url><loc>https://everytinytool.com/calculate/ko/age-calculator/</loc></url>
 </urlset>

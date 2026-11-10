@@ -1,0 +1,78 @@
+/* Shared editorial shell for all 17 independent English tool pages.
+   Only visual shell, navigation, and standard control styling: tool processing logic is unchanged. */
+.relaunch-tool-page{--relaunch-ink:#1C1D20;--relaunch-line:#EAF0FF;background:#fff;color:var(--relaunch-ink)}
+.relaunch-tool-page .shell{width:min(1100px,calc(100% - 36px))}
+.relaunch-tool-page .relaunch-tool-topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 0;border-bottom:1px solid var(--relaunch-line)}
+.relaunch-tool-page .relaunch-tool-topbar .brand{font-size:clamp(18px,2.1vw,23px);font-weight:900;letter-spacing:-.065em;white-space:nowrap}
+.relaunch-tool-page .relaunch-tool-topbar .brand span{color:#315BFF}
+.relaunch-tool-page .relaunch-tool-nav{display:flex;align-items:center;gap:22px;margin-left:auto}
+.relaunch-tool-page .relaunch-tool-nav a{font-size:12px;font-weight:780;color:#56505c;text-decoration:none}
+.relaunch-tool-page .relaunch-tool-nav a:hover{color:#315BFF}
+.relaunch-tool-page .relaunch-tool-note{font-size:12px;font-weight:780;letter-spacing:.13em;color:#929396;white-space:nowrap}
+.relaunch-tool-page .relaunch-tool-lang{display:inline-flex;align-items:center;justify-content:center;border:1px solid #E0E8F7;border-radius:99px;min-width:40px;padding:7px 9px;font-size:12px;font-weight:800;color:#415273}
+.relaunch-tool-page .tool-tabs{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;padding:13px 0 15px;border-bottom:1px solid var(--relaunch-line)}
+.relaunch-tool-page .tool-tab{font-size:13px;font-weight:750;padding:9px 12px;border:1px solid #E5EAF4;border-radius:999px;box-shadow:none;background:#fff;flex:0 0 auto}
+.relaunch-tool-page .tool-tab:hover{border-color:#AABFFF;background:#F2F6FF;transform:none}
+.relaunch-tool-page .tool-layout{padding-top:45px}
+.relaunch-tool-page .tool-head h1{letter-spacing:-.065em;line-height:1.08}
+.relaunch-tool-page .panel{border:1px solid #E7EBF5;border-radius:18px;box-shadow:0 14px 35px rgba(30,58,110,.045)}
+.relaunch-tool-page .dropzone{background:#F8FAFF;border-color:#C6D4FF;border-radius:15px}
+.relaunch-tool-page .dropzone:focus-visible,.relaunch-tool-page .btn:focus-visible,.relaunch-tool-page a:focus-visible{outline:3px solid #7293FF;outline-offset:3px}
+.relaunch-tool-page .btn:not(.secondary):not(.ghost){background:#242528;box-shadow:none;color:#fff}
+.relaunch-tool-page .btn:not(.secondary):not(.ghost):hover{background:#49536A}
+.relaunch-tool-page .btn.secondary{background:#EEF2FF;color:#1D3C8A}
+.relaunch-tool-page .related-guide-links{margin-top:48px;padding-top:36px}
+.relaunch-tool-page .relaunch-tool-footer{display:flex;justify-content:space-between;align-items:start;gap:25px;border-top:1px solid var(--relaunch-line);padding:28px 0 48px}
+.relaunch-tool-page .relaunch-tool-footer strong{display:block;color:#28292C;font-size:18px;letter-spacing:-.06em}
+.relaunch-tool-page .relaunch-tool-footer p{margin:6px 0 0;font-size:12px;color:#877e8a}
+.relaunch-tool-page .relaunch-tool-footer nav{display:flex;align-items:center;justify-content:flex-end;gap:13px 20px;flex-wrap:wrap}
+.relaunch-tool-page .relaunch-tool-footer a{font-size:12px;font-weight:700;color:#6E6F72}
+.relaunch-tool-page .relaunch-tool-footer a:hover{color:#315BFF}
+@media(max-width:730px){
+ .relaunch-tool-page .shell{width:min(100% - 30px,1100px)}
+ .relaunch-tool-page .relaunch-tool-topbar{gap:12px;flex-wrap:wrap;padding:15px 0}
+ .relaunch-tool-page .relaunch-tool-topbar .brand{font-size:20px}
+ .relaunch-tool-page .relaunch-tool-nav{margin-left:auto;gap:12px}
+ .relaunch-tool-page .relaunch-tool-note{display:none}
+ .relaunch-tool-page .tool-tabs{margin:0 -15px;padding:12px 15px 14px}
+ .relaunch-tool-page .tool-layout{padding-top:28px}
+ .relaunch-tool-page .relaunch-tool-footer{display:block}
+ .relaunch-tool-page .relaunch-tool-footer nav{margin-top:20px;justify-content:flex-start}
+}
+@media(max-width:420px){
+ .relaunch-tool-page .relaunch-tool-topbar .brand{font-size:18px}
+ .relaunch-tool-page .relaunch-tool-nav a:nth-child(3){display:none}
+ .relaunch-tool-page .relaunch-tool-lang{min-width:34px;padding:6px 7px}
+}
+
+
+/* Deliberately outrank the plain tool capsule styles; never white-on-lavender. */
+.relaunch-tool-page .tool-tab.active,
+.relaunch-tool-page .tool-tab.active:hover,
+.relaunch-tool-page .bottom-tabs .tool-tab.active,
+.relaunch-tool-page .bottom-tabs .tool-tab.active:hover{
+ background:#191B21;
+ background-image:none;
+ color:#fff;
+ border-color:#191B21;
+ box-shadow:0 5px 13px rgba(0,0,0,.14);
+}
+.relaunch-tool-page .tool-tab.active:focus-visible,
+.relaunch-tool-page .bottom-tabs .tool-tab.active:focus-visible{outline:3px solid #315BFF;outline-offset:3px}
+
+
+/* Unified hover states for Korean and English tool pages. */
+.relaunch-tool-page .tool-tabs .tool-tab:not(.active):hover,
+.relaunch-tool-page .bottom-tabs .tool-tab:not(.active):hover{
+ color:#244AE5;
+ background:#EDF3FF;
+ border-color:#A9BFFF;
+ box-shadow:none;
+}
+.relaunch-tool-page .dropzone:hover:not(.dragover){background:#F6F9FF;border-color:#9FB9FF}
+.relaunch-tool-page .relaunch-tool-nav a:hover,
+.relaunch-tool-page .relaunch-tool-footer nav a:hover{color:#244AE5}
+html[lang="ko"] .relaunch-tool-page :is(h1,h2,h3){word-break:keep-all}
+.relaunch-tool-page .related-guide-links .related-guide-grid a{border-color:#DCE6FF;background:#F8FAFF;color:#24418C}
+.relaunch-tool-page .related-guide-links .related-guide-grid a:hover{background:#EDF3FF;border-color:#A9BFFF}
+.relaunch-tool-page .related-guide-links .related-guide-grid a span{color:#315BFF}

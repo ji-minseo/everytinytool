@@ -1,0 +1,74 @@
+<!doctype html><html lang="en"><head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2168810425673811"
+     crossorigin="anonymous"></script>
+
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PNG to WebP & JPG to WebP Converter | Every Tiny Tool</title>
+<meta name="description" content="Convert PNG to WebP or JPG to WebP in your browser. Batch convert images, control WebP quality and download all results as a ZIP.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How do I convert PNG to WebP?","acceptedAnswer":{"@type":"Answer","text":"Choose one or more PNG images, set the WebP quality, select Convert to WebP, then download each result or the full batch as a ZIP."}},
+{"@type":"Question","name":"Can I convert JPG to WebP?","acceptedAnswer":{"@type":"Answer","text":"Yes. This tool converts JPG and JPEG images to WebP directly in your browser."}},
+{"@type":"Question","name":"Are my images uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. Image conversion runs locally in your browser using browser image and canvas APIs."}},
+{"@type":"Question","name":"Is WebP always smaller than JPG or PNG?","acceptedAnswer":{"@type":"Answer","text":"Not always. File size depends on the source image, dimensions, content and quality setting, so results can vary."}}
+]}
+</script>
+<meta name="google-site-verification" content="CBlkb_437tiJ5H-kUBL7O8dh-hd-sO5K0XpoibZ67Dg">
+<link rel="canonical" href="https://everytinytool.com/image-to-webp/">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg?v=20261031-cobalt2">
+<link rel="stylesheet" href="../assets/styles.css?v=20261031-cobalt2"><script src="../assets/tools.js?v=20261031-konav1" defer></script>
+<link rel="stylesheet" href="../assets/shared-file-list.css?v=20261018-media-unified2"><link rel="alternate" hreflang="en" href="https://everytinytool.com/image-to-webp/">
+<link rel="alternate" hreflang="ko" href="https://everytinytool.com/ko/image-to-webp/">
+<link rel="stylesheet" href="../assets/relaunch-tool-shell.css?v=20261031-cobalt2">
+<link rel="stylesheet" href="../assets/site-chrome.css?v=20261031-nav1">
+<style id="ett-image-nav-responsive">body .topbar.site-header .site-nav{gap:clamp(10px,1.8vw,24px)}@media(max-width:760px){body .topbar.site-header .site-nav{flex-wrap:wrap;gap:4px 19px}}@media(max-width:380px){body .topbar.site-header .site-nav{gap:3px 12px}}</style></head><body class="relaunch-tool-page" data-tool="webp"><div class="shell">
+<header class="topbar site-header"><a class="brand" href="../" aria-label="Every Tiny Tool home">every<span>tinytool.</span></a><nav class="site-nav" aria-label="Primary navigation"><a href="../" aria-current="page">Tools</a><a href="../guides/">Guides</a><a href="../about/">About</a><a href="/random/">Random</a><a href="/calculate/">Calculate</a></nav><a class="site-lang-switch" href="../ko/image-to-webp/" lang="ko" hreflang="ko" title="Go to the Korean site">KO</a></header>
+<nav class="tool-tabs" aria-label="Quick image tool switcher">
+<a class="tool-tab" href="../compress-image/">🗜️ Compress</a>
+<a class="tool-tab" href="../remove-background/">✂️ Remove Background</a>
+<a class="tool-tab" href="../pdf-compressor/">📄 PDF Compressor</a>
+<a class="tool-tab" href="../video-compressor/">🎬 Video Compressor</a>
+<a class="tool-tab" href="../jpg-compressor/">🟠 JPG Compressor</a>
+<a class="tool-tab" href="../png-compressor/">🔵 PNG Compressor</a>
+<a class="tool-tab" href="../resize-image/">↔️ Resize</a>
+<a class="tool-tab" href="../crop-image/">✂️ Crop</a>
+<a class="tool-tab" href="../convert-image/">🔁 Convert</a>
+<a class="tool-tab" href="../png-to-jpg/">🟡 PNG to JPG</a>
+<a class="tool-tab" href="../jpg-to-png/">🔷 JPG to PNG</a>
+<a class="tool-tab active" href="../image-to-webp/" aria-current="page">🟣 To WebP</a>
+<a class="tool-tab" href="../webp-to-jpg/">🟡 WebP to JPG</a>
+<a class="tool-tab" href="../heic-to-jpg/">📱 HEIC to JPG</a>
+<a class="tool-tab" href="../rotate-image/">↻ Rotate</a>
+<a class="tool-tab" href="../metadata-inspector/">🔎 Metadata Inspector · AI Metadata Checker</a>
+<a class="tool-tab" href="../metadata-cleaner/">🧹 Metadata Cleaner ・ Remove AI Label</a>
+</nav>
+<main class="tool-layout"><section class="tool-head"><span class="site-eyebrow">EVERY TINY TOOL / FILE CONVERSION</span><h1>PNG to WebP & JPG to WebP</h1><p>Convert PNG and JPG images to WebP directly in your browser. Adjust quality, process multiple files at once and download the whole batch as a ZIP.</p></section>
+<section class="panel"><div class="dropzone" id="dropzone" role="group" tabindex="0" aria-label="Image upload area. Click or press Enter or Space to choose image files, or drag and drop files."><input class="file-input" id="fileInput" type="file"><div><div class="drop-icon">🖼️</div><h2>Drop images here</h2><p>JPEG, PNG and WebP supported</p><button class="btn chooseBtn" type="button">Choose images</button></div></div><div class="file-summary" id="fileSummary"></div><div class="controls"><div class="control"><label for="quality">WebP quality <span id="qualityValue">85%</span></label><input id="quality" type="range" min="20" max="100" value="85"></div></div><div class="actions"><button class="btn" id="processBtn" disabled>Convert to WebP</button><button class="btn secondary hidden" id="downloadZipBtn" type="button">Download all as ZIP</button></div><div class="results" id="results"></div></section>
+<div class="ad-slot">Future ad space</div>
+<section class="info info-grid"><article class="info-card"><h2>Made for the web</h2><p>WebP is a modern image format designed for efficient web delivery. Depending on the source image and quality setting, it can produce smaller files than JPG or PNG.</p></article><article class="info-card"><h2>Control the tradeoff</h2><p>Lower the quality slider for smaller files or raise it when visual fidelity matters more. Each result shows the original and converted file size.</p></article><article class="info-card"><h2>Batch conversion</h2><p>Convert several PNG or JPG files in one run, download them individually or save the whole batch as one ZIP file.</p></article></section>
+<section class="seo-content">
+  <h2>How to convert PNG or JPG to WebP</h2>
+  <ol class="steps"><li><strong>Choose images.</strong> Add PNG, JPG, JPEG or another browser-readable image.</li><li><strong>Set WebP quality.</strong> Use the quality slider to balance file size and visual detail.</li><li><strong>Convert and download.</strong> Save one file at a time or download multiple converted images together as a ZIP.</li></ol>
+  <div class="seo-grid">
+    <article><h2>What is WebP?</h2><p>WebP is an image format commonly used on websites because it supports efficient compression. It can handle photographic images as well as transparency, making it useful for many web assets.</p></article>
+    <article><h2>WebP vs JPG and PNG</h2><p>JPG is widely compatible and works well for photos. PNG supports lossless pixels and transparency. WebP can support both lossy and lossless-style workflows while often producing compact files for web use.</p></article>
+  </div>
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <details><summary>How do I convert PNG to WebP?</summary><p>Choose one or more PNG images, set the WebP quality and press Convert to WebP. You can then download each result or the entire batch as a ZIP.</p></details>
+    <details><summary>Can I convert JPG to WebP?</summary><p>Yes. JPG and JPEG images can be converted to WebP on the same page.</p></details>
+    <details><summary>Are my images uploaded?</summary><p>No. The conversion runs locally in your browser using browser image and canvas APIs.</p></details>
+    <details><summary>Is WebP always smaller?</summary><p>No. The final size depends on the original image, dimensions, image content and quality setting, so some files may shrink more than others.</p></details>
+  </div>
+</section>
+<!-- TEMPORARILY DISABLED: cross-site More from Every Tiny Tool section.
+<section class="network">
+<div class="network-label">More from <strong>Every Tiny Tool ✦</strong></div>
+<div class="network-grid">
+<a class="network-card random" href="https://everytinytool.com/random/"><div class="network-icon">🎲</div><div><h2>Random Everything</h2><p>Random choices, numbers, names, teams and more.</p><span>Explore random tools →</span></div></a>
+<a class="network-card calculate" href="https://everytinytool.com/calculate/"><div class="network-icon">🧮</div><div><h2>Calculate Everything</h2><p>Quick calculators for numbers, dates and everyday math.</p><span>Explore calculators →</span></div></a>
+</div></section>
+-->
+
+<section class="related-guide-links" aria-labelledby="related-guides-heading"><h2 id="related-guides-heading">Helpful guides</h2><p>Practical explanations and examples for this tool.</p><div class="related-guide-grid"><a href="../guides/jpg-png-webp-which-format/">JPG vs PNG vs WebP<span aria-hidden="true">↗</span></a><a href="../guides/convert-webp-to-jpg-png/">Working with WebP formats<span aria-hidden="true">↗</span></a></div></section>
+</main><footer class="footer relaunch-tool-footer"><div><strong>everytinytool.</strong><p>Focused file tools, one task at a time.</p></div><nav aria-label="Site information"><a href="../guides/">Guides</a><a href="../about/">About</a><a href="../privacy/">Privacy</a><a href="../terms/">Terms</a><a href="../contact/">Contact</a></nav></footer></div></body></html>

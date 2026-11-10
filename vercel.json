@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "buildCommand": "bash scripts/vercel-preview-build.sh",
+  "outputDirectory": "dist",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/image-info/",
+      "destination": "/metadata-inspector/",
+      "permanent": true
+    },
+    {
+      "source": "/metadata-checker/",
+      "destination": "/metadata-inspector/",
+      "permanent": true
+    },
+    {
+      "source": "/remove-exif/",
+      "destination": "/metadata-cleaner/",
+      "permanent": true
+    },
+    {
+      "source": "/quick-image-studio/",
+      "destination": "/compress-image/",
+      "permanent": true
+    },
+    {
+      "source": "/video-studio/",
+      "destination": "/video-compressor/",
+      "permanent": true
+    }
+  ]
+}

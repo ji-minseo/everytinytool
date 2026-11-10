@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "buildCommand": "bash scripts/vercel-preview-build.sh",
+  "outputDirectory": "dist",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    }
+  ]
+}

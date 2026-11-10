@@ -42,3 +42,7 @@ The generated `dist/_headers` sends `X-Robots-Tag: noindex` **only on Cloudflare
 
 ## Why the old CI checks currently fail
 Legacy checks still expect removed root scripts (e.g. `assets/quick-image-studio.js`, `assets/tiny-workspace.js`). The new consolidated build uses source-specific JavaScript and its own successful integration CI. Do not suppress old checks without either retargeting them to active functions or explicitly retiring the legacy features after confirming their URL and usage impact.
+
+## Redeploy trigger — 2026-11-10
+
+After setting the Pages production branch to `feature/image-everything-apex-migration-20261110`, this documentation-only commit can trigger a fresh Git-integrated Cloudflare Pages build. Check that the deployment points to this exact branch and that its root directory is the repository root. No custom domain or DNS changes are made by this commit.

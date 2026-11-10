@@ -2,10 +2,6 @@ name: Verify unified Every Tiny Tool migration
 
 on:
   pull_request:
-    paths:
-      - 'scripts/build_unified_everytinytool.py'
-      - '.github/workflows/image-apex-migration-verify.yml'
-      - 'docs/image-apex-cutover.md'
   workflow_dispatch:
 
 permissions:

@@ -94,6 +94,15 @@ def update_text_files(root: Path) -> None:
             continue
         data = path.read_text("utf-8")
         new_data = replace_origins(data)
+        # Preserve old subdomain-root assets and links after nesting each
+        # category under /random/ or /calculate/. Cross-nav is injected later.
+        section = path.relative_to(root).parts[0]
+        if path.suffix.lower() == ".html" and section in {"random", "calculate"}:
+            new_data = re.sub(
+                r'((?:href|src|action)=")/(?!/)',
+                lambda match: match.group(1) + section + "/",
+                new_data,
+            )
         if new_data != data:
             path.write_text(new_data, "utf-8")
 
@@ -310,12 +319,8 @@ def validate_site(root: Path, urls: list[str]) -> None:
         extra = sorted(found - set(urls))
         raise RuntimeError(f"Expected {EXPECTED_PAGES} index pages; found {len(pages)}. Extra: {extra}; Missing: {missing}")
     for alias, destination in REDIRECT_ALIASES.items():
-        f = root / alias.strip("/") / "index.html"
-        if not f.is_file():
-            raise RuntimeError(f"Missing expected legacy redirect: {alias}")
-        shim = f.read_text("utf-8")
-        if f'<link rel="canonical" href="{APEX + destination}">' not in shim:
-            raise RuntimeError(f"Legacy redirect canonical mismatch: {alias}")
+        if (root / alias.strip("/")).exists():
+            raise RuntimeError(f"Legacy redirect should use HTTP 301, not an HTML page: {alias}")
         if alias in {u.removeprefix(APEX) for u in urls}:
             raise RuntimeError(f"Redirect URL must not be in sitemap: {alias}")
     urls_set = set(urls)
@@ -358,6 +363,13 @@ def assemble(root: Path, image: Path, random: Path, calculate: Path) -> None:
     copy_static(image, root)
     copy_static(random, root / "random")
     copy_static(calculate, root / "calculate")
+    # The image source contains three HTML-only move notices. Replace them
+    # with true server redirects rather than indexable duplicate HTML pages.
+    for alias in REDIRECT_ALIASES:
+        shim_folder = root / alias.strip("/")
+        if not (shim_folder / "index.html").is_file():
+            raise RuntimeError(f"Expected redirect shim missing: {alias}")
+        shutil.rmtree(shim_folder)
     update_text_files(root)
     brand_image_site(root)
     add_cross_navigation(root)

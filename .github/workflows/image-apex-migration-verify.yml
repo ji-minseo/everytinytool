@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c # v4.2.2
         with:
           repository: ji-minseo/image-everything
-          ref: feature/guides-migration-20261031
+          ref: 8d21f13f29f475587e1368e97f08606d626fb4b6
           path: image
           persist-credentials: false
       - name: Validate migration script syntax

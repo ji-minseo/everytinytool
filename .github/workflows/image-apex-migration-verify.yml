@@ -1,0 +1,41 @@
+name: Verify Image Everything apex migration
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/migrate_image_to_apex.py'
+      - '.github/workflows/image-apex-migration-verify.yml'
+      - 'docs/image-apex-cutover.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stage-image-apex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out current apex website
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c # v4.2.2
+        with:
+          path: apex
+          persist-credentials: false
+      - name: Check out reviewed Image Everything
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c # v4.2.2
+        with:
+          repository: ji-minseo/image-everything
+          ref: feature/guides-migration-20261031
+          path: image
+          persist-credentials: false
+      - name: Validate migration script syntax
+        run: python3 -m py_compile apex/scripts/migrate_image_to_apex.py
+      - name: Create reviewed output without altering apex
+        run: python3 apex/scripts/migrate_image_to_apex.py --source image --target apex --stage "${{ runner.temp }}/image-apex-preview"
+      - name: Inspect generated roots and index status
+        run: |
+          test -f "${{ runner.temp }}/image-apex-preview/index.html"
+          test -f "${{ runner.temp }}/image-apex-preview/ko/guides/index.html"
+          test -f "${{ runner.temp }}/image-apex-preview/assets/site-chrome.css"
+          grep -q 'https://everytinytool.com/' "${{ runner.temp }}/image-apex-preview/sitemap.xml"
+          if grep -q 'https://image.everytinytool.com/' "${{ runner.temp }}/image-apex-preview/sitemap.xml"; then exit 1; fi
+          echo 'Apex static output is ready for review. No live deployment or DNS change was performed.'

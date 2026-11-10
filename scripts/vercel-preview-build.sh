@@ -20,7 +20,9 @@ python3 scripts/build_unified_everytinytool.py \
   --random-source "$workdir/random" \
   --calculate-source "$workdir/calculate" \
   --target "$PWD" \
-  --stage "$PWD/dist"
+  --stage "$workdir/preview-build"
+
+cp -a "$workdir/preview-build" "$PWD/dist"
 
 test -f dist/index.html
 test -f dist/random/index.html

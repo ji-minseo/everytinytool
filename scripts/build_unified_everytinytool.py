@@ -268,7 +268,10 @@ def create_sitemap(root: Path, urls: list[str]) -> None:
 def validate_site(root: Path, urls: list[str]) -> None:
     pages = sorted(root.rglob("index.html"))
     if len(pages) != EXPECTED_PAGES:
-        raise RuntimeError(f"Expected {EXPECTED_PAGES} index pages; found {len(pages)}.")
+        found = {APEX + ("/" if str(p.parent.relative_to(root)) == "." else "/" + p.parent.relative_to(root).as_posix() + "/") for p in pages}
+        missing = sorted(set(urls) - found)
+        extra = sorted(found - set(urls))
+        raise RuntimeError(f"Expected {EXPECTED_PAGES} index pages; found {len(pages)}. Extra: {extra}; Missing: {missing}")
     urls_set = set(urls)
     for file in pages:
         relative = file.parent.relative_to(root)

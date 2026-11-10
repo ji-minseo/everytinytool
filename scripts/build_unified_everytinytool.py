@@ -98,6 +98,7 @@ def brand_image_site(root: Path) -> None:
             continue
         text = path.read_text("utf-8")
         text = text.replace("Image Everything", "Every Tiny Tool")
+        text = text.replace("IMAGE EVERYTHING", "EVERY TINY TOOL")
         text = text.replace("imageeverything.", "everytinytool.")
         text = text.replace("image<span>everything.</span>", "every<span>tinytool.</span>")
         # Existing three-link nav is retained, then add section navigation.
@@ -117,6 +118,14 @@ def brand_image_site(root: Path) -> None:
             )
             if changed != 1:
                 raise RuntimeError(f"Could not extend site navigation: {path}")
+        # Allow all five primary navigation links to remain accessible on narrow screens.
+        responsive = ('<style id="ett-image-nav-responsive">'
+                      'body .topbar.site-header .site-nav{gap:clamp(10px,1.8vw,24px)}'
+                      '@media(max-width:760px){body .topbar.site-header .site-nav{'
+                      'flex-wrap:wrap;gap:4px 19px}}'
+                      '@media(max-width:380px){body .topbar.site-header .site-nav{gap:3px 12px}}'
+                      '</style>')
+        text = text.replace("</head>", responsive + "</head>", 1)
         path.write_text(text, "utf-8")
 
 def add_cross_navigation(root: Path) -> None:

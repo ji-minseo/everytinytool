@@ -22,6 +22,12 @@ SOURCES = {
     "calculate": ("https://calculate.everytinytool.com", "/calculate", 20),
 }
 EXPECTED_PAGES = sum(item[2] for item in SOURCES.values())
+# Three inherited HTML redirect shims are intentionally not counted as indexed pages.
+REDIRECT_ALIASES = {
+    "/image-info/": "/metadata-inspector/",
+    "/metadata-checker/": "/metadata-inspector/",
+    "/remove-exif/": "/metadata-cleaner/",
+}
 TEXT_TYPES = {".html", ".css", ".js", ".json", ".xml", ".txt", ".svg", ".webmanifest", ".md"}
 EXCLUDE_SOURCE = {
     ".git", ".github", ".vercel", ".devcontainer", ".DS_Store", ".gitignore",
@@ -261,17 +267,31 @@ def create_sitemap(root: Path, urls: list[str]) -> None:
         "# Only old apex paths with a genuine equivalent are redirected.\n"
         "/quick-image-studio/ /compress-image/ 301\n"
         "/video-studio/ /video-compressor/ 301\n"
+        "# Indexed redirect shims for renamed metadata endpoints.\n"
+        "/image-info/ /metadata-inspector/ 301\n"
+        "/metadata-checker/ /metadata-inspector/ 301\n"
+        "/remove-exif/ /metadata-cleaner/ 301\n"
         "# Subdomain redirects require Cloudflare zone rules for each old HOST.\n",
         "utf-8",
     )
 
 def validate_site(root: Path, urls: list[str]) -> None:
-    pages = sorted(root.rglob("index.html"))
+    all_pages = sorted(root.rglob("index.html"))
+    pages = [p for p in all_pages if ("/" if str(p.parent.relative_to(root)) == "." else "/" + p.parent.relative_to(root).as_posix() + "/") not in REDIRECT_ALIASES]
     if len(pages) != EXPECTED_PAGES:
         found = {APEX + ("/" if str(p.parent.relative_to(root)) == "." else "/" + p.parent.relative_to(root).as_posix() + "/") for p in pages}
         missing = sorted(set(urls) - found)
         extra = sorted(found - set(urls))
         raise RuntimeError(f"Expected {EXPECTED_PAGES} index pages; found {len(pages)}. Extra: {extra}; Missing: {missing}")
+    for alias, destination in REDIRECT_ALIASES.items():
+        f = root / alias.strip("/") / "index.html"
+        if not f.is_file():
+            raise RuntimeError(f"Missing expected legacy redirect: {alias}")
+        shim = f.read_text("utf-8")
+        if f'<link rel="canonical" href="{APEX + destination}">' not in shim:
+            raise RuntimeError(f"Legacy redirect canonical mismatch: {alias}")
+        if alias in {u.removeprefix(APEX) for u in urls}:
+            raise RuntimeError(f"Redirect URL must not be in sitemap: {alias}")
     urls_set = set(urls)
     for file in pages:
         relative = file.parent.relative_to(root)

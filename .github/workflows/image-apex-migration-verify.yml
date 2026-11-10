@@ -31,14 +31,14 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c # v4.2.2
         with:
           repository: ji-minseo/random-everything
-          ref: main
+          ref: b4f2fac44be2d56a8e30a83da37de12cdb50d7f8
           path: random
           persist-credentials: false
       - name: Check out Calculate Everything
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c # v4.2.2
         with:
           repository: ji-minseo/calculate-everything
-          ref: main
+          ref: 3c5d47cd7d0e333a2aeef133308e87591f38860e
           path: calculate
           persist-credentials: false
       - name: Verify Python syntax

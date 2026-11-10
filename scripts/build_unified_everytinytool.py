@@ -100,7 +100,7 @@ def update_text_files(root: Path) -> None:
         if path.suffix.lower() == ".html" and section in {"random", "calculate"}:
             new_data = re.sub(
                 r'((?:href|src|action)=")/(?!/)',
-                lambda match: match.group(1) + section + "/",
+                lambda match: match.group(1) + "/" + section + "/",
                 new_data,
             )
         if new_data != data:

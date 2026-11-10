@@ -154,12 +154,16 @@ def add_cross_navigation(root: Path) -> None:
                 raise RuntimeError(f"Cannot add network nav to {page}")
             text = text.replace("</head>", css + "</head>", 1)
             active = ' aria-current="page"'
+            is_korean = bool(re.search(r'<html[^>]*lang="ko"', text))
+            image_label = "이미지" if is_korean else "Image"
+            random_label = "랜덤" if is_korean else "Random"
+            calculate_label = "계산기" if is_korean else "Calculate"
             nav = (
                 '<nav class="ett-network-nav" aria-label="Every Tiny Tool sections">'
                 '<a href="/">Every Tiny Tool</a>'
-                '<a href="/compress-image/">Image</a>'
-                f'<a href="/random/"{active if section == "random" else ""}>Random</a>'
-                f'<a href="/calculate/"{active if section == "calculate" else ""}>Calculate</a>'
+                f'<a href="/compress-image/">{image_label}</a>'
+                f'<a href="/random/"{active if section == "random" else ""}>{random_label}</a>'
+                f'<a href="/calculate/"{active if section == "calculate" else ""}>{calculate_label}</a>'
                 '</nav>'
             )
             header = re.search(r'<header\b[\s\S]*?</header>', text)
@@ -178,6 +182,11 @@ def add_cross_navigation(root: Path) -> None:
                     'Calculate <span>Everything ✦</span>',
                     'Every <span>Tiny Tool</span> · Calculate'
                 )
+            # Retain product categories while using one umbrella site brand.
+            if section == "random":
+                text = text.replace("Random Everything", "Every Tiny Tool · Random")
+            else:
+                text = text.replace("Calculate Everything", "Every Tiny Tool · Calculate")
             page.write_text(text, "utf-8")
 
 def home_sections(root: Path) -> None:

@@ -16,26 +16,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out apex migration branch
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c # v4.2.2
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           path: apex
           persist-credentials: false
       - name: Check out reviewed Image Everything design (not main)
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c # v4.2.2
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           repository: ji-minseo/image-everything
           ref: 8d21f13f29f475587e1368e97f08606d626fb4b6
           path: image
           persist-credentials: false
       - name: Check out Random Everything
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c # v4.2.2
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           repository: ji-minseo/random-everything
           ref: b4f2fac44be2d56a8e30a83da37de12cdb50d7f8
           path: random
           persist-credentials: false
       - name: Check out Calculate Everything
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c # v4.2.2
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           repository: ji-minseo/calculate-everything
           ref: 3c5d47cd7d0e333a2aeef133308e87591f38860e

@@ -1,9 +1,9 @@
-name: Verify Image Everything apex migration
+name: Verify unified Every Tiny Tool migration
 
 on:
   pull_request:
     paths:
-      - 'scripts/migrate_image_to_apex.py'
+      - 'scripts/build_unified_everytinytool.py'
       - '.github/workflows/image-apex-migration-verify.yml'
       - 'docs/image-apex-cutover.md'
   workflow_dispatch:
@@ -12,30 +12,55 @@ permissions:
   contents: read
 
 jobs:
-  stage-image-apex:
+  stage-unified-site:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out current apex website
+      - name: Check out apex migration branch
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c # v4.2.2
         with:
           path: apex
           persist-credentials: false
-      - name: Check out reviewed Image Everything
+      - name: Check out reviewed Image Everything design (not main)
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c # v4.2.2
         with:
           repository: ji-minseo/image-everything
           ref: 8d21f13f29f475587e1368e97f08606d626fb4b6
           path: image
           persist-credentials: false
-      - name: Validate migration script syntax
-        run: python3 -m py_compile apex/scripts/migrate_image_to_apex.py
-      - name: Create reviewed output without altering apex
-        run: python3 apex/scripts/migrate_image_to_apex.py --source image --target apex --stage "${{ runner.temp }}/image-apex-preview"
-      - name: Inspect generated roots and index status
+      - name: Check out Random Everything
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c # v4.2.2
+        with:
+          repository: ji-minseo/random-everything
+          ref: main
+          path: random
+          persist-credentials: false
+      - name: Check out Calculate Everything
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c # v4.2.2
+        with:
+          repository: ji-minseo/calculate-everything
+          ref: main
+          path: calculate
+          persist-credentials: false
+      - name: Verify Python syntax
         run: |
-          test -f "${{ runner.temp }}/image-apex-preview/index.html"
-          test -f "${{ runner.temp }}/image-apex-preview/ko/guides/index.html"
-          test -f "${{ runner.temp }}/image-apex-preview/assets/site-chrome.css"
-          grep -q 'https://everytinytool.com/' "${{ runner.temp }}/image-apex-preview/sitemap.xml"
-          if grep -q 'https://image.everytinytool.com/' "${{ runner.temp }}/image-apex-preview/sitemap.xml"; then exit 1; fi
-          echo 'Apex static output is ready for review. No live deployment or DNS change was performed.'
+          python3 -m py_compile apex/scripts/build_unified_everytinytool.py
+          python3 -m py_compile apex/scripts/migrate_image_to_apex.py
+      - name: Build all 95 pages in a disposable staging directory
+        run: |
+          python3 apex/scripts/build_unified_everytinytool.py \
+            --image-source image \
+            --random-source random \
+            --calculate-source calculate \
+            --target apex \
+            --stage "${{ runner.temp }}/everytinytool-preview"
+      - name: Verify expected paths and links
+        run: |
+          test -f "${{ runner.temp }}/everytinytool-preview/index.html"
+          test -f "${{ runner.temp }}/everytinytool-preview/ko/guides/index.html"
+          test -f "${{ runner.temp }}/everytinytool-preview/random/wheel-decider/index.html"
+          test -f "${{ runner.temp }}/everytinytool-preview/calculate/ko/age-calculator/index.html"
+          test -f "${{ runner.temp }}/everytinytool-preview/assets/site-chrome.css"
+          grep -q 'https://everytinytool.com/random/' "${{ runner.temp }}/everytinytool-preview/sitemap.xml"
+          grep -q 'https://everytinytool.com/calculate/' "${{ runner.temp }}/everytinytool-preview/sitemap.xml"
+          ! grep -q 'https://image.everytinytool.com/' "${{ runner.temp }}/everytinytool-preview/sitemap.xml"
+          echo "Unified Every Tiny Tool validated: no site deployment or DNS changes."

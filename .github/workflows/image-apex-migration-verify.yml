@@ -49,6 +49,9 @@ jobs:
             --calculate-source calculate \
             --target apex \
             --stage "${{ runner.temp }}/everytinytool-preview"
+      - name: Verify integrated stylesheet and script asset paths
+        run: |
+          python3 apex/scripts/verify_unified_resources.py "${{ runner.temp }}/everytinytool-preview"
       - name: Verify expected paths and links
         run: |
           test -f "${{ runner.temp }}/everytinytool-preview/index.html"

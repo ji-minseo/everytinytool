@@ -1,0 +1,67 @@
+name: Generate unified 95-page site on migration branch
+
+on:
+  push:
+    branches: [feature/image-everything-apex-migration-20261110]
+    paths:
+      - '.github/workflows/generate-unified-site.yml'
+      - 'scripts/build_unified_everytinytool.py'
+      - 'docs/image-apex-cutover.md'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  commit-migration:
+    if: github.ref == 'refs/heads/feature/image-everything-apex-migration-20261110'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out only migration branch with push access
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c # v4.2.2
+        with:
+          path: apex
+          ref: feature/image-everything-apex-migration-20261110
+          persist-credentials: true
+      - name: Check out pinned Image Everything feature revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c # v4.2.2
+        with:
+          repository: ji-minseo/image-everything
+          ref: 8d21f13f29f475587e1368e97f08606d626fb4b6
+          path: image
+          persist-credentials: false
+      - name: Check out pinned Random Everything revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c # v4.2.2
+        with:
+          repository: ji-minseo/random-everything
+          ref: b4f2fac44be2d56a8e30a83da37de12cdb50d7f8
+          path: random
+          persist-credentials: false
+      - name: Check out pinned Calculate Everything revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c # v4.2.2
+        with:
+          repository: ji-minseo/calculate-everything
+          ref: 3c5d47cd7d0e333a2aeef133308e87591f38860e
+          path: calculate
+          persist-credentials: false
+      - name: Generate site into migration checkout; no live deployment
+        run: |
+          python3 -m py_compile apex/scripts/build_unified_everytinytool.py
+          python3 apex/scripts/build_unified_everytinytool.py \
+            --image-source image \
+            --random-source random \
+            --calculate-source calculate \
+            --target apex \
+            --apply
+      - name: Commit generated public site only on feature branch
+        working-directory: apex
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No generated changes needed."
+          else
+            git commit -m "build: stage consolidated 95-page Every Tiny Tool website for review"
+            git push origin HEAD:feature/image-everything-apex-migration-20261110
+          fi

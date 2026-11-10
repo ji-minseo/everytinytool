@@ -5,6 +5,16 @@ set -euo pipefail
 # Reuse the pinned three-repository staging generator also used by Vercel preview.
 bash scripts/vercel-preview-build.sh
 
+# Protect Cloudflare Pages staging hostnames from indexing without blocking
+# the eventual canonical everytinytool.com custom domain.
+cat > dist/_headers <<'HEADERS'
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex
+HEADERS
+
 test -f dist/index.html
 test -f dist/random/index.html
 test -f dist/calculate/index.html

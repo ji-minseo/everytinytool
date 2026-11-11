@@ -8,6 +8,7 @@ bash scripts/vercel-preview-build.sh
 # Add stable social tags, site identity and reciprocal language alternates.
 python3 scripts/enrich_unified_seo.py dist
 python3 scripts/install_tool_tabs_drag.py dist
+node --check dist/assets/tool-tabs-drag.js
 
 # Protect Cloudflare Pages staging hostnames from indexing without blocking
 # the eventual canonical everytinytool.com custom domain.

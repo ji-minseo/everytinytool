@@ -1,0 +1,20 @@
+/* Drag-scroll tabs stay in one horizontally scrollable row on all widths. */
+.tool-tabs,
+.brand-relaunch .tool-tabs,
+.bottom-tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: auto;
+  cursor: grab;
+}
+.tool-tabs > *,
+.bottom-tabs > * { flex-shrink: 0; }
+.tool-tabs.is-drag-scrolling,
+.bottom-tabs.is-drag-scrolling { cursor: grabbing; scroll-behavior: auto; }
+.tool-tabs.is-drag-scrolling *,
+.bottom-tabs.is-drag-scrolling * { cursor: grabbing; user-select: none; -webkit-user-select: none; }
+.tool-tabs:focus-visible { outline: 2px solid #315bff; outline-offset: 3px; }

@@ -1,9 +1,7 @@
-name: Deploy static site to GitHub Pages
+name: Legacy GitHub Pages deploy (manual rollback only)
 
 on:
-  push:
-    branches: ["main"]
-  workflow_dispatch:
+  workflow_dispatch: # legacy manual recovery only; Cloudflare Workers serves the live apex
 
 permissions:
   contents: read

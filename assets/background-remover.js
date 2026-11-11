@@ -169,7 +169,7 @@
     const executeRemoval = dependencies && dependencies.removeBackground || removeBackground;
     const $ = id => document.getElementById(id);
     if (!$('bg-remover')) return;
-    const zone = $('bg-dropzone'), input = $('bg-file'), uploadThumb = $('bg-file-thumbnail');
+    const zone = $('bg-dropzone'), input = $('bg-file');
     const choose = $('bg-choose'), selected = $('bg-selected');
     const filename = $('bg-filename'), fileMeta = $('bg-filemeta');
     const clear = $('bg-remove-file'), run = $('bg-run');
@@ -214,8 +214,6 @@
       originalUrl = null;
       file = null;
       input.value = '';
-      uploadThumb.removeAttribute('src');
-
       const error = validImage(next);
       if (next && error) {
         selected.hidden = true;
@@ -226,8 +224,6 @@
         lastFileName = next.name || 'image';
         originalUrl = root.URL.createObjectURL(next);
         originalPreview.src = originalUrl;
-        uploadThumb.src = originalUrl;
-
         selected.hidden = false;
         filename.textContent = lastFileName;
         fileMeta.textContent = formatBytes(next.size) + ' · JPG / PNG / WebP';
@@ -362,6 +358,7 @@
     refresh();
   }
 
+  root.ImageEverythingBg = {removeBackground,withBackground,outputFileName,validImage,formatBytes};
   if (typeof document !== 'undefined') {
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
     else init();

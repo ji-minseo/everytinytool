@@ -1,0 +1,8 @@
+# Only old apex paths with a genuine equivalent are redirected.
+/quick-image-studio/ /compress-image/ 301
+/video-studio/ /video-compressor/ 301
+# Indexed redirect shims for renamed metadata endpoints.
+/image-info/ /metadata-inspector/ 301
+/metadata-checker/ /metadata-inspector/ 301
+/remove-exif/ /metadata-cleaner/ 301
+# Subdomain redirects require Cloudflare zone rules for each old HOST.

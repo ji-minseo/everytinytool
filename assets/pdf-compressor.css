@@ -144,19 +144,32 @@
   .pdfc-page .pdfc-preset-row .preset-btn{font-size:11px;min-width:0}
 }
 
-/* PDF batch upload / matching file cards */
-.pdfc-page .pdfc-controls{margin-top:34px!important}
-.pdfc-page .pdfc-settings-row{margin-top:14px!important}
-.pdfc-queue,.pdfc-batch-results{display:grid;gap:10px;margin:14px 0}
-.pdfc-queue-row,.pdfc-result-row{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #ebe5f3;border-radius:14px;background:#fff;min-width:0}
-.pdfc-queue-icon{display:grid;place-items:center;flex:none;width:55px;height:55px;border-radius:10px;background:#f1ebff;color:#6848b7;font-size:12px;font-weight:850}
-.pdfc-queue-info{flex:1;min-width:0;display:grid;gap:3px}
-.pdfc-queue-info strong{font-size:13px;overflow-wrap:anywhere}
-.pdfc-queue-info small{font-size:12px;color:#777}
-.pdfc-queue-remove{height:42px!important;min-height:42px!important;min-width:89px!important;display:inline-flex;align-items:center;justify-content:center;padding:10px 16px!important;border:1px solid #ded6ea!important;border-radius:12px!important;background:#fff!important;color:#655872!important;font-size:13px!important;font-weight:700!important;cursor:pointer;flex:none}
-.pdfc-result-row .btn,.pdfc-zip{min-height:42px!important;border-radius:12px!important;padding:10px 16px!important;font-size:13px!important}
-.pdfc-batch-error{font-size:12px;color:#b34252;padding:10px}
-.pdfc-page .pdfc-status:empty{display:none}
+/* Match image/video conversion result cards. Preserve the existing size comparison above. */
+.pdfc-output-list{display:grid;gap:10px;margin-top:18px}
+.pdfc-output-item{display:grid;grid-template-columns:58px minmax(0,1fr) auto;align-items:center;gap:13px;padding:11px 13px;border:1px solid #eae4f2;border-radius:14px;background:#fff}
+.pdfc-output-icon{display:grid;place-items:center;width:58px;height:58px;border-radius:11px;background:#f1ebff;color:#6848b7;font-size:12px;font-weight:850}
+.pdfc-output-info{min-width:0;display:grid;gap:4px}
+.pdfc-output-info strong{font-size:13px;font-weight:750;color:#292330;line-height:1.4;overflow-wrap:anywhere}
+.pdfc-output-info small{font-size:12px;line-height:1.5;color:#796e83}
+.pdfc-output-item .pdfc-output-download{display:inline-flex;align-items:center;justify-content:center;min-width:96px;min-height:42px;padding:10px 16px;border:1px solid #d9ccef;border-radius:12px;background:#f0e9ff;color:#55349c;font-size:13px;font-weight:700;text-decoration:none;box-shadow:none}
+.pdfc-output-item .pdfc-output-download:hover{background:#e7dcff}
+.pdfc-output-item .pdfc-output-download[hidden]{display:none!important}
+@media(max-width:520px){.pdfc-output-item{grid-template-columns:52px minmax(0,1fr);gap:10px}.pdfc-output-icon{width:52px;height:52px}.pdfc-output-item .pdfc-output-download{grid-column:1/-1;width:100%}}
 
-/* PDF dropzone icon: same permanent lavender square as the other tools. */
-#pdf-compressor #pdf-dropzone .drop-icon{display:grid!important;place-items:center!important;width:52px!important;height:52px!important;margin:0 auto 12px!important;padding:0!important;border-radius:15px!important;background:#f1ebff!important;color:#7656d3!important;font-size:25px!important;line-height:1!important}
+/* Active batch PDF compressor: same optional target-size controls as homepage. */
+.media-batch-panel .pdfc-target-control{min-width:0}
+.media-batch-panel .pdfc-target-toggle{display:flex!important;align-items:center!important;gap:8px!important;font-size:13px!important;font-weight:750!important;line-height:1.5!important}
+.media-batch-panel .pdfc-target-toggle input{flex:none;margin:0!important}
+.media-batch-panel .pdfc-target-toggle .optional{font-size:11px;color:#887b93;font-weight:650}
+.media-batch-panel .pdfc-control-hint{margin:9px 0 0;color:#83788d;font-size:12px;line-height:1.5}
+.media-batch-panel .pdfc-target-options{margin-top:12px;padding:14px;border:1px solid #eee9fa;border-radius:16px;background:#fbfaff}
+.media-batch-panel .pdfc-target-options[hidden]{display:none!important}
+.media-batch-panel .pdfc-preset-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.media-batch-panel .pdfc-preset-row .preset-btn{width:100%;min-width:0;padding:10px 6px;font-size:12px;line-height:1.4;white-space:normal}
+.media-batch-panel .pdfc-preset-row .preset-btn.active{border-color:#ae95e6;background:#f0e9ff;color:#55349c}
+.media-batch-panel .pdfc-limit-field{display:grid;gap:8px;margin-top:12px}
+.media-batch-panel .pdfc-limit-field>label{font-size:12px;font-weight:750}
+.media-batch-panel .pdfc-input-suffix{display:flex;align-items:center;max-width:180px}
+.media-batch-panel .pdfc-input-suffix input{width:100%;min-width:0;min-height:40px;padding:8px}
+.media-batch-panel .pdfc-target-note{margin:9px 0 0;color:#716778;font-size:11px;line-height:1.55}
+@media(max-width:580px){.media-batch-panel .controls>.row{grid-template-columns:minmax(0,1fr)!important;gap:20px}}

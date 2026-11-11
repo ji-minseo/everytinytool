@@ -1,0 +1,111 @@
+name: Verify unified Every Tiny Tool migration
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stage-unified-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out apex migration branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: apex
+          persist-credentials: false
+      - name: Check out reviewed Image Everything design (not main)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: ji-minseo/image-everything
+          ref: 8d21f13f29f475587e1368e97f08606d626fb4b6
+          path: image
+          persist-credentials: false
+      - name: Check out Random Everything
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: ji-minseo/random-everything
+          ref: b4f2fac44be2d56a8e30a83da37de12cdb50d7f8
+          path: random
+          persist-credentials: false
+      - name: Check out Calculate Everything
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: ji-minseo/calculate-everything
+          ref: 3c5d47cd7d0e333a2aeef133308e87591f38860e
+          path: calculate
+          persist-credentials: false
+      - name: Verify Python syntax
+        run: |
+          python3 -m py_compile apex/scripts/build_unified_everytinytool.py
+          python3 -m py_compile apex/scripts/migrate_image_to_apex.py
+      - name: Build all 95 pages in a disposable staging directory
+        run: |
+          python3 apex/scripts/build_unified_everytinytool.py \
+            --image-source image \
+            --random-source random \
+            --calculate-source calculate \
+            --target apex \
+            --stage "${{ runner.temp }}/everytinytool-preview"
+      - name: Parse every integrated JavaScript file with Node
+        env:
+          STAGED_SITE: ${{ runner.temp }}/everytinytool-preview
+        run: |
+          python3 - <<'PY'
+          import os
+          import pathlib
+          import subprocess
+          site = pathlib.Path(os.environ['STAGED_SITE'])
+          files = sorted(site.rglob('*.js'))
+          if len(files) < 5:
+              raise SystemExit(f'Expected several JS files, got {len(files)}')
+          errors = []
+          for file in files:
+              result = subprocess.run(['node', '--check', str(file)], text=True, capture_output=True)
+              if result.returncode:
+                  errors.append(f'{file.relative_to(site)}: {result.stderr.strip()}')
+          print(f'JavaScript syntax check: {len(files)} files, {len(errors)} failures')
+          if errors:
+              raise SystemExit('\n'.join(errors))
+          PY
+      - name: Verify integrated stylesheet and script asset paths
+        run: |
+          python3 apex/scripts/verify_unified_resources.py "${{ runner.temp }}/everytinytool-preview"
+      - name: Audit sitemap, canonicals and home-to-page reachability
+        env:
+          STAGED_SITE: ${{ runner.temp }}/everytinytool-preview
+        run: |
+          python3 - <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path('apex/scripts').resolve()))
+          from seo_audit import local_audit
+          report = local_audit(Path(__import__('os').environ['STAGED_SITE']))
+          print(json.dumps({k: report[k] for k in ('page_count', 'sitemap_count', 'reachable_count', 'errors')}, ensure_ascii=False, indent=2))
+          if report['errors']:
+              raise SystemExit('Unified site SEO audit failed')
+          PY
+      - name: Dry-run Cloudflare Pages build and staging headers
+        working-directory: apex
+        run: |
+          bash scripts/cloudflare-pages-build.sh
+          test -f dist/_headers
+          grep -q 'https://:project.pages.dev/\*' dist/_headers
+          grep -q 'X-Robots-Tag: noindex' dist/_headers
+          ! grep -q 'everytinytool.com' dist/_headers
+      - name: Verify expected paths and links
+        run: |
+          test -f "${{ runner.temp }}/everytinytool-preview/index.html"
+          test -f "${{ runner.temp }}/everytinytool-preview/ko/guides/index.html"
+          test -f "${{ runner.temp }}/everytinytool-preview/random/wheel-decider/index.html"
+          test -f "${{ runner.temp }}/everytinytool-preview/calculate/ko/age-calculator/index.html"
+          test -f "${{ runner.temp }}/everytinytool-preview/assets/site-chrome.css"
+          grep -q 'https://everytinytool.com/random/' "${{ runner.temp }}/everytinytool-preview/sitemap.xml"
+          grep -q 'https://everytinytool.com/calculate/' "${{ runner.temp }}/everytinytool-preview/sitemap.xml"
+          ! grep -q 'https://image.everytinytool.com/' "${{ runner.temp }}/everytinytool-preview/sitemap.xml"
+          echo "Unified Every Tiny Tool validated: no site deployment or DNS changes."

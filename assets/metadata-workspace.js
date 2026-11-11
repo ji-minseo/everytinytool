@@ -3,15 +3,79 @@
 const $=q=>document.querySelector(q),mode=document.body.dataset.mode,fmt=n=>n<1048576?(n/1024).toFixed(1)+" KB":(n/1048576).toFixed(2)+" MB";
 let files=[],outputs=[],previewURLs=[];
 const fileEl=$("#meta-files"),list=$("#meta-list"),reports=$("#meta-results"),run=$("#meta-run"),zip=$("#meta-zip");
-function refresh(){previewURLs.forEach(URL.revokeObjectURL);previewURLs=[];list.replaceChildren();list.classList.add("ett-upload-queue");files.forEach((f,i)=>{const el=document.createElement("div");el.className="media-item ett-upload-item";const image=document.createElement("img");const u=URL.createObjectURL(f);previewURLs.push(u);image.src=u;image.alt="";image.className="media-preview ett-upload-thumb";const middle=document.createElement("div"),strong=document.createElement("strong"),small=document.createElement("small");strong.textContent=f.name;small.textContent=fmt(f.size);middle.className="ett-upload-info";middle.append(strong,small);const remove=document.createElement("button");remove.className="btn ghost ett-upload-remove";remove.textContent="Remove";remove.onclick=()=>{files.splice(i,1);outputs=[];reports.replaceChildren();refresh()};el.append(image,middle,remove);list.append(el)});run.disabled=!files.length;$("#meta-count").textContent=files.length+" image(s) selected"}
+function refresh(){previewURLs.forEach(URL.revokeObjectURL);previewURLs=[];list.replaceChildren();files.forEach((f,i)=>{const el=document.createElement("div");el.className="media-item";const image=document.createElement("img");const u=URL.createObjectURL(f);previewURLs.push(u);image.src=u;image.alt="";image.className="media-preview";const middle=document.createElement("div"),strong=document.createElement("strong"),small=document.createElement("small");strong.textContent=f.name;small.textContent=fmt(f.size);middle.append(strong,small);const remove=document.createElement("button");remove.className="btn ghost";remove.textContent="Remove";remove.onclick=()=>{files.splice(i,1);outputs=[];reports.replaceChildren();refresh()};el.append(image,middle,remove);list.append(el)});run.disabled=!files.length;$("#meta-count").textContent=files.length+" image(s) selected"}
 function add(fs){files.push(...[...fs].filter(f=>/^image\/(jpeg|png|webp)/.test(f.type)||/\.(jpe?g|png|webp)$/i.test(f.name)));reports.replaceChildren();outputs=[];refresh()}
 fileEl.onchange=e=>{add(e.target.files);e.target.value=""};const dz=$("#meta-drop");dz.setAttribute("tabindex","0");dz.setAttribute("role","group");dz.onclick=e=>{if(e.target.closest("input, label, button, a"))return;fileEl.click()};dz.onkeydown=e=>{if(e.target!==dz||(e.key!=="Enter"&&e.key!==" "))return;e.preventDefault();fileEl.click()};$("#meta-drop").ondragover=e=>e.preventDefault();$("#meta-drop").ondrop=e=>{e.preventDefault();add(e.dataTransfer.files)};
 function ascii(b,o,n){return String.fromCharCode(...b.slice(o,o+n))}function u32(b,i){return b[i]*16777216+(b[i+1]<<16)+(b[i+2]<<8)+b[i+3]}function contains(b,s){const str=new TextDecoder("latin1").decode(b);return str.toLowerCase().includes(s)}
 function inspect(b){const meta={format:"Unsupported",exif:0,xmp:0,c2pa:0,gps:"Unknown",chunks:[],warnings:[]};if(b[0]===255&&b[1]===216){meta.format="JPEG";let p=2;while(p+4<=b.length&&b[p]===255){const m=b[p+1];if(m===218||m===217)break;if(m===1||m>=208&&m<=215){p+=2;continue}const len=(b[p+2]<<8)|b[p+3];if(len<2||p+2+len>b.length)break;const data=b.subarray(p+4,p+2+len);if(m===225){if(ascii(data,0,Math.min(6,data.length))==="Exif\0\0")meta.exif++;if(contains(data,"xmp")||contains(data,"adobe.com/xap"))meta.xmp++}if(m===235&&(contains(data,"c2pa")||contains(data,"jumb")))meta.c2pa++;meta.chunks.push("APP"+(m-224));p+=len+2}}else if(ascii(b,1,3)==="PNG"){meta.format="PNG";let p=8;while(p+12<=b.length){const n=u32(b,p),type=ascii(b,p+4,4);if(n>b.length-p-12)break;const data=b.subarray(p+8,p+8+n);meta.chunks.push(type);if(type==="eXIf")meta.exif++;if(type==="iTXt"||type==="tEXt"||type==="zTXt"){if(contains(data,"xmp"))meta.xmp++;if(contains(data,"c2pa")||contains(data,"jumb"))meta.c2pa++}if(type==="caBX")meta.c2pa++;p+=n+12;if(type==="IEND")break}}else if(ascii(b,0,4)==="RIFF"&&ascii(b,8,4)==="WEBP"){meta.format="WebP";let p=12;while(p+8<=b.length){const type=ascii(b,p,4),n=b[p+4]+b[p+5]*256+b[p+6]*65536+b[p+7]*16777216;if(n>b.length-p-8)break;meta.chunks.push(type);if(type==="EXIF")meta.exif++;if(type==="XMP ")meta.xmp++;if(type==="C2PA"||type==="JUMB")meta.c2pa++;p+=8+n+(n%2)}}if(meta.format==="Unsupported")throw Error("Unsupported file structure");meta.warnings.push("C2PA detection is heuristic, not signature verification.");meta.warnings.push("No finding does not prove metadata or provenance is absent.");return meta}
-async function redraw(file){const bitmap=await createImageBitmap(file,{imageOrientation:"from-image"});try{const c=document.createElement("canvas");c.width=bitmap.width;c.height=bitmap.height;if(c.width*c.height>48000000)throw Error("Image too large to process safely (48 MP limit).");const ctx=c.getContext("2d");ctx.drawImage(bitmap,0,0);const mime=file.type==="image/png"?"image/png":file.type==="image/webp"?"image/webp":"image/jpeg";return await new Promise((resolve,reject)=>c.toBlob(b=>b?resolve(b):reject(Error("Encoding failed")),mime,.94))}finally{bitmap.close()}}
+async function redraw(file,outputType){const bitmap=await createImageBitmap(file,{imageOrientation:"from-image"});try{const c=document.createElement("canvas");c.width=bitmap.width;c.height=bitmap.height;if(c.width*c.height>48000000)throw Error("Image too large to process safely (48 MP limit).");const ctx=c.getContext("2d");ctx.drawImage(bitmap,0,0);const mime=outputType||(file.type==="image/png"?"image/png":file.type==="image/webp"?"image/webp":"image/jpeg");return await new Promise((resolve,reject)=>c.toBlob(b=>b?resolve(b):reject(Error("Encoding failed")),mime,.94))}finally{bitmap.close()}}
+/* Sanitize encoded output because mobile canvas encoders can add metadata chunks. */
+async function stripEncoderMetadata(blob){
+ const bytes=new Uint8Array(await blob.arrayBuffer());
+ if(bytes.length>=8&&ascii(bytes,1,3)==="PNG"){
+  const parts=[bytes.subarray(0,8)];let pos=8,ended=false;
+  const keep=new Set(["IHDR","PLTE","IDAT","IEND","tRNS"]);
+  while(pos+12<=bytes.length){
+   const length=u32(bytes,pos),type=ascii(bytes,pos+4,4);
+   if(length>bytes.length-pos-12)throw Error("Invalid PNG output structure.");
+   if(keep.has(type))parts.push(bytes.subarray(pos,pos+12+length));
+   pos+=12+length;if(type==="IEND"){ended=true;break;}
+  }
+  if(!ended)throw Error("Incomplete PNG output.");
+  return new Blob(parts,{type:"image/png"});
+ }
+ if(bytes.length>=4&&bytes[0]===255&&bytes[1]===216){
+  const parts=[bytes.subarray(0,2)];let pos=2;
+  while(pos+1<bytes.length){
+   if(bytes[pos]!==255){parts.push(bytes.subarray(pos));break;}
+   const start=pos;while(bytes[pos]===255)pos++;
+   const marker=bytes[pos++];
+   if(marker===218){parts.push(bytes.subarray(start));break;}
+   if(marker===217){parts.push(bytes.subarray(start,pos));break;}
+   if(marker===1||(marker>=208&&marker<=215)){parts.push(bytes.subarray(start,pos));continue;}
+   if(pos+2>bytes.length)throw Error("Invalid JPEG output structure.");
+   const length=(bytes[pos]<<8)|bytes[pos+1];
+   if(length<2||pos+length>bytes.length)throw Error("Invalid JPEG segment length.");
+   const end=pos+length;
+   // Only preserve segments required for decoding; remove metadata/provenance APP blocks.
+   if(marker<224||marker>239||marker===224||marker===238)parts.push(bytes.subarray(start,end));
+   pos=end;
+  }
+  return new Blob(parts,{type:"image/jpeg"});
+ }
+ if(bytes.length>=12&&ascii(bytes,0,4)==="RIFF"&&ascii(bytes,8,4)==="WEBP"){
+  const chunks=[];let pos=12;const excluded=new Set(["EXIF","XMP ","C2PA","JUMB","ICCP"]);
+  while(pos+8<=bytes.length){
+   const type=ascii(bytes,pos,4);
+   const size=(bytes[pos+4]+bytes[pos+5]*256+bytes[pos+6]*65536+bytes[pos+7]*16777216)>>>0;
+   const end=pos+8+size+(size%2);
+   if(end>bytes.length)throw Error("Invalid WebP output structure.");
+   if(!excluded.has(type)){
+    const part=bytes.slice(pos,end);
+    // VP8X feature flags must agree with removed EXIF/XMP/ICC chunks.
+    if(type==="VP8X"&&size>=10)part[8]&=~(0x08|0x04|0x20);
+    chunks.push(part);
+   }
+   pos=end;
+  }
+  if(pos!==bytes.length)throw Error("Incomplete WebP output.");
+  const length=4+chunks.reduce((n,c)=>n+c.length,0);
+  const header=new Uint8Array(12);
+  header.set(bytes.subarray(0,12));
+  const riffSize=length>>>0;header[4]=riffSize&255;header[5]=(riffSize>>>8)&255;header[6]=(riffSize>>>16)&255;header[7]=(riffSize>>>24)&255;
+  return new Blob([header,...chunks],{type:"image/webp"});
+ }
+ return blob;
+}
 async function keepCamera(blob,source){if(!window.piexif)throw Error("Camera EXIF library unavailable.");if(!/^image\/jpeg$/.test(source.type))throw Error("Keep camera EXIF currently supports JPEG only. Choose Remove all for PNG and WebP.");const toData=b=>new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(b)});
 const src=await toData(source),dest=await toData(blob);let old;try{old=piexif.load(src)}catch(e){throw Error("Could not parse the original camera EXIF.")}const safe={"0th":{},"Exif":{},"GPS":{},"1st":{},"Interop":{},"thumbnail":null};const copy=(group,tags)=>tags.forEach(k=>{if(old[group]&&old[group][k]!==undefined)safe[group][k]=old[group][k]});copy("0th",[piexif.ImageIFD.Make,piexif.ImageIFD.Model]);copy("Exif",[piexif.ExifIFD.FNumber,piexif.ExifIFD.ExposureTime,piexif.ExifIFD.ISOSpeedRatings,piexif.ExifIFD.FocalLength,piexif.ExifIFD.LensModel].filter(Number.isInteger));try{const inserted=piexif.insert(piexif.dump(safe),dest),binary=atob(inserted.split(",")[1]);return new Blob([Uint8Array.from(binary,c=>c.charCodeAt(0))],{type:"image/jpeg"})}catch(e){throw Error("Could not retain a safe camera-only EXIF block.")}}
 function download(blob,name){const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),30000)}
-run.onclick=async()=>{run.disabled=true;reports.replaceChildren();outputs=[];for(let i=0;i<files.length;i++){const f=files[i],line=document.createElement("div");line.className="media-item";const info=document.createElement("div");line.append(info);reports.append(line);$("#meta-status").textContent="Processing "+(i+1)+" / "+files.length;try{const m=inspect(new Uint8Array(await f.arrayBuffer()));if(mode==="check"){{const thumb=document.createElement("img");const thumbUrl=URL.createObjectURL(f);previewURLs.push(thumbUrl);thumb.src=thumbUrl;thumb.alt="";thumb.className="media-preview ett-meta-result-thumb";line.prepend(thumb);line.classList.add("ett-meta-inspect-result");info.className="ett-meta-report";const header=document.createElement("strong");header.textContent=f.name;const table=document.createElement("div");table.className="ett-meta-table ett-meta-simple";for(const [key,value,help] of [["File type",m.format,"Image format"],["EXIF",m.exif?m.exif+" found":"None found","Camera and photo information"],["XMP",m.xmp?m.xmp+" found":"None found","Additional embedded image details"],["C2PA",m.c2pa?m.c2pa+" possible indicator"+(m.c2pa===1?"":"s"):"None detected","Possible content provenance signals; not verified"]]){const entry=document.createElement("div"),label=document.createElement("div"),dt=document.createElement("strong"),hint=document.createElement("small"),dd=document.createElement("div");dt.textContent=key;hint.textContent=help;label.append(dt,hint);dd.textContent=value;entry.append(label,dd);table.append(entry)}info.append(header,table);}}else{let blob=await redraw(f);if($("#camera-only").checked)blob=await keepCamera(blob,f);const name=f.name.replace(/\.[^.]+$/,"")+(($("#camera-only").checked)?"-camera-only":"-clean")+(blob.type==="image/png"?".png":blob.type==="image/webp"?".webp":".jpg");const result=inspect(new Uint8Array(await blob.arrayBuffer()));if(result.exif&& !$("#camera-only").checked||result.xmp||result.c2pa)throw Error("Residual metadata indicator detected; output not offered.");outputs.push({name,blob});const thumb=document.createElement("img");const previewUrl=URL.createObjectURL(blob);previewURLs.push(previewUrl);thumb.src=previewUrl;thumb.alt="";thumb.className="media-preview";line.prepend(thumb);info.className="ett-clean-info";const heading=document.createElement("strong");heading.textContent=name;const detail=document.createElement("small");detail.textContent=fmt(blob.size);info.append(heading,detail);const btn=document.createElement("button");btn.className="btn";btn.textContent="Download";btn.onclick=()=>download(blob,name);line.append(btn)}}catch(e){info.textContent=f.name+": "+e.message}}$("#meta-status").textContent="";zip.hidden=outputs.length<2;run.disabled=false};
+run.onclick=async()=>{run.disabled=true;reports.replaceChildren();outputs=[];for(let i=0;i<files.length;i++){const f=files[i],line=document.createElement("div");line.className="media-item";const info=document.createElement("div");line.append(info);reports.append(line);$("#meta-status").textContent="Processing "+(i+1)+" / "+files.length;try{const m=inspect(new Uint8Array(await f.arrayBuffer()));if(mode==="check"){{info.className="metadata-report";const title=document.createElement("strong");title.className="metadata-report-title";title.textContent=f.name;const grid=document.createElement("dl");grid.className="metadata-report-grid";const cells=[["Format","파일 형식",m.format],["EXIF","카메라·촬영 정보",String(m.exif)],["XMP","설명·편집 메타데이터",String(m.xmp)],["C2PA indicators","콘텐츠 출처 표시 흔적",String(m.c2pa)],["Chunks / segments","이미지 데이터 구성",m.chunks.length?m.chunks.join(", "):"—"]];for(const [label,help,value] of cells){const cell=document.createElement("div");cell.className="metadata-report-cell";const dt=document.createElement("dt");dt.textContent=label;dt.title=help;const dd=document.createElement("dd");dd.textContent=value;cell.append(dt,dd);grid.append(cell);}const note=document.createElement("p");note.className="metadata-report-note";note.textContent="C2PA indicators report possible markers only; they do not verify authenticity or AI origin.";info.append(title,grid,note);}}else{let blob=await redraw(f);blob=await stripEncoderMetadata(blob);if(blob.type==="image/webp"){const check=inspect(new Uint8Array(await blob.arrayBuffer()));if(check.exif||check.xmp||check.c2pa){blob=await stripEncoderMetadata(await redraw(f,"image/png"));}}if($("#camera-only").checked)blob=await keepCamera(blob,f);let result=inspect(new Uint8Array(await blob.arrayBuffer()));if(!$("#camera-only").checked&&(result.exif||result.xmp||result.c2pa)){
+ // Some mobile encoders produce metadata even after WebP/JPEG re-encoding.
+ // Re-encode as PNG and verify the actual bytes; never offer unverified output.
+ blob=await stripEncoderMetadata(await redraw(f,"image/png"));
+ result=inspect(new Uint8Array(await blob.arrayBuffer()));
+}
+const name=f.name.replace(/\.[^.]+$/,"")+(($("#camera-only").checked)?"-camera-only":"-clean")+(blob.type==="image/png"?".png":blob.type==="image/webp"?".webp":".jpg");if((result.exif&&!$("#camera-only").checked)||result.xmp||result.c2pa)throw Error("Residual metadata indicator detected; output not offered.");outputs.push({name,blob});const thumb=document.createElement("img");const previewUrl=URL.createObjectURL(blob);previewURLs.push(previewUrl);thumb.src=previewUrl;thumb.alt="";thumb.className="media-preview";line.prepend(thumb);info.className="ett-clean-result-info";const title=document.createElement("strong");title.textContent=name;const detail=document.createElement("small");detail.textContent=fmt(f.size)+" → "+fmt(blob.size);info.append(title,detail);const btn=document.createElement("button");btn.className="btn";btn.textContent="Download";btn.onclick=()=>download(blob,name);line.append(btn)}}catch(e){info.textContent=f.name+": "+e.message}}$("#meta-status").textContent="";zip.hidden=outputs.length<2;run.disabled=false};
 zip.onclick=async()=>{if(!window.JSZip){$("#meta-status").textContent="ZIP library unavailable.";return}const z=new JSZip();outputs.forEach(x=>z.file(x.name,x.blob));download(await z.generateAsync({type:"blob"}),"cleaned-images.zip")};
 })();
